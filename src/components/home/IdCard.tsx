@@ -72,14 +72,14 @@ export function IdCard({ student }: { student: StudentInfo }) {
       </div>
 
       <div className="id-card-body">
-        {/* Left Column: Photo & Badge */}
+        {/* Left Column: Natural 3:4 Portrait Photo & Badge */}
         <div className="id-photo-col">
           <div className="id-photo-frame">
             <Image 
               src={imgSrc}
               alt={student.name} 
               fill
-              sizes="(max-width: 768px) 160px, 240px"
+              sizes="(max-width: 768px) 160px, 205px"
               style={{ objectFit: 'cover' }}
               priority
               onError={() => {
@@ -95,7 +95,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
         {/* Right Column: Info Dashboard */}
         <div className="id-info-col">
           {/* Header Info */}
-          <div>
+          <div className="id-header-block">
             <div className="id-eyebrow">
               <span className="key">&lt;/&gt;</span> ข้อมูลนักศึกษาฝึกประสบการณ์วิชาชีพ
             </div>
@@ -118,7 +118,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
 
           <hr className="id-divider" />
 
-          {/* Bento Education Info Cards */}
+          {/* 2x2 Bento Education Cards (Symmetric & Compact) */}
           <div className="id-bento-grid">
             <div className="bento-item">
               <div className="bento-icon">
@@ -150,12 +150,12 @@ export function IdCard({ student }: { student: StudentInfo }) {
               </div>
             </div>
 
-            <div className="bento-item bento-full">
+            <div className="bento-item">
               <div className="bento-icon">
                 <School size={15} />
               </div>
               <div className="bento-text">
-                <span className="bento-label">สถาบันการศึกษา</span>
+                <span className="bento-label">สถาบัน</span>
                 <span className="bento-val">{cleanUniversity}</span>
               </div>
             </div>
@@ -167,7 +167,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
               <div className="pm-icon">
                 <MapPin size={15} />
               </div>
-              <div>
+              <div className="pm-text">
                 <span className="pm-label">สถานที่ฝึกปฏิบัติการสอน</span>
                 <span className="pm-val">วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี</span>
               </div>

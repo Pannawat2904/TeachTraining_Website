@@ -100,9 +100,9 @@ export function IdCard({ student }: { student: StudentInfo }) {
               <span className="key">&lt;/&gt;</span> ข้อมูลนักศึกษาฝึกประสบการณ์วิชาชีพ
             </div>
 
-            <h1 className="id-title-name">
+            <h2 className="id-title-name">
               {student.name}
-            </h1>
+            </h2>
 
             <div className="id-chip-row">
               <div className="id-chip">

@@ -24,6 +24,38 @@ export default function Home() {
       {/* 1. HERO SECTION */}
       <section className="hero" id="hero">
         <Reveal>
+          {/* Top Page Header Banner */}
+          <div className="wrap" style={{ marginBottom: '20px' }}>
+            <div className="glass-panel" style={{ borderRadius: '24px', overflow: 'hidden', padding: 0, background: 'var(--panel-strong-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(10px)', boxShadow: '0 16px 40px rgba(61,107,255,0.08)' }}>
+              <div className="chrome">
+                <span className="r"></span><span className="y"></span><span className="g"></span>
+                <span className="fname">teaching_practicum_report.config</span>
+                <span className="tag">รายงานฝึกปฏิบัติการสอน 2569</span>
+              </div>
+              <div style={{ padding: '20px 26px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '14px' }}>
+                <div>
+                  <div style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '12px', fontWeight: 700, color: 'var(--blue-c)', letterSpacing: '0.06em', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                    <span style={{ color: 'var(--violet-c)' }}>&lt;/&gt;</span> TEACHING PRACTICUM REPORT · 2569
+                  </div>
+                  <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 800, fontSize: 'clamp(20px, 2.4vw, 28px)', color: 'var(--ink)', margin: 0, lineHeight: 1.25 }}>
+                    รายงานฝึกปฏิบัติการสอน
+                  </h1>
+                  <p style={{ margin: '4px 0 0 0', fontSize: '13.5px', color: 'var(--muted-c)', fontWeight: 500 }}>
+                    คณะครุศาสตร์อุตสาหกรรม · มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ
+                  </p>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                  <span style={{ padding: '6px 14px', borderRadius: '999px', background: 'rgba(61,107,255,0.08)', border: '1px solid rgba(61,107,255,0.22)', fontSize: '13px', fontWeight: 600, color: 'var(--blue-c)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                    <Building2 size={15} /> วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี
+                  </span>
+                  <span style={{ padding: '6px 14px', borderRadius: '999px', background: 'rgba(14,201,184,0.12)', border: '1px solid rgba(14,201,184,0.32)', fontSize: '13px', fontWeight: 600, color: '#0a8f82' }}>
+                    ภาคเรียนที่ 1/2569
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="wrap hero-grid">
             {/* Main IDE Profile Card (Client Component with 3D Tilt) */}
             <IdCard student={siteData.student} />

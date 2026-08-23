@@ -1,6 +1,8 @@
 "use client"
 
 import { siteData } from "@/data/siteData"
+import Image from "next/image"
+import { Reveal } from "@/components/Reveal"
 
 export default function PracticumSitePage() {
   return (
@@ -90,6 +92,8 @@ export default function PracticumSitePage() {
         }
         .person-card .avatar {
           width: 140px;
+          min-height: 172px;
+          position: relative;
           flex-shrink: 0;
           border-radius: 0;
           display: flex;
@@ -97,6 +101,7 @@ export default function PracticumSitePage() {
           justify-content: center;
           background: rgba(61,107,255,0.1);
           border-right: 1px solid rgba(61,107,255,0.25);
+          overflow: hidden;
         }
         .person-card.violet .avatar {
           background: rgba(139,92,246,0.1);
@@ -266,180 +271,194 @@ export default function PracticumSitePage() {
       `}</style>
 
       <div style={{ maxWidth: '1280px', margin: '0 auto', width: '100%', paddingTop: '40px' }}>
-        <div className="glass-panel" style={{ padding: 0, overflow: 'hidden', marginBottom: '26px' }}>
-          <div className="chrome">
-            <span className="r"></span><span className="y"></span><span className="g"></span>
-            <span className="fname">school_profile.config</span>
-          </div>
-          <div className="banner" style={{ margin: 0, borderRadius: 0, border: 'none', boxShadow: 'none' }}>
-            <img src="/images/others/svc1.png" alt="สถานศึกษา" />
-            <div className="banner-content">
-              <div className="eyebrow" style={{ marginBottom: '12px' }}>// school.profile</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <img 
-                  src="/images/others/logo_svc.png" 
-                  alt="โลโก้ วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี" 
-                  style={{ width: '56px', height: 'auto', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))' }}
-                />
-                <h1>วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี</h1>
+        <Reveal>
+          <div className="glass-panel" style={{ padding: 0, overflow: 'hidden', marginBottom: '26px' }}>
+            <div className="chrome">
+              <span className="r"></span><span className="y"></span><span className="g"></span>
+              <span className="fname">school_profile.config</span>
+            </div>
+            <div className="banner" style={{ margin: 0, borderRadius: 0, border: 'none', boxShadow: 'none', position: 'relative' }}>
+              <Image src="/images/others/svc1.png" alt="สถานศึกษา" fill priority sizes="100vw" style={{ objectFit: 'cover' }} />
+              <div className="banner-content">
+                <div className="eyebrow" style={{ marginBottom: '12px' }}>// school.profile</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <Image 
+                    src="/images/others/logo_svc.png" 
+                    alt="โลโก้ วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี" 
+                    width={56}
+                    height={56}
+                    style={{ width: '56px', height: 'auto', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))' }}
+                  />
+                  <h1>วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี</h1>
+                </div>
+                <p>สถานที่ฝึกปฏิบัติการสอน ภาคเรียนที่ 1 ปีการศึกษา 2569 · ตำบลตลาด อำเภอเมือง จังหวัดสุราษฎร์ธานี</p>
               </div>
-              <p>สถานที่ฝึกปฏิบัติการสอน ภาคเรียนที่ 1 ปีการศึกษา 2569 · ตำบลตลาด อำเภอเมือง จังหวัดสุราษฎร์ธานี</p>
             </div>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="cols">
-          <div className="glass-panel info-list">
-            <div className="row">
-              <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
-              <div><div className="k">ที่อยู่</div><div className="v">456/3 ถ.ตลาดใหม่ ต.ตลาด อ.เมือง จ.สุราษฎร์ธานี 84000</div></div>
+        <Reveal delay={100}>
+          <div className="cols">
+            <div className="glass-panel info-list">
+              <div className="row">
+                <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+                <div><div className="k">ที่อยู่</div><div className="v">456/3 ถ.ตลาดใหม่ ต.ตลาด อ.เมือง จ.สุราษฎร์ธานี 84000</div></div>
+              </div>
+              <div className="row">
+                <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"></path></svg>
+                <div><div className="k">โทรศัพท์</div><div className="v">0-7728-2001</div></div>
+              </div>
+              <div className="row">
+                <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                <div><div className="k">แฟกซ์</div><div className="v">0-7727-2631</div></div>
+              </div>
+              <div className="row">
+                <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>
+                <div><div className="k">อีเมล</div><div className="v">saraban@svc.ac.th</div></div>
+              </div>
+              <div className="row">
+                <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+                <div><div className="k">เวลาทำการ</div><div className="v">วันจันทร์ – ศุกร์ · 08:00 – 16:30 น.</div></div>
+              </div>
             </div>
-            <div className="row">
-              <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"></path></svg>
-              <div><div className="k">โทรศัพท์</div><div className="v">0-7728-2001</div></div>
-            </div>
-            <div className="row">
-              <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-              <div><div className="k">แฟกซ์</div><div className="v">0-7727-2631</div></div>
-            </div>
-            <div className="row">
-              <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>
-              <div><div className="k">อีเมล</div><div className="v">saraban@svc.ac.th</div></div>
-            </div>
-            <div className="row">
-              <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
-              <div><div className="k">เวลาทำการ</div><div className="v">วันจันทร์ – ศุกร์ · 08:00 – 16:30 น.</div></div>
-            </div>
-          </div>
 
-          <div className="glass-panel chip-panel">
-            <h4>สาขาวิชาที่เปิดสอนในแผนก</h4>
-            <div className="chips">
-              <span>เทคโนโลยีธุรกิจดิจิทัล</span>
-              <span>เทคโนโลยีสารสนเทศ</span>
-              <span>คอมพิวเตอร์เกมและแอนิเมชัน</span>
-            </div>
-            <h4 style={{ marginTop: '22px' }}>ห้องปฏิบัติการที่ใช้สอน</h4>
-            <div className="chips">
-              <span>ห้องปฏิบัติการคอมพิวเตอร์ 2</span>
-              <span>ห้องปฏิบัติการคอมพิวเตอร์ 4</span>
-              <span>ห้องปฏิบัติการคอมพิวเตอร์ 9</span>
+            <div className="glass-panel chip-panel">
+              <h4>สาขาวิชาที่เปิดสอนในแผนก</h4>
+              <div className="chips">
+                <span>เทคโนโลยีธุรกิจดิจิทัล</span>
+                <span>เทคโนโลยีสารสนเทศ</span>
+                <span>คอมพิวเตอร์เกมและแอนิเมชัน</span>
+              </div>
+              <h4 style={{ marginTop: '22px' }}>ห้องปฏิบัติการที่ใช้สอน</h4>
+              <div className="chips">
+                <span>ห้องปฏิบัติการคอมพิวเตอร์ 2</span>
+                <span>ห้องปฏิบัติการคอมพิวเตอร์ 4</span>
+                <span>ห้องปฏิบัติการคอมพิวเตอร์ 9</span>
+              </div>
             </div>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="section-title">people.contact</div>
-        <div className="people-grid">
+        <Reveal delay={150}>
+          <div className="section-title">people.contact</div>
+          <div className="people-grid">
+            <div className="glass-panel person-card cyan">
+              <div className="avatar" style={{ padding: 0, border: 'none', position: 'relative' }}>
+                <Image src="/images/others/ครูวินิต.jpg" alt="ครูวินิต สืบสอน" fill sizes="140px" style={{ objectFit: 'cover' }} />
+              </div>
+              <div className="info" style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div className="role">ครูพี่เลี้ยง</div>
+                <h4>ครูวินิต สืบสอน</h4>
+                <p>วิชาเทคโนโลยีการนำเข้าข้อมูลเข้าสู่ระบบคอมพิวเตอร์</p>
+              </div>
+            </div>
+            <div className="glass-panel person-card cyan">
+              <div className="avatar" style={{ padding: 0, border: 'none', position: 'relative' }}>
+                <Image src="/images/others/ครูเมธาสิทธิ์.png" alt="ครูเมธาสิทธิ์ พลวัชรินทร์" fill sizes="140px" style={{ objectFit: 'cover' }} />
+              </div>
+              <div className="info" style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div className="role">ครูพี่เลี้ยง</div>
+                <h4>ครูเมธาสิทธิ์ พลวัชรินทร์</h4>
+                <p>วิชาโปรแกรมฐานข้อมูล</p>
+              </div>
+            </div>
+            <div className="glass-panel person-card cyan">
+              <div className="avatar" style={{ padding: 0, border: 'none', position: 'relative' }}>
+                <Image src="/images/others/ครูสุพัตตรา.jpg" alt="ครูสุพัตรา เมืองฤกษ์" fill sizes="140px" style={{ objectFit: 'cover' }} />
+              </div>
+              <div className="info" style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div className="role">ครูพี่เลี้ยง</div>
+                <h4>ครูสุพัตรา เมืองฤกษ์</h4>
+                <p>วิชาโปรแกรมมัลติมีเดีย</p>
+              </div>
+            </div>
 
-          <div className="glass-panel person-card cyan">
-            <div className="avatar" style={{ padding: 0, border: 'none' }}>
-              <img src="/images/others/ครูวินิต.jpg" alt="ครูวินิต สืบสอน" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div className="info" style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div className="role">ครูพี่เลี้ยง</div>
-              <h4>ครูวินิต สืบสอน</h4>
-              <p>วิชาเทคโนโลยีการนำเข้าข้อมูลเข้าสู่ระบบคอมพิวเตอร์</p>
-            </div>
-          </div>
-          <div className="glass-panel person-card cyan">
-            <div className="avatar" style={{ padding: 0, border: 'none' }}>
-              <img src="/images/others/ครูเมธาสิทธิ์.png" alt="ครูเมธาสิทธิ์ พลวัชรินทร์" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div className="info" style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div className="role">ครูพี่เลี้ยง</div>
-              <h4>ครูเมธาสิทธิ์ พลวัชรินทร์</h4>
-              <p>วิชาโปรแกรมฐานข้อมูล</p>
+            <div className="section-title" style={{ gridColumn: '1 / -1', margin: '24px 0 8px 0' }}>people.supervisor</div>
+            <div className="glass-panel person-card amber">
+              <div className="avatar" style={{ padding: 0, border: 'none', position: 'relative' }}>
+                <Image src="/images/others/อาจารย์แนน.jpg" alt="ดร. พุทธิดา สกุลวิริยกิจกุล" fill sizes="140px" style={{ objectFit: 'cover' }} />
+              </div>
+              <div className="info" style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div className="role">อาจารย์นิเทศก์</div>
+                <h4>ดร. พุทธิดา สกุลวิริยกิจกุล</h4>
+                <p>อาจารย์ประจำภาควิชาคอมพิวเตอร์ศึกษา มจพ.</p>
+              </div>
             </div>
           </div>
-          <div className="glass-panel person-card cyan">
-            <div className="avatar" style={{ padding: 0, border: 'none' }}>
-              <img src="/images/others/ครูสุพัตตรา.jpg" alt="ครูสุพัตรา เมืองฤกษ์" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div className="info" style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div className="role">ครูพี่เลี้ยง</div>
-              <h4>ครูสุพัตรา เมืองฤกษ์</h4>
-              <p>วิชาโปรแกรมมัลติมีเดีย</p>
-            </div>
-          </div>
+        </Reveal>
 
-          <div className="section-title" style={{ gridColumn: '1 / -1', margin: '24px 0 8px 0' }}>people.supervisor</div>
-          <div className="glass-panel person-card amber">
-            <div className="avatar" style={{ padding: 0, border: 'none' }}>
-              <img src="/images/others/อาจารย์แนน.jpg" alt="ดร. พุทธิดา สกุลวิริยกิจกุล" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div className="info" style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div className="role">อาจารย์นิเทศก์</div>
-              <h4>ดร. พุทธิดา สกุลวิริยกิจกุล</h4>
-              <p>อาจารย์ประจำภาควิชาคอมพิวเตอร์ศึกษา มจพ.</p>
+        <Reveal delay={150}>
+          <div className="section-title">department.org_chart</div>
+          <div className="glass-panel" style={{ padding: '32px', marginTop: '16px', overflow: 'hidden', position: 'relative' }}>
+            {/* Decorative background glow for the org chart */}
+            <div style={{ position: 'absolute', top: '-50px', left: '50%', transform: 'translateX(-50%)', width: '300px', height: '150px', background: 'radial-gradient(ellipse, rgba(61,107,255,0.15), transparent 70%)', filter: 'blur(30px)', pointerEvents: 'none' }}></div>
+            
+            <h4 style={{ 
+              fontFamily: 'var(--font-prompt), sans-serif', 
+              fontSize: '20px', 
+              fontWeight: 700, 
+              marginBottom: '24px', 
+              textAlign: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '10px'
+            }}>
+              <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '22px', height: '22px', stroke: 'var(--blue-c, #3d6bff)' }}>
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span style={{ background: 'linear-gradient(90deg, var(--ink, #10152b), var(--blue-c, #3d6bff))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                แผนผังองค์กร แผนกวิชาธุรกิจดิจิทัลและเทคโนโลยีสารสนเทศ
+              </span>
+            </h4>
+            
+            <div style={{ 
+              borderRadius: '20px', 
+              overflow: 'hidden', 
+              border: '1px solid var(--border-strong-c, rgba(16,21,43,0.12))', 
+              background: '#ffffff',
+              boxShadow: '0 12px 32px rgba(61,107,255,0.08), 0 0 0 4px rgba(255,255,255,0.5)',
+              padding: '12px',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              cursor: 'zoom-in'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-4px)';
+              e.currentTarget.style.boxShadow = '0 16px 40px rgba(61,107,255,0.12), 0 0 0 4px rgba(255,255,255,0.8)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 12px 32px rgba(61,107,255,0.08), 0 0 0 4px rgba(255,255,255,0.5)';
+            }}>
+              <Image 
+                src="/images/others/DIT_SVC.jpg" 
+                alt="แผนผังองค์กร แผนกวิชาธุรกิจดิจิทัลและเทคโนโลยีสารสนเทศ" 
+                width={1200}
+                height={800}
+                sizes="(max-width: 1280px) 100vw, 1200px"
+                style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }}
+              />
             </div>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="section-title">department.org_chart</div>
-        <div className="glass-panel" style={{ padding: '32px', marginTop: '16px', overflow: 'hidden', position: 'relative' }}>
-          {/* Decorative background glow for the org chart */}
-          <div style={{ position: 'absolute', top: '-50px', left: '50%', transform: 'translateX(-50%)', width: '300px', height: '150px', background: 'radial-gradient(ellipse, rgba(61,107,255,0.15), transparent 70%)', filter: 'blur(30px)', pointerEvents: 'none' }}></div>
-          
-          <h4 style={{ 
-            fontFamily: 'var(--font-prompt), sans-serif', 
-            fontSize: '20px', 
-            fontWeight: 700, 
-            marginBottom: '24px', 
-            textAlign: 'center',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '10px'
-          }}>
-            <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '22px', height: '22px', stroke: 'var(--blue-c, #3d6bff)' }}>
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
-            <span style={{ background: 'linear-gradient(90deg, var(--ink, #10152b), var(--blue-c, #3d6bff))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              แผนผังองค์กร แผนกวิชาธุรกิจดิจิทัลและเทคโนโลยีสารสนเทศ
-            </span>
-          </h4>
-          
-          <div style={{ 
-            borderRadius: '20px', 
-            overflow: 'hidden', 
-            border: '1px solid var(--border-strong-c, rgba(16,21,43,0.12))', 
-            background: '#ffffff',
-            boxShadow: '0 12px 32px rgba(61,107,255,0.08), 0 0 0 4px rgba(255,255,255,0.5)',
-            padding: '12px',
-            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-            cursor: 'zoom-in'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-4px)';
-            e.currentTarget.style.boxShadow = '0 16px 40px rgba(61,107,255,0.12), 0 0 0 4px rgba(255,255,255,0.8)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 12px 32px rgba(61,107,255,0.08), 0 0 0 4px rgba(255,255,255,0.5)';
-          }}>
-            <img 
-              src="/images/others/DIT_SVC.jpg" 
-              alt="แผนผังองค์กร แผนกวิชาธุรกิจดิจิทัลและเทคโนโลยีสารสนเทศ" 
-              style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }}
-            />
+        <Reveal delay={150}>
+          <div className="section-title">location.map</div>
+          <div className="map-frame" style={{ padding: 0, overflow: 'hidden' }}>
+            <iframe
+              src="https://maps.google.com/maps?q=วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0, minHeight: '350px' }}
+              allowFullScreen={false}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
-        </div>
-
-        <div className="section-title">location.map</div>
-        <div className="map-frame" style={{ padding: 0, overflow: 'hidden' }}>
-          <iframe
-            src="https://maps.google.com/maps?q=วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี&t=&z=16&ie=UTF8&iwloc=&output=embed"
-            width="100%"
-            height="100%"
-            style={{ border: 0, minHeight: '350px' }}
-            allowFullScreen={false}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
+        </Reveal>
       </div>
     </>
   )

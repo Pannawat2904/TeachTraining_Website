@@ -3,6 +3,7 @@
 import { use, useState } from "react"
 import { lessonPlans } from "@/data/siteData"
 import { notFound } from "next/navigation"
+import { Reveal } from "@/components/Reveal"
 
 export default function LessonPlansPage(props: { params: Promise<{ term: string }> }) {
   const params = use(props.params);
@@ -34,48 +35,29 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
   return (
     <main style={{ maxWidth: '1280px', margin: '0 auto', padding: '50px 0 90px', position: 'relative', zIndex: 1 }}>
       {/* 1. Header Card (กรอบหัวข้อหน้าแผนการสอน) */}
-      <div className="glass-panel" style={{ borderRadius: '24px', overflow: 'hidden', padding: 0, background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(16px)', boxShadow: '0 16px 46px rgba(61,107,255,0.1)', marginBottom: '24px' }}>
-        <div className="chrome">
-          <span className="r"></span><span className="y"></span><span className="g"></span>
-          <span className="fname">lesson_plans_semester_{semesterNum}.config</span>
-          <span className="tag">ภาคเรียนที่ {semesterNum}/2569</span>
-        </div>
-        <div style={{ padding: '24px 32px' }}>
-          <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '14px', color: 'var(--blue-c)', marginBottom: '6px', fontWeight: 600 }}>
-            // lesson.plans_by_subject
+      <Reveal>
+        <div className="glass-panel" style={{ borderRadius: '24px', overflow: 'hidden', padding: 0, background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(10px)', boxShadow: '0 16px 46px rgba(61,107,255,0.1)', marginBottom: '24px' }}>
+          <div className="chrome">
+            <span className="r"></span><span className="y"></span><span className="g"></span>
+            <span className="fname">lesson_plans_semester_{semesterNum}.config</span>
+            <span className="tag">ภาคเรียนที่ {semesterNum}/2569</span>
           </div>
-          <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--ink)' }}>
-            <span style={{ fontSize: '0.75em', color: 'var(--violet-c)' }}>&lt;/&gt;</span>
-            แผนการจัดการเรียนรู้ (ภาคเรียนที่ {semesterNum}/2569)
-          </h1>
-          <p style={{ color: 'var(--ink)', opacity: 0.85, marginTop: '6px', fontSize: '15px' }}>
-            แยกตามรายวิชาที่สอนในภาคเรียนที่ {semesterNum}/2569 จำนวน 3 รายวิชา แสดงตัวอย่างไฟล์ PDF จาก Google Drive แบบโต้ตอบ
-          </p>
+          <div style={{ padding: '24px 32px' }}>
+            <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '14px', color: 'var(--blue-c)', marginBottom: '6px', fontWeight: 600 }}>
+              // lesson.plans_by_subject
+            </div>
+            <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--ink)' }}>
+              <span style={{ fontSize: '0.75em', color: 'var(--violet-c)' }}>&lt;/&gt;</span>
+              แผนการจัดการเรียนรู้ (ภาคเรียนที่ {semesterNum}/2569)
+            </h1>
+            <p style={{ color: 'var(--ink)', opacity: 0.85, marginTop: '6px', fontSize: '15px' }}>
+              แยกตามรายวิชาที่สอนในภาคเรียนที่ {semesterNum}/2569 จำนวน 3 รายวิชา แสดงตัวอย่างไฟล์ PDF จาก Google Drive แบบโต้ตอบ
+            </p>
 
-          {/* Filter Tabs */}
-          <div style={{ display: 'flex', gap: '10px', marginTop: '20px', flexWrap: 'wrap' }}>
-            <button
-              onClick={() => setSelectedCourse("all")}
-              style={{
-                padding: '8px 18px',
-                borderRadius: '999px',
-                fontSize: '13.5px',
-                fontWeight: 600,
-                fontFamily: 'var(--font-prompt), sans-serif',
-                cursor: 'pointer',
-                border: selectedCourse === "all" ? '1px solid var(--blue-c)' : '1px solid var(--border-strong-c)',
-                background: selectedCourse === "all" ? 'linear-gradient(135deg, var(--blue-c), var(--violet-c))' : 'rgba(255,255,255,0.7)',
-                color: selectedCourse === "all" ? '#ffffff' : 'var(--ink)',
-                boxShadow: selectedCourse === "all" ? '0 4px 14px rgba(61,107,255,0.25)' : 'none',
-                transition: 'all 0.2s ease'
-              }}
-            >
-              ทุกรายวิชา (3)
-            </button>
-            {plans.map((p) => (
+            {/* Filter Tabs */}
+            <div style={{ display: 'flex', gap: '10px', marginTop: '20px', flexWrap: 'wrap' }}>
               <button
-                key={p.id}
-                onClick={() => setSelectedCourse(p.courseCode)}
+                onClick={() => setSelectedCourse("all")}
                 style={{
                   padding: '8px 18px',
                   borderRadius: '999px',
@@ -83,19 +65,40 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
                   fontWeight: 600,
                   fontFamily: 'var(--font-prompt), sans-serif',
                   cursor: 'pointer',
-                  border: selectedCourse === p.courseCode ? '1px solid var(--blue-c)' : '1px solid var(--border-strong-c)',
-                  background: selectedCourse === p.courseCode ? 'linear-gradient(135deg, var(--blue-c), var(--violet-c))' : 'rgba(255,255,255,0.7)',
-                  color: selectedCourse === p.courseCode ? '#ffffff' : 'var(--ink)',
-                  boxShadow: selectedCourse === p.courseCode ? '0 4px 14px rgba(61,107,255,0.25)' : 'none',
+                  border: selectedCourse === "all" ? '1px solid var(--blue-c)' : '1px solid var(--border-strong-c)',
+                  background: selectedCourse === "all" ? 'linear-gradient(135deg, var(--blue-c), var(--violet-c))' : 'rgba(255,255,255,0.7)',
+                  color: selectedCourse === "all" ? '#ffffff' : 'var(--ink)',
+                  boxShadow: selectedCourse === "all" ? '0 4px 14px rgba(61,107,255,0.25)' : 'none',
                   transition: 'all 0.2s ease'
                 }}
               >
-                {p.courseCode} {p.courseName}
+                ทุกรายวิชา (3)
               </button>
-            ))}
+              {plans.map((p) => (
+                <button
+                  key={p.id}
+                  onClick={() => setSelectedCourse(p.courseCode)}
+                  style={{
+                    padding: '8px 18px',
+                    borderRadius: '999px',
+                    fontSize: '13.5px',
+                    fontWeight: 600,
+                    fontFamily: 'var(--font-prompt), sans-serif',
+                    cursor: 'pointer',
+                    border: selectedCourse === p.courseCode ? '1px solid var(--blue-c)' : '1px solid var(--border-strong-c)',
+                    background: selectedCourse === p.courseCode ? 'linear-gradient(135deg, var(--blue-c), var(--violet-c))' : 'rgba(255,255,255,0.7)',
+                    color: selectedCourse === p.courseCode ? '#ffffff' : 'var(--ink)',
+                    boxShadow: selectedCourse === p.courseCode ? '0 4px 14px rgba(61,107,255,0.25)' : 'none',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  {p.courseCode} {p.courseName}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </Reveal>
 
       {/* 2. Course Cards with Embedded Google Drive PDF Viewers */}
       {filteredPlans.length === 0 ? (
@@ -103,7 +106,8 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
           <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--ink)' }}>ยังไม่มีข้อมูลแผนการสอนสำหรับวิชานี้</h3>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+        <Reveal delay={150}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
           {filteredPlans.map((plan) => {
             const isExpanded = !collapsedIds.includes(plan.id);
 
@@ -248,6 +252,7 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
             );
           })}
         </div>
+        </Reveal>
       )}
     </main>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function SplashScreen() {
   const [isDismissed, setIsDismissed] = useState(false);
@@ -42,13 +43,13 @@ export default function SplashScreen() {
       {/* Glass Logos Row at the Top */}
       <div className="splash-logos-row">
         <div className="logo-badge">
-          <img src="/images/others/logo_kmutnb.png" alt="KMUTNB Logo" />
+          <Image src="/images/others/logo_kmutnb.png" alt="KMUTNB Logo" width={68} height={68} style={{ width: '100%', height: '100%', objectFit: 'contain' }} priority />
         </div>
         <div className="logo-badge">
-          <img src="/images/others/logo_comedu.jpeg" alt="ComEdu Logo" className="circle" />
+          <Image src="/images/others/logo_comedu.jpeg" alt="ComEdu Logo" width={68} height={68} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '50%' }} priority />
         </div>
         <div className="logo-badge">
-          <img src="/images/others/logo_svc.png" alt="SVC Logo" />
+          <Image src="/images/others/logo_svc.png" alt="SVC Logo" width={68} height={68} style={{ width: '100%', height: '100%', objectFit: 'contain' }} priority />
         </div>
       </div>
 

@@ -1,5 +1,7 @@
 "use client"
 import React, { useState } from 'react';
+import Image from 'next/image';
+import { Reveal } from '@/components/Reveal';
 
 export default function ActivitiesPage() {
   const [filter, setFilter] = useState('all');
@@ -72,14 +74,6 @@ export default function ActivitiesPage() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
-        .activities-page {
-          animation: fade-in 0.6s ease-out;
-        }
-        @keyframes fade-in {
-          0% { opacity: 0; transform: translateY(10px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        
         .activities-page .page-head { margin-bottom:26px; }
         .activities-page .page-head .eyebrow { font-family:var(--font-mono, monospace); font-size:12px; color:var(--blue-c, #3d6bff); margin-bottom:8px; }
         .activities-page .page-head h1 { font-family:var(--font-prompt, sans-serif); font-weight:600; font-size:clamp(24px,3vw,34px); display:flex; align-items:center; gap:10px; color:var(--ink, #10152b); }
@@ -104,8 +98,8 @@ export default function ActivitiesPage() {
           display: flex; flex-direction: column;
         }
         .activities-page .card:hover { transform:translateY(-8px); box-shadow:0 24px 56px rgba(61,107,255,0.18); }
-        .activities-page .card .img { height:200px; overflow:hidden; }
-        .activities-page .card .img img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+        .activities-page .card .img { height:200px; overflow:hidden; position:relative; }
+        .activities-page .card .img img { transition:transform .5s ease; }
         .activities-page .card:hover .img img { transform:scale(1.06); }
         .activities-page .card .body { padding:22px; flex-grow: 1; display: flex; flex-direction: column; }
         .activities-page .card .tag { font-family:var(--font-mono, monospace); font-size:11px; padding:4px 12px; border-radius:999px; display:inline-block; margin-bottom:12px; font-weight: 500; width: fit-content; }
@@ -119,38 +113,46 @@ export default function ActivitiesPage() {
       `}} />
       
       <div className="activities-page max-w-[1200px] mx-auto" style={{ padding: '50px 0 90px' }}>
-        <div className="glass-panel" style={{ padding: 0, marginBottom: '26px', overflow: 'hidden' }}>
-          <div className="chrome">
-            <span className="r"></span><span className="y"></span><span className="g"></span>
-            <span className="fname">activities_gallery.config</span>
-          </div>
-          <div className="page-head" style={{ padding: '24px 32px', marginBottom: 0 }}>
-            <div className="eyebrow">// activities.gallery</div>
-            <h1>กิจกรรม</h1>
-            <p>ประมวลภาพและบันทึกกิจกรรมต่างๆ ที่ได้เข้าร่วมตลอดการฝึกปฏิบัติการสอน</p>
-          </div>
-        </div>
-
-        <div className="filters">
-          <button className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>ทั้งหมด</button>
-          <button className={filter === 'teach' ? 'active' : ''} onClick={() => setFilter('teach')}>กิจกรรมการสอน</button>
-          <button className={filter === 'school' ? 'active' : ''} onClick={() => setFilter('school')}>กิจกรรมวิทยาลัย</button>
-          <button className={filter === 'student' ? 'active' : ''} onClick={() => setFilter('student')}>กิจกรรมนักเรียน</button>
-        </div>
-
-        <div className="grid">
-          {filteredActivities.map(a => (
-            <div key={a.id} className="card" data-cat={a.cat}>
-              <div className="img"><img src={a.img} alt={a.title} /></div>
-              <div className="body">
-                <span className={`tag ${a.tagColor}`}>{a.tag}</span>
-                <div className="date">{a.date}</div>
-                <h3>{a.title}</h3>
-                <p>{a.desc}</p>
-              </div>
+        <Reveal>
+          <div className="glass-panel" style={{ padding: 0, marginBottom: '26px', overflow: 'hidden' }}>
+            <div className="chrome">
+              <span className="r"></span><span className="y"></span><span className="g"></span>
+              <span className="fname">activities_gallery.config</span>
             </div>
-          ))}
-        </div>
+            <div className="page-head" style={{ padding: '24px 32px', marginBottom: 0 }}>
+              <div className="eyebrow">// activities.gallery</div>
+              <h1>กิจกรรม</h1>
+              <p>ประมวลภาพและบันทึกกิจกรรมต่างๆ ที่ได้เข้าร่วมตลอดการฝึกปฏิบัติการสอน</p>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <div className="filters">
+            <button className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>ทั้งหมด</button>
+            <button className={filter === 'teach' ? 'active' : ''} onClick={() => setFilter('teach')}>กิจกรรมการสอน</button>
+            <button className={filter === 'school' ? 'active' : ''} onClick={() => setFilter('school')}>กิจกรรมวิทยาลัย</button>
+            <button className={filter === 'student' ? 'active' : ''} onClick={() => setFilter('student')}>กิจกรรมนักเรียน</button>
+          </div>
+        </Reveal>
+
+        <Reveal delay={200}>
+          <div className="grid">
+            {filteredActivities.map(a => (
+              <div key={a.id} className="card" data-cat={a.cat}>
+                <div className="img">
+                  <Image src={a.img} alt={a.title} fill sizes="(max-width: 768px) 100vw, 360px" style={{ objectFit: 'cover' }} />
+                </div>
+                <div className="body">
+                  <span className={`tag ${a.tagColor}`}>{a.tag}</span>
+                  <div className="date">{a.date}</div>
+                  <h3>{a.title}</h3>
+                  <p>{a.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </>
   )

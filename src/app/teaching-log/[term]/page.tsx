@@ -4,6 +4,7 @@ import { use, useState, useEffect } from "react"
 import { teachingLogConfig, teachingLogs } from "@/data/siteData"
 import { notFound } from "next/navigation"
 import { fetchGoogleSheet } from "@/actions/googleSheets"
+import { Reveal } from "@/components/Reveal"
 
 export default function TeachingLogPage(props: { params: Promise<{ term: string }> }) {
   const params = use(props.params);
@@ -191,12 +192,13 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
   return (
     <main style={{ maxWidth: '1040px', margin: '0 auto', padding: '50px 0 90px', position: 'relative', zIndex: 1 }}>
       {/* 1. Header Card (กรอบหัวข้อบันทึกการฝึกสอน) */}
-      <div className="glass-panel" style={{ borderRadius: '24px', overflow: 'hidden', padding: 0, background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(16px)', boxShadow: '0 16px 46px rgba(61,107,255,0.1)', marginBottom: '24px' }}>
-        <div className="chrome">
-          <span className="r"></span><span className="y"></span><span className="g"></span>
-          <span className="fname">teaching_log_semester_{semesterNum}.config</span>
-          <span className="tag">ภาคเรียนที่ {semesterNum}/2569</span>
-        </div>
+      <Reveal>
+        <div className="glass-panel" style={{ borderRadius: '24px', overflow: 'hidden', padding: 0, background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(10px)', boxShadow: '0 16px 46px rgba(61,107,255,0.1)', marginBottom: '24px' }}>
+          <div className="chrome">
+            <span className="r"></span><span className="y"></span><span className="g"></span>
+            <span className="fname">teaching_log_semester_{semesterNum}.config</span>
+            <span className="tag">ภาคเรียนที่ {semesterNum}/2569</span>
+          </div>
         <div style={{ padding: '24px 32px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
             <div>
@@ -257,10 +259,12 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
           </div>
         </div>
       </div>
+    </Reveal>
 
       {viewMode === 'sheet' && sheetUrl ? (
         /* Google Sheets Embedded View */
-        <div className="glass-panel" style={{ borderRadius: '24px', overflow: 'hidden', padding: 0, background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(16px)', boxShadow: '0 16px 46px rgba(61,107,255,0.1)' }}>
+        <Reveal delay={100}>
+          <div className="glass-panel" style={{ borderRadius: '24px', overflow: 'hidden', padding: 0, background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(10px)', boxShadow: '0 16px 46px rgba(61,107,255,0.1)' }}>
           <div className="chrome">
             <span className="r"></span><span className="y"></span><span className="g"></span>
             <span className="fname">teaching_log_spreadsheet.gsheet</span>
@@ -276,11 +280,12 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
           <div style={{ padding: '16px', background: '#ffffff' }}>
             <iframe 
               src={sheetUrl} 
-              style={{ width: '100%', height: '780px', border: 0, borderRadius: '12px' }}
+              style={{ width: '100%', height: 'clamp(420px, 75vh, 780px)', border: 0, borderRadius: '12px' }}
               title="Teaching Log Google Sheets"
             ></iframe>
           </div>
         </div>
+        </Reveal>
       ) : (
         /* Interactive Daily Log View */
         <>

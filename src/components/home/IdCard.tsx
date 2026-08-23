@@ -86,7 +86,8 @@ export function IdCard({ student }: { student: StudentInfo }) {
           <div className="id-num"><span className="k">id:</span> {student.studentId}</div>
           <p>
             {student.major}<br/>
-            {student.department} {student.faculty}<br/>
+            {student.department}<br/>
+            <span style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>{student.faculty}</span><br/>
             <span style={{ display: 'inline-block', overflowWrap: 'anywhere', wordBreak: 'normal' }}>{student.university}</span>
           </p>
         </div>

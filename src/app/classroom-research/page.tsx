@@ -48,7 +48,6 @@ export default function ClassroomResearchPage() {
           pdfUrl={rawPdfUrl}
           driveUrl={openDriveUrl}
           filename="classroom_research_full.pdf"
-          defaultOpen={false}
         />
       </Reveal>
     </div>

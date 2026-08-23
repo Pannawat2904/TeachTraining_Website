@@ -18,6 +18,9 @@ export default function SchedulePage(props: { params: Promise<{ term: string }> 
   const rawPdfUrl = term === 'semester-1' ? schedulePdfConfig.semester1Url : schedulePdfConfig.semester2Url;
   const pdfEmbedUrl = rawPdfUrl ? rawPdfUrl.replace(/\/view(\?.*)?$/, '/preview') : '';
 
+  // Use uploaded image for semester 1
+  const scheduleImage = term === 'semester-1' ? '/images/others/schedule_term1.jpg' : undefined;
+
   return (
     <div style={{ maxWidth: '1280px', margin: '0 auto', paddingBottom: '40px', position: 'relative', zIndex: 1 }}>
       {/* 1. Header Card (กรอบหัวข้อ + ข้อมูลผู้สอน) */}
@@ -80,17 +83,17 @@ export default function SchedulePage(props: { params: Promise<{ term: string }> 
         </div>
       </Reveal>
 
-      {/* 2. On-Demand Document Preview Component */}
+      {/* 2. Direct Document / Image Preview Component */}
       <Reveal delay={150}>
         <DocumentPreview
           title={`ตารางสอนประจำภาคเรียน ${data.academicYear || (semesterKey === 'semester1' ? "1/2569" : "2/2569")}`}
           subtitle={data.schoolName || 'วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี'}
           badge={`ภาคเรียนที่ ${data.academicYear || (semesterKey === 'semester1' ? "1/2569" : "2/2569")}`}
           details={`ตารางสอนทางการ แผนกวิชา${data.department || 'ธุรกิจดิจิทัลและเทคโนโลยีสารสนเทศ'}`}
+          imageUrl={scheduleImage}
           pdfUrl={pdfEmbedUrl}
           driveUrl={rawPdfUrl}
-          filename={`official_schedule_${term}.pdf`}
-          defaultOpen={false}
+          filename={scheduleImage ? `schedule_semester_${term}.jpg` : `official_schedule_${term}.pdf`}
         />
       </Reveal>
     </div>

@@ -112,7 +112,6 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
                 pdfUrl={plan.pdfUrl}
                 driveUrl={plan.driveUrl || plan.pdfUrl}
                 filename={plan.filename}
-                defaultOpen={false}
               />
             ))}
           </div>

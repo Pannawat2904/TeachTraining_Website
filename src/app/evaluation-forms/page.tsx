@@ -81,7 +81,6 @@ export default function EvaluationFormsPage() {
           pdfUrl={rawPdfUrl}
           driveUrl={openDriveUrl}
           filename="evaluation_forms_semester_1.pdf"
-          defaultOpen={false}
         />
       </Reveal>
     </div>

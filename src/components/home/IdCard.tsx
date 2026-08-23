@@ -5,9 +5,9 @@ import Image from "next/image"
 import { 
   GraduationCap, 
   Laptop, 
-  Building2, 
-  School, 
-  MapPin 
+  UserCheck, 
+  Award,
+  IdCard as IdCardIcon
 } from "lucide-react"
 
 interface StudentInfo {
@@ -58,8 +58,6 @@ export function IdCard({ student }: { student: StudentInfo }) {
   // Clean prefix labels for clear value scanning
   const cleanMajor = student.major.replace(/^สาขาวิชา\s*|^สาขา\s*/, "") || student.major
   const cleanDepartment = student.department.replace(/^ภาควิชา\s*/, "") || student.department
-  const cleanFaculty = student.faculty.replace(/^คณะ\s*/, "") || student.faculty
-  const cleanUniversity = student.university
 
   return (
     <div className="id-card" ref={cardRef}>
@@ -68,7 +66,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
         <span className="y"></span>
         <span className="g"></span>
         <span className="fname">student_profile.json</span>
-        <span className="tag">รายงานฝึกปฏิบัติการสอน 2569</span>
+        <span className="tag">STUDENT TEACHER</span>
       </div>
 
       <div className="id-card-body body">
@@ -88,7 +86,8 @@ export function IdCard({ student }: { student: StudentInfo }) {
             />
           </div>
           <div className="id-badge">
-            STUDENT TEACHER · 2569
+            <IdCardIcon size={12} style={{ display: 'inline', marginRight: '4px' }} />
+            {student.studentId}
           </div>
         </div>
 
@@ -105,10 +104,6 @@ export function IdCard({ student }: { student: StudentInfo }) {
             </h2>
 
             <div className="id-chip-row">
-              <div className="id-chip">
-                <span className="chip-label">ID:</span>
-                <span className="chip-val">{student.studentId}</span>
-              </div>
               <div className="id-chip-status">
                 <span className="dot"></span>
                 <span>กำลังฝึกปฏิบัติการสอน</span>
@@ -118,7 +113,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
 
           <hr className="id-divider" />
 
-          {/* 2x2 Bento Education Cards (Symmetric & Compact) */}
+          {/* 2x2 Bento Specific Details (No duplication with header above) */}
           <div className="id-bento-grid">
             <div className="bento-item">
               <div className="bento-icon">
@@ -132,7 +127,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
 
             <div className="bento-item">
               <div className="bento-icon">
-                <GraduationCap size={15} />
+                <Award size={15} />
               </div>
               <div className="bento-text">
                 <span className="bento-label">ภาควิชา</span>
@@ -142,38 +137,22 @@ export function IdCard({ student }: { student: StudentInfo }) {
 
             <div className="bento-item">
               <div className="bento-icon">
-                <Building2 size={15} />
+                <UserCheck size={15} />
               </div>
               <div className="bento-text">
-                <span className="bento-label">คณะ</span>
-                <span className="bento-val">{cleanFaculty}</span>
+                <span className="bento-label">ครูพี่เลี้ยง</span>
+                <span className="bento-val">ครูวินิต / ครูเมธาสิทธิ์ / ครูสุพัตรา</span>
               </div>
             </div>
 
             <div className="bento-item">
               <div className="bento-icon">
-                <School size={15} />
+                <GraduationCap size={15} />
               </div>
               <div className="bento-text">
-                <span className="bento-label">สถาบัน</span>
-                <span className="bento-val">{cleanUniversity}</span>
+                <span className="bento-label">อาจารย์นิเทศก์</span>
+                <span className="bento-val">ดร. พุทธิดา สกุลวิริยกิจกุล</span>
               </div>
-            </div>
-          </div>
-
-          {/* Practicum Site Footer Banner */}
-          <div className="id-practicum-meta">
-            <div className="pm-left">
-              <div className="pm-icon">
-                <MapPin size={15} />
-              </div>
-              <div className="pm-text">
-                <span className="pm-label">สถานที่ฝึกปฏิบัติการสอน</span>
-                <span className="pm-val">วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี</span>
-              </div>
-            </div>
-            <div className="pm-badge">
-              แผนกธุรกิจดิจิทัลฯ
             </div>
           </div>
         </div>

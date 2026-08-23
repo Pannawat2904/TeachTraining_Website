@@ -71,7 +71,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
         <span className="tag">รายงานฝึกปฏิบัติการสอน 2569</span>
       </div>
 
-      <div className="id-card-body">
+      <div className="id-card-body body">
         {/* Left Column: Natural 3:4 Portrait Photo & Badge */}
         <div className="id-photo-col">
           <div className="id-photo-frame">

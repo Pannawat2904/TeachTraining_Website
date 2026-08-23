@@ -1,9 +1,8 @@
-"use client"
-
 import React from 'react';
 import { evaluationDocuments } from "@/data/siteData";
 import { Reveal } from '@/components/Reveal';
 import { DocumentPreview } from '@/components/DocumentPreview';
+import { Award, ClipboardCheck } from 'lucide-react';
 
 export default function EvaluationFormsPage() {
   const doc = evaluationDocuments[0];
@@ -24,11 +23,12 @@ export default function EvaluationFormsPage() {
           <div style={{ padding: '24px 28px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
               <div>
-                <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '13px', color: 'var(--blue-c)', marginBottom: '6px', fontWeight: 600 }}>
-                  // evaluation.summary
+                <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '13px', color: 'var(--blue-c)', marginBottom: '6px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Award size={16} />
+                  สรุปผลการประเมินการฝึกสอน
                 </div>
                 <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(22px, 3vw, 32px)', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--ink)' }}>
-                  <span style={{ fontSize: '0.75em', color: 'var(--violet-c)' }}>&lt;/&gt;</span>
+                  <ClipboardCheck style={{ color: 'var(--violet-c)', width: '28px', height: '28px', flexShrink: 0 }} />
                   แบบประเมินการฝึกสอน
                 </h1>
                 <p style={{ color: 'var(--ink)', opacity: 0.85, marginTop: '6px', fontSize: '15px' }}>

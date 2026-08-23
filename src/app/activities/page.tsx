@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/Reveal';
+import { Camera, Images } from 'lucide-react';
 
 export default function ActivitiesPage() {
   const [filter, setFilter] = useState('all');
@@ -120,8 +121,14 @@ export default function ActivitiesPage() {
               <span className="fname">activities_gallery.config</span>
             </div>
             <div className="page-head" style={{ padding: '24px 32px', marginBottom: 0 }}>
-              <div className="eyebrow">// activities.gallery</div>
-              <h1>กิจกรรม</h1>
+              <div className="eyebrow" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Camera size={16} />
+                ประมวลภาพกิจกรรม
+              </div>
+              <h1 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Images style={{ color: 'var(--violet-c)', width: '28px', height: '28px', flexShrink: 0 }} />
+                กิจกรรม
+              </h1>
               <p>ประมวลภาพและบันทึกกิจกรรมต่างๆ ที่ได้เข้าร่วมตลอดการฝึกปฏิบัติการสอน</p>
             </div>
           </div>

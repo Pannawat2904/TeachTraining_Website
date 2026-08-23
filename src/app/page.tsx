@@ -3,6 +3,17 @@ import Link from "next/link"
 import { IdCard } from "@/components/home/IdCard"
 import { GalleryReel } from "@/components/home/GalleryReel"
 import { Reveal } from "@/components/Reveal"
+import { 
+  Sparkles, 
+  BookOpen, 
+  School, 
+  UserCheck, 
+  GraduationCap, 
+  Images, 
+  MapPin, 
+  Building2,
+  Clock
+} from "lucide-react"
 
 export default function Home() {
   const activityImages = activities.semester1[0]?.images?.slice(0, 4) || []
@@ -19,27 +30,45 @@ export default function Home() {
 
             {/* Right Side Cards */}
             <div className="side-stack">
-              {/* Quick Menu IDE Card */}
+              {/* Quick Menu Card */}
               <div className="glass-panel quick-menu" style={{ overflow: 'hidden', padding: 0 }}>
                 <div className="chrome">
                   <span className="r"></span><span className="y"></span><span className="g"></span>
                   <span className="fname">quick_actions.json</span>
                 </div>
                 <div style={{ padding: '22px 24px' }}>
-                  <h3>เมนูด่วน</h3>
-                  <Link className="quick-btn" href="/practicum-site">ข้อมูลสถานศึกษา <span>›</span></Link>
-                  <Link className="quick-btn" href="/teaching-log">บันทึกการฝึกสอน <span>›</span></Link>
+                  <h3>
+                    <Sparkles className="w-4 h-4 text-blue-600" style={{ color: 'var(--blue-c)' }} />
+                    เมนูด่วน
+                  </h3>
+                  <Link className="quick-btn" href="/practicum-site">
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <Building2 size={17} style={{ color: 'var(--blue-c)' }} />
+                      ข้อมูลสถานศึกษา
+                    </span>
+                    <span>›</span>
+                  </Link>
+                  <Link className="quick-btn" href="/teaching-log">
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <Clock size={17} style={{ color: 'var(--violet-c)' }} />
+                      บันทึกการฝึกสอน
+                    </span>
+                    <span>›</span>
+                  </Link>
                 </div>
               </div>
 
-              {/* Subjects Taught IDE Card */}
+              {/* Subjects Taught Card */}
               <div className="glass-panel subjects" style={{ overflow: 'hidden', padding: 0 }}>
                 <div className="chrome">
                   <span className="r"></span><span className="y"></span><span className="g"></span>
                   <span className="fname">courses_list.ts</span>
                 </div>
                 <div style={{ padding: '22px 24px' }}>
-                  <h3>รายวิชาที่สอน</h3>
+                  <h3>
+                    <BookOpen className="w-4 h-4" style={{ color: 'var(--violet-c)' }} />
+                    รายวิชาที่สอน
+                  </h3>
                   {siteData.practicum.courses?.map((course, i) => (
                     <div className="subj-row" key={i}>
                       <div>
@@ -68,10 +97,7 @@ export default function Home() {
               </div>
               <div style={{ padding: '22px 24px' }}>
                 <div className="icon-badge">
-                  <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"></path>
-                    <circle cx="12" cy="10" r="2.5"></circle>
-                  </svg>
+                  <School style={{ color: 'var(--blue-c)' }} />
                 </div>
                 <h4>สถานที่ฝึกปฏิบัติการสอน</h4>
                 <div className="role">{siteData.practicum.schoolName}</div>
@@ -88,10 +114,7 @@ export default function Home() {
               </div>
               <div style={{ padding: '22px 24px' }}>
                 <div className="icon-badge">
-                  <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="8" r="5"></circle>
-                    <path d="M8.5 13 7 22l5-3 5 3-1.5-9"></path>
-                  </svg>
+                  <UserCheck style={{ color: 'var(--violet-c)' }} />
                 </div>
                 <h4>ครูพี่เลี้ยง</h4>
                 <div className="role" style={{ fontSize: '15px', lineHeight: '1.6' }}>
@@ -111,10 +134,7 @@ export default function Home() {
               </div>
               <div style={{ padding: '22px 24px' }}>
                 <div className="icon-badge">
-                  <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="8" r="5"></circle>
-                    <path d="M8.5 13 7 22l5-3 5 3-1.5-9"></path>
-                  </svg>
+                  <GraduationCap style={{ color: '#d97706' }} />
                 </div>
                 <h4>อาจารย์นิเทศก์</h4>
                 <div className="role" style={{ fontSize: '15px', lineHeight: '1.6' }}>
@@ -131,7 +151,10 @@ export default function Home() {
       <section className="gallery" id="gallery">
         <Reveal>
           <div className="head">
-            <h2>ประมวลภาพกิจกรรมล่าสุด</h2>
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Images style={{ color: 'var(--blue-c)', width: '22px', height: '22px' }} />
+              ประมวลภาพกิจกรรมล่าสุด
+            </h2>
             <Link className="see-all" href="/activities">ดูทั้งหมด ›</Link>
           </div>
           <GalleryReel initialImages={activityImages} activityTitle={activityTitle} />
@@ -159,8 +182,11 @@ export default function Home() {
                   title="School Location Map"
                 ></iframe>
                 <div className="overlay-card">
-                  <h5>{siteData.practicum.schoolName}</h5>
-                  <p>สุราษฎร์ธานี</p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                    <MapPin size={16} style={{ color: 'var(--blue-c)' }} />
+                    <h5 style={{ margin: 0 }}>{siteData.practicum.schoolName}</h5>
+                  </div>
+                  <p style={{ margin: 0, paddingLeft: '22px' }}>สุราษฎร์ธานี</p>
                 </div>
               </div>
             </div>
@@ -170,4 +196,3 @@ export default function Home() {
     </div>
   )
 }
-

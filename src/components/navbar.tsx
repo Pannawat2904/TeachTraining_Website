@@ -3,21 +3,32 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
-import { Menu, X } from "lucide-react"
+import { 
+  Menu, 
+  X, 
+  Home, 
+  Building2, 
+  Calendar, 
+  BookOpen, 
+  ClipboardList, 
+  Images, 
+  FileText, 
+  Award 
+} from "lucide-react"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
   const navLinks = [
-    { name: "หน้าแรก", href: "/" },
-    { name: "สถานศึกษา", href: "/practicum-site" },
-    { name: "ตารางสอน", href: "/schedule" },
-    { name: "แผนการสอน", href: "/lesson-plans" },
-    { name: "บันทึกการฝึกสอน", href: "/teaching-log" },
-    { name: "กิจกรรม", href: "/activities" },
-    { name: "วิจัยในชั้นเรียน", href: "/classroom-research" },
-    { name: "แบบการประเมิน", href: "/evaluation-forms" },
+    { name: "หน้าแรก", href: "/", icon: Home },
+    { name: "สถานศึกษา", href: "/practicum-site", icon: Building2 },
+    { name: "ตารางสอน", href: "/schedule", icon: Calendar },
+    { name: "แผนการสอน", href: "/lesson-plans", icon: BookOpen },
+    { name: "บันทึกการฝึกสอน", href: "/teaching-log", icon: ClipboardList },
+    { name: "กิจกรรม", href: "/activities", icon: Images },
+    { name: "วิจัยในชั้นเรียน", href: "/classroom-research", icon: FileText },
+    { name: "แบบการประเมิน", href: "/evaluation-forms", icon: Award },
   ]
 
   const isActive = (href: string) => {
@@ -80,43 +91,40 @@ export function Navbar() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              borderRadius: '50%',
               padding: 0
             }}
           >
-            <Menu size={22} />
+            <Menu size={24} />
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu Backdrop */}
-      <div
+      {/* Mobile Backdrop */}
+      <div 
         onClick={() => setIsOpen(false)}
         style={{
           position: 'fixed',
           inset: 0,
+          background: 'rgba(16, 21, 43, 0.45)',
           zIndex: 90,
-          backgroundColor: 'rgba(16, 21, 43, 0.45)',
           opacity: isOpen ? 1 : 0,
           pointerEvents: isOpen ? 'auto' : 'none',
-          transition: 'opacity 0.25s ease',
-          willChange: 'opacity'
+          transition: 'opacity 0.25s ease'
         }}
-        aria-hidden={!isOpen}
       />
 
-      {/* Mobile Drawer (High-Performance CSS Transition) */}
+      {/* Mobile Drawer (Pure CSS Transitions, zero framer-motion lockup) */}
       <div
         style={{
           position: 'fixed',
           top: 0,
-          bottom: 0,
           right: 0,
-          zIndex: 100,
-          width: '85%',
-          maxWidth: '320px',
-          backgroundColor: 'var(--bg2)',
+          bottom: 0,
+          width: 'min(82vw, 320px)',
+          background: 'var(--panel-strong-c, #ffffff)',
+          borderLeft: '1px solid var(--border-strong-c)',
           boxShadow: '-10px 0 30px rgba(0, 0, 0, 0.15)',
+          zIndex: 100,
           display: 'flex',
           flexDirection: 'column',
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
@@ -164,6 +172,7 @@ export function Navbar() {
         <div style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
           {navLinks.map((link) => {
             const active = isActive(link.href)
+            const Icon = link.icon
             return (
               <Link
                 key={link.name}
@@ -183,7 +192,10 @@ export function Navbar() {
                   transition: 'background 0.15s ease'
                 }}
               >
-                <span>{link.name}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <Icon size={18} style={{ color: active ? 'var(--blue-c)' : 'var(--muted-c)' }} />
+                  <span>{link.name}</span>
+                </div>
                 {active && (
                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--blue-c)' }}></span>
                 )}

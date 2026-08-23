@@ -5,6 +5,7 @@ import { teachingLogConfig, teachingLogs } from "@/data/siteData"
 import { notFound } from "next/navigation"
 import { fetchGoogleSheet } from "@/actions/googleSheets"
 import { Reveal } from "@/components/Reveal"
+import { ClipboardList, CalendarCheck } from "lucide-react"
 
 export default function TeachingLogPage(props: { params: Promise<{ term: string }> }) {
   const params = use(props.params);
@@ -202,11 +203,12 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
         <div style={{ padding: '24px 32px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
             <div>
-              <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '14px', color: 'var(--blue-c)', marginBottom: '6px', fontWeight: 600 }}>
-                {"// teaching.log --order=asc"}
+              <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '13px', color: 'var(--blue-c)', marginBottom: '6px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <ClipboardList size={15} />
+                บันทึกการปฏิบัติงานสอน
               </div>
-              <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--ink)' }}>
-                <span style={{ fontSize: '0.75em', color: 'var(--violet-c)' }}>&lt;/&gt;</span>
+              <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(22px, 3vw, 32px)', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--ink)' }}>
+                <CalendarCheck style={{ color: 'var(--violet-c)', width: '28px', height: '28px', flexShrink: 0 }} />
                 บันทึกการฝึกสอน (ภาคเรียนที่ {semesterNum}/2569)
               </h1>
               <p style={{ color: 'var(--ink)', opacity: 0.85, marginTop: '6px', fontSize: '15px' }}>

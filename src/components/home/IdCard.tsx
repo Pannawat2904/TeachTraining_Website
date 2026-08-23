@@ -3,6 +3,8 @@
 import { useRef, useEffect, useState } from "react"
 import Image from "next/image"
 
+import { GraduationCap } from "lucide-react"
+
 interface StudentInfo {
   name: string
   studentId: string
@@ -81,7 +83,10 @@ export function IdCard({ student }: { student: StudentInfo }) {
           />
         </div>
         <div className="id-info">
-          <div className="eyebrow"><span className="key">&lt;</span>รายงานการฝึกปฏิบัติการสอน<span className="key">/&gt;</span></div>
+          <div className="eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <GraduationCap size={15} style={{ color: 'var(--blue-c)' }} />
+            รายงานการฝึกปฏิบัติการสอน
+          </div>
           <h1>{student.name}</h1>
           <div className="id-num"><span className="k">id:</span> {student.studentId}</div>
           <p>

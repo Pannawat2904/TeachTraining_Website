@@ -1,9 +1,8 @@
-"use client"
-
 import React from 'react';
 import { researchDocuments } from "@/data/siteData";
 import { Reveal } from '@/components/Reveal';
 import { DocumentPreview } from '@/components/DocumentPreview';
+import { FileText, GraduationCap } from 'lucide-react';
 
 export default function ClassroomResearchPage() {
   const doc = researchDocuments[0];
@@ -22,11 +21,13 @@ export default function ClassroomResearchPage() {
           </div>
 
           <div style={{ padding: '24px 28px' }}>
-            <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '13px', color: 'var(--blue-c)', marginBottom: '8px', fontWeight: 600 }}>
-              // research.title
+            <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '13px', color: 'var(--blue-c)', marginBottom: '8px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <GraduationCap size={16} />
+              รายงานการวิจัยในชั้นเรียน
             </div>
-            <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(20px, 2.5vw, 26px)', lineHeight: 1.45, color: 'var(--ink)', marginBottom: '14px', wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
-              การพัฒนาบทเรียนออนไลน์ด้วยปัญญาประดิษฐ์ร่วมกับแชทบอทอัจฉริยะเพื่อส่งเสริมการเรียนรู้รายวิชาโปรแกรมฐานข้อมูล สําหรับนักเรียนระดับประกาศนียบัตรวิชาชีพ
+            <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(20px, 2.5vw, 26px)', lineHeight: 1.45, color: 'var(--ink)', marginBottom: '14px', wordBreak: 'break-word', overflowWrap: 'anywhere', display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+              <FileText style={{ color: 'var(--violet-c)', width: '28px', height: '28px', flexShrink: 0, marginTop: '2px' }} />
+              <span>การพัฒนาบทเรียนออนไลน์ด้วยปัญญาประดิษฐ์ร่วมกับแชทบอทอัจฉริยะเพื่อส่งเสริมการเรียนรู้รายวิชาโปรแกรมฐานข้อมูล สําหรับนักเรียนระดับประกาศนียบัตรวิชาชีพ</span>
             </h1>
             
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', fontSize: '14px', color: 'var(--muted-c)', fontWeight: 500 }}>

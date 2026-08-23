@@ -5,6 +5,7 @@ import { lessonPlans } from "@/data/siteData"
 import { notFound } from "next/navigation"
 import { Reveal } from "@/components/Reveal"
 import { DocumentPreview } from "@/components/DocumentPreview"
+import { BookOpen, BookOpenCheck } from "lucide-react"
 
 export default function LessonPlansPage(props: { params: Promise<{ term: string }> }) {
   const params = use(props.params);
@@ -35,11 +36,12 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
             <span className="tag">ภาคเรียนที่ {semesterNum}/2569</span>
           </div>
           <div style={{ padding: '24px 28px' }}>
-            <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '13px', color: 'var(--blue-c)', marginBottom: '6px', fontWeight: 600 }}>
-              // lesson.plans_by_subject
+            <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '13px', color: 'var(--blue-c)', marginBottom: '6px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <BookOpenCheck size={15} />
+              แผนการจัดการเรียนรู้รายวิชา
             </div>
             <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(22px, 3vw, 32px)', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--ink)' }}>
-              <span style={{ fontSize: '0.75em', color: 'var(--violet-c)' }}>&lt;/&gt;</span>
+              <BookOpen style={{ color: 'var(--violet-c)', width: '28px', height: '28px', flexShrink: 0 }} />
               แผนการจัดการเรียนรู้ (ภาคเรียนที่ {semesterNum}/2569)
             </h1>
             <p style={{ color: 'var(--ink)', opacity: 0.85, marginTop: '6px', fontSize: '15px' }}>

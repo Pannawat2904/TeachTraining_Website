@@ -3,6 +3,7 @@
 import { siteData } from "@/data/siteData"
 import Image from "next/image"
 import { Reveal } from "@/components/Reveal"
+import { Building2, Users, GraduationCap, Network, MapPin } from "lucide-react"
 
 export default function PracticumSitePage() {
   return (
@@ -280,7 +281,10 @@ export default function PracticumSitePage() {
             <div className="banner" style={{ margin: 0, borderRadius: 0, border: 'none', boxShadow: 'none', position: 'relative' }}>
               <Image src="/images/others/svc1.png" alt="สถานศึกษา" fill priority sizes="100vw" style={{ objectFit: 'cover' }} />
               <div className="banner-content">
-                <div className="eyebrow" style={{ marginBottom: '12px' }}>// school.profile</div>
+                <div className="eyebrow" style={{ marginBottom: '12px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                  <Building2 size={15} />
+                  ข้อมูลสถานศึกษา
+                </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <Image 
                     src="/images/others/logo_svc.png" 
@@ -340,7 +344,10 @@ export default function PracticumSitePage() {
         </Reveal>
 
         <Reveal delay={150}>
-          <div className="section-title">people.contact</div>
+          <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Users size={16} />
+            บุคลากร / ครูพี่เลี้ยง
+          </div>
           <div className="people-grid">
             <div className="glass-panel person-card cyan">
               <div className="avatar" style={{ padding: 0, border: 'none', position: 'relative' }}>
@@ -373,7 +380,10 @@ export default function PracticumSitePage() {
               </div>
             </div>
 
-            <div className="section-title" style={{ gridColumn: '1 / -1', margin: '24px 0 8px 0' }}>people.supervisor</div>
+            <div className="section-title" style={{ gridColumn: '1 / -1', margin: '24px 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <GraduationCap size={16} />
+              อาจารย์นิเทศก์
+            </div>
             <div className="glass-panel person-card amber">
               <div className="avatar" style={{ padding: 0, border: 'none', position: 'relative' }}>
                 <Image src="/images/others/อาจารย์แนน.jpg" alt="ดร. พุทธิดา สกุลวิริยกิจกุล" fill sizes="140px" style={{ objectFit: 'cover' }} />
@@ -388,7 +398,10 @@ export default function PracticumSitePage() {
         </Reveal>
 
         <Reveal delay={150}>
-          <div className="section-title">department.org_chart</div>
+          <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Network size={16} />
+            แผนผังโครงสร้างแผนกวิชา
+          </div>
           <div className="glass-panel" style={{ padding: '32px', marginTop: '16px', overflow: 'hidden', position: 'relative' }}>
             {/* Decorative background glow for the org chart */}
             <div style={{ position: 'absolute', top: '-50px', left: '50%', transform: 'translateX(-50%)', width: '300px', height: '150px', background: 'radial-gradient(ellipse, rgba(61,107,255,0.15), transparent 70%)', filter: 'blur(30px)', pointerEvents: 'none' }}></div>
@@ -404,12 +417,7 @@ export default function PracticumSitePage() {
               justifyContent: 'center',
               gap: '10px'
             }}>
-              <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '22px', height: '22px', stroke: 'var(--blue-c, #3d6bff)' }}>
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
+              <Network style={{ width: '22px', height: '22px', color: 'var(--blue-c)' }} />
               <span style={{ background: 'linear-gradient(90deg, var(--ink, #10152b), var(--blue-c, #3d6bff))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                 แผนผังองค์กร แผนกวิชาธุรกิจดิจิทัลและเทคโนโลยีสารสนเทศ
               </span>
@@ -446,7 +454,10 @@ export default function PracticumSitePage() {
         </Reveal>
 
         <Reveal delay={150}>
-          <div className="section-title">location.map</div>
+          <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <MapPin size={16} />
+            แผนที่ตั้งสถานศึกษา
+          </div>
           <div className="map-frame" style={{ padding: 0, overflow: 'hidden' }}>
             <iframe
               src="https://maps.google.com/maps?q=วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี&t=&z=16&ie=UTF8&iwloc=&output=embed"

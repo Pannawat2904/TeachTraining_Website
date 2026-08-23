@@ -3,8 +3,6 @@
 import { useRef, useEffect, useState } from "react"
 import Image from "next/image"
 
-import { GraduationCap } from "lucide-react"
-
 interface StudentInfo {
   name: string
   studentId: string
@@ -31,7 +29,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
           const r = card.getBoundingClientRect()
           const px = (e.clientX - r.left) / r.width - 0.5
           const py = (e.clientY - r.top) / r.height - 0.5
-          card.style.transform = `rotateY(${px * 3}deg) rotateX(${-py * 3}deg)`
+          card.style.transform = `rotateY(${px * 2}deg) rotateX(${-py * 2}deg)`
           ticking = false
         })
         ticking = true
@@ -50,53 +48,81 @@ export function IdCard({ student }: { student: StudentInfo }) {
     }
   }, [])
 
+  // Clean prefix labels for clear value scanning
+  const cleanMajor = student.major.replace(/^สาขาวิชา\s*|^สาขา\s*/, "") || student.major
+  const cleanDepartment = student.department.replace(/^ภาควิชา\s*/, "") || student.department
+  const cleanFaculty = student.faculty.replace(/^คณะ\s*/, "") || student.faculty
+  const cleanUniversity = student.university
+
   return (
     <div className="id-card" ref={cardRef}>
       <div className="chrome">
-        <span className="r"></span><span className="y"></span><span className="g"></span>
+        <span className="r"></span>
+        <span className="y"></span>
+        <span className="g"></span>
         <span className="fname">student_profile.json</span>
         <span className="tag">รายงานฝึกปฏิบัติการสอน 2569</span>
       </div>
-      <div className="body">
-        <div 
-          style={{ 
-            position: 'relative', 
-            width: 'clamp(120px, 35vw, 140px)', 
-            height: 'clamp(152px, 44vw, 178px)', 
-            flexShrink: 0, 
-            borderRadius: '16px', 
-            overflow: 'hidden', 
-            border: '1px solid var(--border-strong-c)', 
-            boxShadow: '0 14px 34px rgba(16,21,43,0.18)' 
-          }}
-        >
-          <Image 
-            src={imgSrc}
-            alt="รูปนักศึกษา" 
-            fill
-            sizes="(max-width: 480px) 130px, 148px"
-            style={{ objectFit: 'cover' }}
-            priority
-            onError={() => {
-              setImgSrc("https://images.unsplash.com/photo-1600486913747-55e5470d6f40?q=80&w=400&auto=format&fit=crop")
-            }}
-          />
-        </div>
-        <div className="id-info">
-          <div className="eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <GraduationCap size={15} style={{ color: 'var(--blue-c)' }} />
-            รายงานการฝึกปฏิบัติการสอน
+
+      <div className="id-card-body">
+        {/* Left Column: Photo & Badge */}
+        <div className="id-photo-col">
+          <div className="id-photo-frame">
+            <Image 
+              src={imgSrc}
+              alt={student.name} 
+              fill
+              sizes="(max-width: 768px) 160px, 220px"
+              style={{ objectFit: 'cover' }}
+              priority
+              onError={() => {
+                setImgSrc("https://images.unsplash.com/photo-1600486913747-55e5470d6f40?q=80&w=400&auto=format&fit=crop")
+              }}
+            />
           </div>
-          <h1>{student.name}</h1>
-          <div className="id-num"><span className="k">id:</span> {student.studentId}</div>
-          <p>
-            {student.major}<br/>
-            {student.department}<br/>
-            <span style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>{student.faculty}</span><br/>
-            <span style={{ display: 'inline-block', overflowWrap: 'anywhere', wordBreak: 'normal' }}>{student.university}</span>
-          </p>
+          <div className="id-badge">
+            STUDENT TEACHER · 2569
+          </div>
+        </div>
+
+        {/* Right Column: Info Dashboard */}
+        <div className="id-info-col">
+          <div className="id-eyebrow">
+            <span className="key">&lt;/&gt;</span> รายงานการฝึกปฏิบัติการสอน
+          </div>
+
+          <h1 className="id-title-name">
+            {student.name}
+          </h1>
+
+          <div className="id-chip">
+            <span className="chip-label">ID:</span>
+            <span className="chip-val">{student.studentId}</span>
+          </div>
+
+          <hr className="id-divider" />
+
+          <dl className="id-meta-grid">
+            <div className="meta-item">
+              <dt className="meta-label">สาขาวิชา</dt>
+              <dd className="meta-value">{cleanMajor}</dd>
+            </div>
+            <div className="meta-item">
+              <dt className="meta-label">ภาควิชา</dt>
+              <dd className="meta-value">{cleanDepartment}</dd>
+            </div>
+            <div className="meta-item">
+              <dt className="meta-label">คณะ</dt>
+              <dd className="meta-value">{cleanFaculty}</dd>
+            </div>
+            <div className="meta-item meta-item-full">
+              <dt className="meta-label">มหาวิทยาลัย</dt>
+              <dd className="meta-value meta-uni">{cleanUniversity}</dd>
+            </div>
+          </dl>
         </div>
       </div>
+
       <div className="bar"></div>
     </div>
   )

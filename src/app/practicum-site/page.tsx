@@ -1,6 +1,5 @@
 "use client"
 
-import { siteData } from "@/data/siteData"
 import Image from "next/image"
 import { Reveal } from "@/components/Reveal"
 import { Building2, Users, GraduationCap, Network, MapPin } from "lucide-react"

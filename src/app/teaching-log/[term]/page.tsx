@@ -1,6 +1,6 @@
 "use client"
 
-import { use, useState, useEffect } from "react"
+import { use, useState, useEffect, useMemo } from "react"
 import { teachingLogConfig, teachingLogs } from "@/data/siteData"
 import { notFound } from "next/navigation"
 import { fetchGoogleSheet } from "@/actions/googleSheets"
@@ -25,13 +25,35 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
   // Track expanded week numbers (Week 1 open by default)
   const [openWeeks, setOpenWeeks] = useState<string[]>(["01"]);
 
-  const [googleWeeks, setGoogleWeeks] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+interface DayLogItem {
+  dayName: string;
+  dayNum: string;
+  title: string;
+  status: string;
+  statusText?: string;
+  times?: string;
+  leaveNote?: string;
+  activities?: string[];
+}
+
+interface WeekLogItem {
+  weekNum: string;
+  title: string;
+  dateRange: string;
+  presentDays: number;
+  leaveDays: number;
+  filename: string;
+  days: DayLogItem[];
+}
+
+  const [googleWeeks, setGoogleWeeks] = useState<WeekLogItem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (viewMode === 'interactive' && logData.googleSheetConfig) {
-      setIsLoading(true);
+      let isMounted = true;
       const fetchAll = async () => {
+        setIsLoading(true);
         try {
           const sheetNames = logData.googleSheetConfig.sheetNames;
           const spreadsheetId = logData.googleSheetConfig.spreadsheetId;
@@ -42,7 +64,7 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
               const data = res.data;
               
               // Find the row with week info
-              let weekNumStr = name;
+              const weekNumStr = name;
               let dateRangeStr = "";
               let headerRowIdx = -1;
               
@@ -65,7 +87,7 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
                 }
               }
 
-              const days = [];
+              const days: DayLogItem[] = [];
               if (headerRowIdx !== -1) {
                 for(let i = headerRowIdx + 1; i < data.length; i++) {
                   const row = data[i] as string[];
@@ -128,40 +150,42 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
           });
 
           const results = await Promise.all(promises);
-          setGoogleWeeks(results.filter(Boolean));
+          if (isMounted) {
+            setGoogleWeeks(results.filter((item): item is WeekLogItem => item !== null));
+          }
         } catch (e) {
           console.error(e);
         } finally {
-          setIsLoading(false);
+          if (isMounted) {
+            setIsLoading(false);
+          }
         }
       };
       
       fetchAll();
-    } else {
-      setIsLoading(false);
+      return () => {
+        isMounted = false;
+      };
     }
   }, [viewMode, logData]);
 
   // Use googleWeeks if available, else fallback to static data
   const displayWeeks = logData.googleSheetConfig && googleWeeks.length > 0 ? googleWeeks : logData.weeks;
 
-  const [calculatedStats, setCalculatedStats] = useState(logData.stats);
-
-  useEffect(() => {
+  const calculatedStats = useMemo(() => {
     if (!displayWeeks || displayWeeks.length === 0) {
-      setCalculatedStats(logData.stats);
-      return;
+      return logData.stats;
     }
 
     let recordedWeeks = 0;
     let workDays = 0;
     let leaveDays = 0;
 
-    displayWeeks.forEach((week: any) => {
+    displayWeeks.forEach((week) => {
       // If a week has any valid days parsed, we count it as a recorded week
       if (week.days && week.days.length > 0) {
         recordedWeeks++;
-        week.days.forEach((day: any) => {
+        week.days.forEach((day) => {
           // Attempt to detect leave from activities/remark
           const activitiesText = day.activities ? day.activities.join(' ') : '';
           if (activitiesText.includes('ลาป่วย') || activitiesText.includes('ลากิจ') || activitiesText.includes('วันหยุด')) {
@@ -175,12 +199,12 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
 
     const pct = Math.round((recordedWeeks / 18) * 100);
 
-    setCalculatedStats({
+    return {
       recordedWeeks,
       workDays,
       leaveDays,
       semesterPct: `${pct}%`
-    });
+    };
   }, [displayWeeks, logData.stats]);
 
 
@@ -335,7 +359,7 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
               </div>
             )}
             {displayWeeks && displayWeeks.length > 0 ? (
-              displayWeeks.map((week: any) => {
+              displayWeeks.map((week) => {
                 const isOpen = openWeeks.includes(week.weekNum);
 
                 return (
@@ -436,7 +460,7 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
                     {/* Daily Logs List Container */}
                     {isOpen && (
                       <div style={{ padding: '8px 28px 24px' }}>
-                        {week.days.map((day: any, idx: number) => {
+                        {week.days.map((day, idx: number) => {
                           const isLeave = day.status === 'sick' || day.status === 'personal';
                           const statusBg = day.status === 'present' ? 'rgba(14,201,184,0.12)' : day.status === 'sick' ? 'rgba(239,91,106,0.12)' : 'rgba(255,176,32,0.14)';
                           const statusColor = day.status === 'present' ? '#0a8f82' : day.status === 'sick' ? '#c73143' : '#c98008';

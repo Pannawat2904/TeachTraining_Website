@@ -36,10 +36,11 @@ export function Navbar() {
     return pathname.startsWith(href)
   }
 
-  // Auto-close menu when route changes
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname)
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname)
     setIsOpen(false)
-  }, [pathname])
+  }
 
   // Prevent background scroll when mobile menu is open
   useEffect(() => {

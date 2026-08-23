@@ -6,27 +6,27 @@ import { usePathname } from "next/navigation";
 
 export default function SplashScreen() {
   const pathname = usePathname();
-  const [isDismissed, setIsDismissed] = useState(true); // Default true for SSR & non-root pages
+  const [isDismissed, setIsDismissed] = useState(true);
   const [isLeaving, setIsLeaving] = useState(false);
 
   useEffect(() => {
     // Only show splash on root path '/' and only if not dismissed in this session
     if (pathname !== "/") {
-      setIsDismissed(true);
       document.body.style.overflow = 'auto';
       return;
     }
 
     const wasDismissed = sessionStorage.getItem("splash_dismissed");
     if (wasDismissed === "true") {
-      setIsDismissed(true);
       document.body.style.overflow = 'auto';
       return;
     }
 
     // Show splash screen on first visit to '/'
-    setIsDismissed(false);
-    document.body.style.overflow = 'hidden';
+    const timer = setTimeout(() => {
+      setIsDismissed(false);
+      document.body.style.overflow = 'hidden';
+    }, 0);
 
     const dismissSplash = () => {
       setIsLeaving(true);
@@ -44,6 +44,7 @@ export default function SplashScreen() {
     });
 
     return () => {
+      clearTimeout(timer);
       document.body.style.overflow = 'auto';
       window.removeEventListener('wheel', dismissSplash);
       window.removeEventListener('touchmove', dismissSplash);

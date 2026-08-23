@@ -2,7 +2,7 @@ export const siteData = {
   student: {
     name: "นายปาณวัฐ รักรอดจิต",
     studentId: "6602041620106",
-    profileImageUrl: "/images/others/Profile.JPG",
+    profileImageUrl: "/images/others/ผู้จัดทำ2.jpg",
     major: "สาขาเทคโนโลยีคอมพิวเตอร์",
     department: "ภาควิชาคอมพิวเตอร์ศึกษา",
     faculty: "คณะครุศาสตร์อุตสาหกรรม",

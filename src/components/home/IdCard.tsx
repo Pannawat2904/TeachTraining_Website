@@ -22,7 +22,7 @@ interface StudentInfo {
 
 export function IdCard({ student }: { student: StudentInfo }) {
   const cardRef = useRef<HTMLDivElement>(null)
-  const [imgSrc, setImgSrc] = useState(student.profileImageUrl || "/images/others/ผู้จัดทำ2.jpg")
+  const [imgSrc, setImgSrc] = useState(student.profileImageUrl || "/images/others/profile_author2.jpg")
 
   // 3D Tilt logic for Card
   useEffect(() => {

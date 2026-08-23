@@ -15,7 +15,7 @@ export default function SplashScreen() {
       document.body.style.overflow = 'auto';
       setTimeout(() => {
         setIsDismissed(true);
-      }, 1200);
+      }, 400);
     };
 
     document.body.style.overflow = 'hidden';
@@ -38,7 +38,7 @@ export default function SplashScreen() {
     <div id="splash" className={isLeaving ? 'leaving' : ''} onClick={() => {
       setIsLeaving(true);
       document.body.style.overflow = 'auto';
-      setTimeout(() => setIsDismissed(true), 1200);
+      setTimeout(() => setIsDismissed(true), 400);
     }}>
       {/* Glass Logos Row at the Top */}
       <div className="splash-logos-row">
@@ -71,10 +71,10 @@ export default function SplashScreen() {
         </div>
         <div className="body">
           <div className="l1">const <span className="key">student</span> = {'{'}</div>
-          <div className="l2">&nbsp;&nbsp;name: <span className="str">"ปาณวัฐ รักรอดจิต"</span>,</div>
-          <div className="l2">&nbsp;&nbsp;studentId: <span className="str">"6602041620106"</span>,</div>
-          <div className="l2">&nbsp;&nbsp;major: <span className="str">"เทคโนโลยีคอมพิวเตอร์"</span>,</div>
-          <div className="l3">&nbsp;&nbsp;status: <span className="str">"กำลังฝึกสอน"</span><span className="cursor"></span></div>
+          <div className="l2">&nbsp;&nbsp;name: <span className="str">{`"ปาณวัฐ รักรอดจิต"`}</span>,</div>
+          <div className="l2">&nbsp;&nbsp;studentId: <span className="str">{`"6602041620106"`}</span>,</div>
+          <div className="l2">&nbsp;&nbsp;major: <span className="str">{`"เทคโนโลยีคอมพิวเตอร์"`}</span>,</div>
+          <div className="l3">&nbsp;&nbsp;status: <span className="str">{`"กำลังฝึกสอน"`}</span><span className="cursor"></span></div>
           <div className="l1">{'};'}</div>
         </div>
       </div>

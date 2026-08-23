@@ -74,7 +74,10 @@ export default function RootLayout({
         {/* Content */}
         <div id="site" className="relative z-10 flex flex-col min-h-screen">
           <Navbar />
-          <main className="flex-grow w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-12">
+          <main 
+            className="flex-grow w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 pb-16"
+            style={{ paddingTop: 'var(--page-top-padding)' }}
+          >
             {children}
           </main>
           <Footer />

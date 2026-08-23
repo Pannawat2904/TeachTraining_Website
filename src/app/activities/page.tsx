@@ -112,7 +112,7 @@ export default function ActivitiesPage() {
         .activities-page .card p { font-size:13.5px; color:var(--muted, rgba(16,21,43,0.58)); line-height:1.7; flex-grow: 1; }
       `}} />
       
-      <div className="activities-page max-w-[1200px] mx-auto" style={{ padding: '50px 0 90px' }}>
+      <div className="activities-page max-w-[1200px] mx-auto" style={{ paddingBottom: '40px' }}>
         <Reveal>
           <div className="glass-panel" style={{ padding: 0, marginBottom: '26px', overflow: 'hidden' }}>
             <div className="chrome">

@@ -59,8 +59,8 @@ export function IdCard({ student }: { student: StudentInfo }) {
         <div 
           style={{ 
             position: 'relative', 
-            width: '148px', 
-            height: '188px', 
+            width: 'clamp(120px, 35vw, 140px)', 
+            height: 'clamp(152px, 44vw, 178px)', 
             flexShrink: 0, 
             borderRadius: '16px', 
             overflow: 'hidden', 
@@ -72,7 +72,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
             src={imgSrc}
             alt="รูปนักศึกษา" 
             fill
-            sizes="148px"
+            sizes="(max-width: 480px) 130px, 148px"
             style={{ objectFit: 'cover' }}
             priority
             onError={() => {
@@ -87,7 +87,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
           <p>
             {student.major}<br/>
             {student.department} {student.faculty}<br/>
-            <span style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>{student.university}</span>
+            <span style={{ display: 'inline-block', overflowWrap: 'anywhere', wordBreak: 'normal' }}>{student.university}</span>
           </p>
         </div>
       </div>

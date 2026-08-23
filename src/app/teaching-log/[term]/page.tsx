@@ -190,7 +190,7 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
   };
 
   return (
-    <main style={{ maxWidth: '1040px', margin: '0 auto', padding: '50px 0 90px', position: 'relative', zIndex: 1 }}>
+    <div style={{ maxWidth: '1040px', margin: '0 auto', paddingBottom: '40px', position: 'relative', zIndex: 1 }}>
       {/* 1. Header Card (กรอบหัวข้อบันทึกการฝึกสอน) */}
       <Reveal>
         <div className="glass-panel" style={{ borderRadius: '24px', overflow: 'hidden', padding: 0, background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(10px)', boxShadow: '0 16px 46px rgba(61,107,255,0.1)', marginBottom: '24px' }}>
@@ -203,7 +203,7 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
             <div>
               <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '14px', color: 'var(--blue-c)', marginBottom: '6px', fontWeight: 600 }}>
-                // teaching.log --order=asc
+                {"// teaching.log --order=asc"}
               </div>
               <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--ink)' }}>
                 <span style={{ fontSize: '0.75em', color: 'var(--violet-c)' }}>&lt;/&gt;</span>
@@ -530,6 +530,6 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
           </div>
         </>
       )}
-    </main>
+    </div>
   );
 }

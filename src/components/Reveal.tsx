@@ -18,7 +18,7 @@ export function Reveal({ children, className = "", style = {}, delay = 0 }: Reve
     if (!el) return
 
     if (typeof IntersectionObserver === "undefined") {
-      setIsRevealed(true)
+      requestAnimationFrame(() => setIsRevealed(true))
       return
     }
 

@@ -30,7 +30,9 @@ export function Navbar() {
     <>
       <nav className="pill">
         <Link href="/" className="brand" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <span className="dot"></span>รายงานฝึกปฏิบัติการสอน
+          <span className="dot"></span>
+          <span className="brand-text hidden sm:inline">รายงานฝึกปฏิบัติการสอน</span>
+          <span className="brand-text sm:hidden">รายงานฝึกสอน</span>
         </Link>
         
         {/* Desktop Menu */}
@@ -47,13 +49,26 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button (Accessible 44x44px touch target) */}
         <div className="lg:hidden flex items-center ml-auto">
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--ink)' }}
+            aria-label="Toggle navigation menu"
+            style={{ 
+              background: 'transparent', 
+              border: 'none', 
+              cursor: 'pointer', 
+              color: 'var(--ink)',
+              width: '44px',
+              height: '44px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: '50%',
+              padding: 0
+            }}
           >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </nav>

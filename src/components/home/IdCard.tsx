@@ -72,7 +72,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
               src={imgSrc}
               alt={student.name} 
               fill
-              sizes="(max-width: 768px) 160px, 220px"
+              sizes="(max-width: 768px) 160px, 230px"
               style={{ objectFit: 'cover' }}
               priority
               onError={() => {
@@ -95,9 +95,15 @@ export function IdCard({ student }: { student: StudentInfo }) {
             {student.name}
           </h1>
 
-          <div className="id-chip">
-            <span className="chip-label">ID:</span>
-            <span className="chip-val">{student.studentId}</span>
+          <div className="id-chip-row">
+            <div className="id-chip">
+              <span className="chip-label">ID:</span>
+              <span className="chip-val">{student.studentId}</span>
+            </div>
+            <div className="id-chip-status">
+              <span className="dot"></span>
+              <span>กำลังฝึกสอน</span>
+            </div>
           </div>
 
           <hr className="id-divider" />
@@ -120,6 +126,11 @@ export function IdCard({ student }: { student: StudentInfo }) {
               <dd className="meta-value meta-uni">{cleanUniversity}</dd>
             </div>
           </dl>
+
+          <div className="id-practicum-meta">
+            <span className="pm-label">สถานที่ฝึกปฏิบัติการสอน</span>
+            <span className="pm-val">วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี · ภาคเรียนที่ 1/2569</span>
+          </div>
         </div>
       </div>
 

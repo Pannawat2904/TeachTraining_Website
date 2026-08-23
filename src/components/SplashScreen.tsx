@@ -2,23 +2,40 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function SplashScreen() {
-  const [isDismissed, setIsDismissed] = useState(false);
+  const pathname = usePathname();
+  const [isDismissed, setIsDismissed] = useState(true); // Default true for SSR & non-root pages
   const [isLeaving, setIsLeaving] = useState(false);
 
   useEffect(() => {
-    if (isDismissed) return;
+    // Only show splash on root path '/' and only if not dismissed in this session
+    if (pathname !== "/") {
+      setIsDismissed(true);
+      document.body.style.overflow = 'auto';
+      return;
+    }
+
+    const wasDismissed = sessionStorage.getItem("splash_dismissed");
+    if (wasDismissed === "true") {
+      setIsDismissed(true);
+      document.body.style.overflow = 'auto';
+      return;
+    }
+
+    // Show splash screen on first visit to '/'
+    setIsDismissed(false);
+    document.body.style.overflow = 'hidden';
 
     const dismissSplash = () => {
       setIsLeaving(true);
+      sessionStorage.setItem("splash_dismissed", "true");
       document.body.style.overflow = 'auto';
       setTimeout(() => {
         setIsDismissed(true);
-      }, 400);
+      }, 350);
     };
-
-    document.body.style.overflow = 'hidden';
 
     window.addEventListener('wheel', dismissSplash, { once: true, passive: true });
     window.addEventListener('touchmove', dismissSplash, { once: true, passive: true });
@@ -27,19 +44,25 @@ export default function SplashScreen() {
     });
 
     return () => {
+      document.body.style.overflow = 'auto';
       window.removeEventListener('wheel', dismissSplash);
       window.removeEventListener('touchmove', dismissSplash);
     };
-  }, [isDismissed]);
+  }, [pathname]);
 
   if (isDismissed) return null;
 
+  const handleDismiss = () => {
+    setIsLeaving(true);
+    sessionStorage.setItem("splash_dismissed", "true");
+    document.body.style.overflow = 'auto';
+    setTimeout(() => {
+      setIsDismissed(true);
+    }, 350);
+  };
+
   return (
-    <div id="splash" className={isLeaving ? 'leaving' : ''} onClick={() => {
-      setIsLeaving(true);
-      document.body.style.overflow = 'auto';
-      setTimeout(() => setIsDismissed(true), 400);
-    }}>
+    <div id="splash" className={isLeaving ? 'leaving' : ''} onClick={handleDismiss}>
       {/* Glass Logos Row at the Top */}
       <div className="splash-logos-row">
         <div className="logo-badge">

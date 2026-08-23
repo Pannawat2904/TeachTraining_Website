@@ -2,9 +2,8 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -25,6 +24,23 @@ export function Navbar() {
     if (href === "/") return pathname === "/"
     return pathname.startsWith(href)
   }
+
+  // Auto-close menu when route changes
+  useEffect(() => {
+    setIsOpen(false)
+  }, [pathname])
+
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isOpen])
 
   return (
     <>
@@ -49,11 +65,11 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Mobile Menu Button (Accessible 44x44px touch target) */}
+        {/* Mobile Menu Hamburger Button */}
         <div className="lg:hidden flex items-center ml-auto">
           <button 
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle navigation menu"
+            onClick={() => setIsOpen(true)}
+            aria-label="Open navigation menu"
             style={{ 
               background: 'transparent', 
               border: 'none', 
@@ -68,60 +84,120 @@ export function Navbar() {
               padding: 0
             }}
           >
-            {isOpen ? <X size={22} /> : <Menu size={22} />}
+            <Menu size={22} />
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu Sidebar */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[40]" 
-              style={{ background: 'rgba(16,21,43,0.3)', backdropFilter: 'blur(4px)' }}
-              onClick={() => setIsOpen(false)}
-            ></motion.div>
-            <motion.div 
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-              className="fixed inset-y-0 right-0 z-[50] w-full max-w-xs flex flex-col overflow-y-auto"
-              style={{ background: 'var(--bg2)', boxShadow: '-10px 0 30px rgba(0,0,0,0.1)' }}
-            >
-              <div className="flex items-center justify-between p-6" style={{ borderBottom: '1px solid var(--border-c)' }}>
-                <span style={{ fontWeight: 600, color: 'var(--ink)' }}>เมนู</span>
-                <button onClick={() => setIsOpen(false)} style={{ background: 'rgba(16,21,43,0.05)', border: 'none', padding: '8px', borderRadius: '50%', cursor: 'pointer' }}>
-                  <X size={20} color="var(--ink)" />
-                </button>
-              </div>
-              <div className="p-6 space-y-3">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    style={{ 
-                      display: 'block', 
-                      padding: '10px 0', 
-                      textDecoration: 'none', 
-                      color: isActive(link.href) ? 'var(--blue-c)' : 'var(--ink)', 
-                      fontWeight: isActive(link.href) ? 600 : 500,
-                      fontSize: '15px'
-                    }}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      {/* Mobile Menu Backdrop */}
+      <div
+        onClick={() => setIsOpen(false)}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 90,
+          backgroundColor: 'rgba(16, 21, 43, 0.45)',
+          opacity: isOpen ? 1 : 0,
+          pointerEvents: isOpen ? 'auto' : 'none',
+          transition: 'opacity 0.25s ease',
+          willChange: 'opacity'
+        }}
+        aria-hidden={!isOpen}
+      />
+
+      {/* Mobile Drawer (High-Performance CSS Transition) */}
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          bottom: 0,
+          right: 0,
+          zIndex: 100,
+          width: '85%',
+          maxWidth: '320px',
+          backgroundColor: 'var(--bg2)',
+          boxShadow: '-10px 0 30px rgba(0, 0, 0, 0.15)',
+          display: 'flex',
+          flexDirection: 'column',
+          transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
+          transition: 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)',
+          willChange: 'transform',
+          overflowY: 'auto'
+        }}
+      >
+        {/* Drawer Header */}
+        <div 
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between', 
+            padding: '18px 20px', 
+            borderBottom: '1px solid var(--border-c)',
+            background: 'rgba(255, 255, 255, 0.6)'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="dot" style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--blue-c), var(--violet-c))' }}></span>
+            <span style={{ fontWeight: 700, fontSize: '15px', color: 'var(--ink)' }}>เมนูนำทาง</span>
+          </div>
+          <button 
+            onClick={() => setIsOpen(false)} 
+            aria-label="Close navigation menu"
+            style={{ 
+              background: 'rgba(16, 21, 43, 0.06)', 
+              border: 'none', 
+              width: '36px', 
+              height: '36px', 
+              borderRadius: '50%', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              cursor: 'pointer',
+              color: 'var(--ink)'
+            }}
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Drawer Nav Links */}
+        <div style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          {navLinks.map((link) => {
+            const active = isActive(link.href)
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                style={{ 
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '12px 14px', 
+                  borderRadius: '12px',
+                  textDecoration: 'none', 
+                  color: active ? 'var(--blue-c)' : 'var(--ink)', 
+                  fontWeight: active ? 700 : 500,
+                  fontSize: '15px',
+                  background: active ? 'rgba(61, 107, 255, 0.08)' : 'transparent',
+                  transition: 'background 0.15s ease'
+                }}
+              >
+                <span>{link.name}</span>
+                {active && (
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--blue-c)' }}></span>
+                )}
+              </Link>
+            )
+          })}
+        </div>
+
+        {/* Drawer Footer Info */}
+        <div style={{ marginTop: 'auto', padding: '20px', borderTop: '1px solid var(--border-c)', fontSize: '12px', color: 'var(--muted-c)' }}>
+          <div>รายงานผลการฝึกปฏิบัติการสอน 2569</div>
+          <div style={{ marginTop: '2px', color: 'var(--blue-c)', fontWeight: 600 }}>วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี</div>
+        </div>
+      </div>
     </>
   )
 }

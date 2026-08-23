@@ -2,6 +2,13 @@
 
 import { useRef, useEffect, useState } from "react"
 import Image from "next/image"
+import { 
+  GraduationCap, 
+  Laptop, 
+  Building2, 
+  School, 
+  MapPin 
+} from "lucide-react"
 
 interface StudentInfo {
   name: string
@@ -72,7 +79,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
               src={imgSrc}
               alt={student.name} 
               fill
-              sizes="(max-width: 768px) 160px, 230px"
+              sizes="(max-width: 768px) 160px, 240px"
               style={{ objectFit: 'cover' }}
               priority
               onError={() => {
@@ -87,49 +94,87 @@ export function IdCard({ student }: { student: StudentInfo }) {
 
         {/* Right Column: Info Dashboard */}
         <div className="id-info-col">
-          <div className="id-eyebrow">
-            <span className="key">&lt;/&gt;</span> รายงานการฝึกปฏิบัติการสอน
-          </div>
-
-          <h1 className="id-title-name">
-            {student.name}
-          </h1>
-
-          <div className="id-chip-row">
-            <div className="id-chip">
-              <span className="chip-label">ID:</span>
-              <span className="chip-val">{student.studentId}</span>
+          {/* Header Info */}
+          <div>
+            <div className="id-eyebrow">
+              <span className="key">&lt;/&gt;</span> ข้อมูลนักศึกษาฝึกประสบการณ์วิชาชีพ
             </div>
-            <div className="id-chip-status">
-              <span className="dot"></span>
-              <span>กำลังฝึกสอน</span>
+
+            <h1 className="id-title-name">
+              {student.name}
+            </h1>
+
+            <div className="id-chip-row">
+              <div className="id-chip">
+                <span className="chip-label">ID:</span>
+                <span className="chip-val">{student.studentId}</span>
+              </div>
+              <div className="id-chip-status">
+                <span className="dot"></span>
+                <span>กำลังฝึกปฏิบัติการสอน</span>
+              </div>
             </div>
           </div>
 
           <hr className="id-divider" />
 
-          <dl className="id-meta-grid">
-            <div className="meta-item">
-              <dt className="meta-label">สาขาวิชา</dt>
-              <dd className="meta-value">{cleanMajor}</dd>
+          {/* Bento Education Info Cards */}
+          <div className="id-bento-grid">
+            <div className="bento-item">
+              <div className="bento-icon">
+                <Laptop size={15} />
+              </div>
+              <div className="bento-text">
+                <span className="bento-label">สาขาวิชา</span>
+                <span className="bento-val">{cleanMajor}</span>
+              </div>
             </div>
-            <div className="meta-item">
-              <dt className="meta-label">ภาควิชา</dt>
-              <dd className="meta-value">{cleanDepartment}</dd>
-            </div>
-            <div className="meta-item">
-              <dt className="meta-label">คณะ</dt>
-              <dd className="meta-value">{cleanFaculty}</dd>
-            </div>
-            <div className="meta-item meta-item-full">
-              <dt className="meta-label">มหาวิทยาลัย</dt>
-              <dd className="meta-value meta-uni">{cleanUniversity}</dd>
-            </div>
-          </dl>
 
+            <div className="bento-item">
+              <div className="bento-icon">
+                <GraduationCap size={15} />
+              </div>
+              <div className="bento-text">
+                <span className="bento-label">ภาควิชา</span>
+                <span className="bento-val">{cleanDepartment}</span>
+              </div>
+            </div>
+
+            <div className="bento-item">
+              <div className="bento-icon">
+                <Building2 size={15} />
+              </div>
+              <div className="bento-text">
+                <span className="bento-label">คณะ</span>
+                <span className="bento-val">{cleanFaculty}</span>
+              </div>
+            </div>
+
+            <div className="bento-item bento-full">
+              <div className="bento-icon">
+                <School size={15} />
+              </div>
+              <div className="bento-text">
+                <span className="bento-label">สถาบันการศึกษา</span>
+                <span className="bento-val">{cleanUniversity}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Practicum Site Footer Banner */}
           <div className="id-practicum-meta">
-            <span className="pm-label">สถานที่ฝึกปฏิบัติการสอน</span>
-            <span className="pm-val">วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี · ภาคเรียนที่ 1/2569</span>
+            <div className="pm-left">
+              <div className="pm-icon">
+                <MapPin size={15} />
+              </div>
+              <div>
+                <span className="pm-label">สถานที่ฝึกปฏิบัติการสอน</span>
+                <span className="pm-val">วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี</span>
+              </div>
+            </div>
+            <div className="pm-badge">
+              แผนกธุรกิจดิจิทัลฯ
+            </div>
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@ export default function ClassroomResearchPage() {
           <div style={{ padding: '24px 28px' }}>
             <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '13px', color: 'var(--blue-c)', marginBottom: '8px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
               <GraduationCap size={16} />
-              รายงานการวิจัยในชั้นเรียน
+              โครงร่างงานวิจัยในชั้นเรียน
             </div>
             <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(20px, 2.5vw, 26px)', lineHeight: 1.45, color: 'var(--ink)', marginBottom: '14px', wordBreak: 'break-word', overflowWrap: 'anywhere', display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
               <FileText style={{ color: 'var(--violet-c)', width: '28px', height: '28px', flexShrink: 0, marginTop: '2px' }} />
@@ -33,7 +33,6 @@ export default function ClassroomResearchPage() {
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', fontSize: '14px', color: 'var(--muted-c)', fontWeight: 500 }}>
               <span>ผู้วิจัย: <b style={{ color: 'var(--ink)' }}>นายปาณวัฐ รักรอดจิต</b></span>
               <span>รายวิชา: <b style={{ color: 'var(--ink)' }}>21910-2012</b></span>
-              <span>กลุ่มเป้าหมาย: <b style={{ color: 'var(--ink)' }}>ปวช.2/1 (32 คน)</b></span>
             </div>
           </div>
         </div>
@@ -42,13 +41,13 @@ export default function ClassroomResearchPage() {
       {/* 2. On-Demand Document Preview Component */}
       <Reveal delay={150}>
         <DocumentPreview
-          title="เอกสารรายงานการวิจัยในชั้นเรียนฉบับสมบูรณ์"
+          title="โครงร่างงานวิจัยในชั้นเรียน"
           subtitle="รายวิชาโปรแกรมฐานข้อมูล (21910-2012) ภาคเรียนที่ 1/2569"
-          badge="งานวิจัยในชั้นเรียน"
+          badge="โครงร่างงานวิจัย"
           details="ผู้วิจัย: นายปาณวัฐ รักรอดจิต · แผนกวิชาธุรกิจดิจิทัลและเทคโนโลยีสารสนเทศ"
           pdfUrl={rawPdfUrl}
           driveUrl={openDriveUrl}
-          filename="classroom_research_full.pdf"
+          filename="classroom_research_proposal.pdf"
         />
       </Reveal>
     </div>

@@ -28,11 +28,11 @@ export const metadata: Metadata = {
   description: "ระบบรายงานการฝึกปฏิบัติการสอนและแฟ้มสะสมผลงาน",
   icons: {
     icon: [
-      { url: "/images/others/logo_comedu.jpeg" },
-      { url: "/favicon.ico" }
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/images/others/logo_comedu.jpeg", type: "image/jpeg" },
     ],
-    shortcut: "/images/others/logo_comedu.jpeg",
-    apple: "/images/others/logo_comedu.jpeg",
+    shortcut: "/favicon.png",
+    apple: "/apple-touch-icon.png",
   },
 };
 

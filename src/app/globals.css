@@ -323,7 +323,19 @@ nav.pill a:hover { color: var(--ink); }
 nav.pill a.active { color: var(--blue-c); font-weight: 600; }
 
 section { width: 100%; box-sizing: border-box; }
-.wrap { max-width: 1280px; margin: 0 auto; width: 100%; }
+.wrap { 
+  max-width: 1280px; 
+  margin: 0 auto; 
+  width: 100%; 
+  padding: 0 16px; 
+  box-sizing: border-box; 
+}
+@media (min-width: 640px) {
+  .wrap { padding: 0 24px; }
+}
+@media (min-width: 1024px) {
+  .wrap { padding: 0 32px; }
+}
 
 .hero { padding-top: 10px; padding-bottom: 32px; }
 .hero-grid { 

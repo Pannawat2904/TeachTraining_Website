@@ -83,8 +83,8 @@ export default function RootLayout({
         <div id="site" className="relative z-10 flex flex-col min-h-screen">
           <Navbar />
           <main 
-            className="flex-grow w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 pb-16"
-            style={{ paddingTop: 'var(--page-top-padding)' }}
+            className="flex-grow w-full max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-10 pb-20 overflow-x-hidden"
+            style={{ paddingTop: 'var(--page-top-padding, 80px)' }}
           >
             {children}
           </main>

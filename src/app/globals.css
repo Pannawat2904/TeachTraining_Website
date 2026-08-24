@@ -322,11 +322,8 @@ nav.pill a { color: var(--muted-c); text-decoration: none; font-size: 15px; font
 nav.pill a:hover { color: var(--ink); }
 nav.pill a.active { color: var(--blue-c); font-weight: 600; }
 
-section { padding: 0 0.5rem; }
-@media (min-width: 640px) {
-  section { padding: 0 1.5rem; }
-}
-.wrap { max-width: 1280px; margin: 0 auto; }
+section { width: 100%; box-sizing: border-box; }
+.wrap { max-width: 1280px; margin: 0 auto; width: 100%; }
 
 .hero { padding-top: 10px; padding-bottom: 32px; }
 .hero-grid { 

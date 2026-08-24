@@ -155,54 +155,43 @@ export function DocumentPreview({
             </div>
           )}
         </div>
+      </div>
 
-        {/* Direct Preview (Always Visible) */}
-        <div 
-          style={{ 
-            paddingTop: '16px',
-            borderTop: '1px solid var(--border-c)'
-          }}
-        >
-          {imageUrl ? (
-            <div 
-              style={{ 
-                width: '100%', 
-                maxWidth: '960px', 
-                margin: '0 auto', 
-                borderRadius: '16px', 
-                overflow: 'hidden', 
-                border: '1px solid rgba(0,0,0,0.1)', 
-                boxShadow: '0 12px 30px rgba(0,0,0,0.08)',
-                background: '#ffffff'
-              }}
-            >
-              <div style={{ position: 'relative', width: '100%', minHeight: '300px' }}>
-                <Image 
-                  src={imageUrl} 
-                  alt={title} 
-                  width={1200}
-                  height={850}
-                  style={{ width: '100%', height: 'auto', display: 'block' }}
-                  priority
-                />
-              </div>
-            </div>
-          ) : embedUrl ? (
-            <div className="doc-viewer-container">
-              <iframe
-                src={embedUrl}
-                loading="lazy"
-                style={{ width: '100%', height: '100%', border: 0 }}
-                allow="autoplay"
-                title={title}
-              ></iframe>
-            </div>
-          ) : (
-            <div style={{ padding: '32px', textAlign: 'center', color: 'var(--muted-c)' }}>
-              ยังไม่มีไฟล์เอกสาร
-            </div>
-          )}
-        </div>
+      {/* Direct Preview (Flush to Edges) */}
+      <div 
+        style={{ 
+          borderTop: '1px solid var(--border-strong-c)',
+          background: '#ffffff',
+          width: '100%',
+          overflow: 'hidden'
+        }}
+      >
+        {imageUrl ? (
+          <div style={{ position: 'relative', width: '100%', minHeight: '300px' }}>
+            <Image 
+              src={imageUrl} 
+              alt={title} 
+              width={1200}
+              height={850}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+              priority
+            />
+          </div>
+        ) : embedUrl ? (
+          <div className="doc-viewer-container" style={{ margin: 0, borderRadius: 0, maxWidth: '100%', border: 'none', boxShadow: 'none' }}>
+            <iframe
+              src={embedUrl}
+              loading="lazy"
+              style={{ width: '100%', height: '100%', border: 0, display: 'block' }}
+              allow="autoplay"
+              title={title}
+            ></iframe>
+          </div>
+        ) : (
+          <div style={{ padding: '32px', textAlign: 'center', color: 'var(--muted-c)' }}>
+            ยังไม่มีไฟล์เอกสาร
+          </div>
+        )}
       </div>
     </div>
   )

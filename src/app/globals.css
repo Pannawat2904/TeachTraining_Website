@@ -982,11 +982,11 @@ section { width: 100%; box-sizing: border-box; }
 .doc-card {
   background: var(--panel-strong-c); border: 1px solid var(--border-strong-c);
   border-radius: 20px; box-shadow: 0 12px 36px rgba(61,107,255,0.08);
-  padding: 24px 28px; transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   width: 100%; max-width: 100%; box-sizing: border-box;
 }
 @media (max-width: 640px) {
-  .doc-card { padding: 16px 14px; border-radius: 16px; }
+  .doc-card { border-radius: 16px; }
 }
 .doc-viewer-container {
   width: 100%; max-width: 900px; margin: 16px auto 0;

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 import { 
@@ -57,8 +58,17 @@ export function Navbar() {
   return (
     <>
       <nav className="pill">
-        <Link href="/" className="brand" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <span className="dot"></span>
+        <Link href="/" className="brand" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ position: 'relative', width: '28px', height: '28px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '1px solid rgba(61,107,255,0.2)', boxShadow: '0 2px 8px rgba(61,107,255,0.15)', background: '#ffffff' }}>
+            <Image 
+              src="/images/others/logo_comedu.jpeg" 
+              alt="ภาควิชาคอมพิวเตอร์ศึกษา" 
+              width={28} 
+              height={28} 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              priority
+            />
+          </div>
           <span className="brand-text hidden sm:inline">รายงานฝึกปฏิบัติการสอน</span>
           <span className="brand-text sm:hidden">รายงานฝึกสอน</span>
         </Link>
@@ -145,8 +155,16 @@ export function Navbar() {
             background: 'rgba(255, 255, 255, 0.6)'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="dot" style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--blue-c), var(--violet-c))' }}></span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ position: 'relative', width: '24px', height: '24px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '1px solid rgba(61,107,255,0.2)', background: '#ffffff' }}>
+              <Image 
+                src="/images/others/logo_comedu.jpeg" 
+                alt="ComEdu Logo" 
+                width={24} 
+                height={24} 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
             <span style={{ fontWeight: 700, fontSize: '15px', color: 'var(--ink)' }}>เมนูนำทาง</span>
           </div>
           <button 

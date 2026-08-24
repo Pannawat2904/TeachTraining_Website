@@ -26,6 +26,14 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "รายงานการฝึกปฏิบัติการสอน",
   description: "ระบบรายงานการฝึกปฏิบัติการสอนและแฟ้มสะสมผลงาน",
+  icons: {
+    icon: [
+      { url: "/images/others/logo_comedu.jpeg" },
+      { url: "/favicon.ico" }
+    ],
+    shortcut: "/images/others/logo_comedu.jpeg",
+    apple: "/images/others/logo_comedu.jpeg",
+  },
 };
 
 export default function RootLayout({

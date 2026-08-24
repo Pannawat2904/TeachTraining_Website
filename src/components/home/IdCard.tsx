@@ -5,8 +5,8 @@ import Image from "next/image"
 import { 
   GraduationCap, 
   Laptop, 
-  UserCheck, 
-  Award,
+  Award, 
+  School,
   IdCard as IdCardIcon
 } from "lucide-react"
 
@@ -113,7 +113,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
 
           <hr className="id-divider" />
 
-          {/* 2x2 Bento Specific Details (No duplication with header above) */}
+          {/* 2x2 Bento Academic Details (Unique to student, no duplication with Mentor/Supervisor section) */}
           <div className="id-bento-grid">
             <div className="bento-item">
               <div className="bento-icon">
@@ -137,21 +137,21 @@ export function IdCard({ student }: { student: StudentInfo }) {
 
             <div className="bento-item">
               <div className="bento-icon">
-                <UserCheck size={15} />
+                <GraduationCap size={15} />
               </div>
               <div className="bento-text">
-                <span className="bento-label">ครูพี่เลี้ยง</span>
-                <span className="bento-val">ครูวินิต / ครูเมธาสิทธิ์ / ครูสุพัตรา</span>
+                <span className="bento-label">หลักสูตร</span>
+                <span className="bento-val">ครุศาสตร์อุตสาหกรรมบัณฑิต (ค.อ.บ.)</span>
               </div>
             </div>
 
             <div className="bento-item">
               <div className="bento-icon">
-                <GraduationCap size={15} />
+                <School size={15} />
               </div>
               <div className="bento-text">
-                <span className="bento-label">อาจารย์นิเทศก์</span>
-                <span className="bento-val">ดร. พุทธิดา สกุลวิริยกิจกุล</span>
+                <span className="bento-label">ระดับการศึกษา</span>
+                <span className="bento-val">ระดับปริญญาตรี (หลักสูตร 4 ปี)</span>
               </div>
             </div>
           </div>

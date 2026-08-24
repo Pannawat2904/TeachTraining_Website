@@ -118,42 +118,7 @@ export function DocumentPreview({
             )}
           </div>
 
-          {/* Primary Action Button: Open in Google Drive */}
-          {openDriveUrl && (
-            <div style={{ flexShrink: 0 }}>
-              <a
-                href={openDriveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '8px',
-                  padding: '10px 20px',
-                  minHeight: '44px',
-                  borderRadius: '999px',
-                  background: 'linear-gradient(135deg, var(--blue-c), var(--violet-c))',
-                  color: '#ffffff',
-                  fontFamily: 'var(--font-prompt), sans-serif',
-                  fontSize: '13.5px',
-                  fontWeight: 600,
-                  textDecoration: 'none',
-                  boxShadow: '0 6px 18px rgba(61,107,255,0.25)',
-                  transition: 'all 0.2s ease',
-                  whiteSpace: 'nowrap'
-                }}
-                className="hover:scale-[1.02] active:scale-[0.98] transition-transform"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <line x1="10" y1="14" x2="21" y2="3"></line>
-                </svg>
-                เปิดไฟล์ใน Google Drive
-              </a>
-            </div>
-          )}
+
         </div>
       </div>
 

@@ -342,7 +342,11 @@ section { width: 100%; box-sizing: border-box; }
   display: grid; 
   grid-template-columns: 1.15fr 0.85fr; 
   gap: 22px; 
-  align-items: start; 
+  align-items: start;
+  min-width: 0;
+}
+.hero-grid > div, .left-hero-stack, .side-stack {
+  min-width: 0;
 }
 @media(max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -364,6 +368,7 @@ section { width: 100%; box-sizing: border-box; }
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
 }
 
 @media (max-width: 640px) {
@@ -806,6 +811,7 @@ section { width: 100%; box-sizing: border-box; }
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  min-width: 0;
 }
 @media (max-width: 640px) {
   .glass-panel {
@@ -847,7 +853,8 @@ section { width: 100%; box-sizing: border-box; }
 @media(min-width: 640px) {
   .info-row { padding: 10px 1.5rem 40px; }
 }
-.info-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 18px; }
+.info-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 18px; min-width: 0; }
+.info-grid > div { min-width: 0; }
 @media(max-width:980px){ .info-grid{ grid-template-columns: 1fr; gap: 14px; } }
 .info-card .icon-badge {
   width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center;

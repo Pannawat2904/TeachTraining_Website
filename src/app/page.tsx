@@ -26,7 +26,7 @@ export default function Home() {
         <Reveal>
           <div className="wrap hero-grid">
             {/* Left Column Stack: Header Banner + Student Profile */}
-            <div className="left-hero-stack" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="left-hero-stack" style={{ display: 'flex', flexDirection: 'column', gap: '20px', minWidth: 0 }}>
               {/* Top Title Card */}
               <div className="glass-panel" style={{ borderRadius: '24px', overflow: 'hidden', padding: 0, background: 'var(--panel-strong-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(10px)', boxShadow: '0 16px 40px rgba(61,107,255,0.08)' }}>
                 <div className="chrome">

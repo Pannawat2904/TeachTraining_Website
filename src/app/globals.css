@@ -143,6 +143,19 @@ body {
   word-break: break-word;
   overflow-wrap: break-word;
 }
+
+/* Global Grid/Flex Blowout Fix */
+.wrap > *,
+[class*="-grid"] > *,
+[class*="grid-"] > *,
+.grid > *,
+.glass-panel,
+.chrome,
+.side-stack,
+.left-hero-stack,
+.flex-col {
+  min-width: 0;
+}
 html {
   scroll-behavior: smooth;
 }

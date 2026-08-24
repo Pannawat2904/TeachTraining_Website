@@ -37,23 +37,10 @@ export function Navbar() {
     return pathname.startsWith(href)
   }
 
-  const [prevPathname, setPrevPathname] = useState(pathname)
-  if (prevPathname !== pathname) {
-    setPrevPathname(pathname)
-    setIsOpen(false)
-  }
-
-  // Prevent background scroll when mobile menu is open
+  // Automatically close mobile menu on route change
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = ""
-    }
-    return () => {
-      document.body.style.overflow = ""
-    }
-  }, [isOpen])
+    setIsOpen(false)
+  }, [pathname])
 
   return (
     <>
@@ -90,7 +77,8 @@ export function Navbar() {
         {/* Mobile Menu Hamburger Button */}
         <div className="lg:hidden flex items-center ml-auto">
           <button 
-            onClick={() => setIsOpen(true)}
+            type="button"
+            onClick={() => setIsOpen((prev) => !prev)}
             aria-label="Open navigation menu"
             style={{ 
               background: 'transparent', 
@@ -102,7 +90,8 @@ export function Navbar() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: 0
+              padding: 0,
+              touchAction: 'manipulation'
             }}
           >
             <Menu size={24} />
@@ -111,20 +100,24 @@ export function Navbar() {
       </nav>
 
       {/* Mobile Backdrop */}
-      <div 
-        onClick={() => setIsOpen(false)}
-        style={{
-          position: 'fixed',
-          inset: 0,
-          background: 'rgba(16, 21, 43, 0.45)',
-          zIndex: 90,
-          opacity: isOpen ? 1 : 0,
-          pointerEvents: isOpen ? 'auto' : 'none',
-          transition: 'opacity 0.25s ease'
-        }}
-      />
+      {isOpen && (
+        <div 
+          onClick={() => setIsOpen(false)}
+          aria-hidden="true"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(16, 21, 43, 0.45)',
+            backdropFilter: 'blur(4px)',
+            WebkitBackdropFilter: 'blur(4px)',
+            zIndex: 9998,
+            touchAction: 'none',
+            animation: 'fadeIn 0.2s ease forwards'
+          }}
+        />
+      )}
 
-      {/* Mobile Drawer (Pure CSS Transitions, zero framer-motion lockup) */}
+      {/* Mobile Drawer */}
       <div
         style={{
           position: 'fixed',
@@ -135,13 +128,17 @@ export function Navbar() {
           background: 'var(--panel-strong-c, #ffffff)',
           borderLeft: '1px solid var(--border-strong-c)',
           boxShadow: '-10px 0 30px rgba(0, 0, 0, 0.15)',
-          zIndex: 100,
+          zIndex: 9999,
           display: 'flex',
           flexDirection: 'column',
-          transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)',
+          transform: isOpen ? 'translateX(0)' : 'translateX(105%)',
+          transition: 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
           willChange: 'transform',
-          overflowY: 'auto'
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          touchAction: 'pan-y',
+          pointerEvents: isOpen ? 'auto' : 'none',
+          visibility: isOpen ? 'visible' : 'hidden'
         }}
       >
         {/* Drawer Header */}
@@ -152,35 +149,38 @@ export function Navbar() {
             justifyContent: 'space-between', 
             padding: '18px 20px', 
             borderBottom: '1px solid var(--border-c)',
-            background: 'rgba(255, 255, 255, 0.6)'
+            background: 'rgba(255, 255, 255, 0.7)',
+            flexShrink: 0
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ position: 'relative', width: '24px', height: '24px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '1px solid rgba(61,107,255,0.2)', background: '#ffffff' }}>
+            <div style={{ position: 'relative', width: '26px', height: '26px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '1px solid rgba(61,107,255,0.2)', background: '#ffffff' }}>
               <Image 
                 src="/images/others/logo_comedu.jpeg" 
                 alt="ComEdu Logo" 
-                width={24} 
-                height={24} 
+                width={26} 
+                height={26} 
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
             <span style={{ fontWeight: 700, fontSize: '15px', color: 'var(--ink)' }}>เมนูนำทาง</span>
           </div>
           <button 
+            type="button"
             onClick={() => setIsOpen(false)} 
             aria-label="Close navigation menu"
             style={{ 
               background: 'rgba(16, 21, 43, 0.06)', 
               border: 'none', 
-              width: '36px', 
-              height: '36px', 
+              width: '38px', 
+              height: '38px', 
               borderRadius: '50%', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
               cursor: 'pointer',
-              color: 'var(--ink)'
+              color: 'var(--ink)',
+              touchAction: 'manipulation'
             }}
           >
             <X size={20} />
@@ -188,7 +188,7 @@ export function Navbar() {
         </div>
 
         {/* Drawer Nav Links */}
-        <div style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div style={{ padding: '16px 16px', display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
           {navLinks.map((link) => {
             const active = isActive(link.href)
             const Icon = link.icon
@@ -201,22 +201,24 @@ export function Navbar() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  padding: '12px 14px', 
+                  padding: '12px 16px', 
                   borderRadius: '12px',
                   textDecoration: 'none', 
                   color: active ? 'var(--blue-c)' : 'var(--ink)', 
                   fontWeight: active ? 700 : 500,
                   fontSize: '15px',
                   background: active ? 'rgba(61, 107, 255, 0.08)' : 'transparent',
-                  transition: 'background 0.15s ease'
+                  transition: 'background 0.15s ease',
+                  minHeight: '44px',
+                  touchAction: 'manipulation'
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <Icon size={18} style={{ color: active ? 'var(--blue-c)' : 'var(--muted-c)' }} />
+                  <Icon size={18} style={{ color: active ? 'var(--blue-c)' : 'var(--muted-c)', flexShrink: 0 }} />
                   <span>{link.name}</span>
                 </div>
                 {active && (
-                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--blue-c)' }}></span>
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--blue-c)', flexShrink: 0 }}></span>
                 )}
               </Link>
             )
@@ -224,7 +226,7 @@ export function Navbar() {
         </div>
 
         {/* Drawer Footer Info */}
-        <div style={{ marginTop: 'auto', padding: '20px', borderTop: '1px solid var(--border-c)', fontSize: '12px', color: 'var(--muted-c)' }}>
+        <div style={{ marginTop: 'auto', padding: '18px 20px', borderTop: '1px solid var(--border-c)', fontSize: '12px', color: 'var(--muted-c)', flexShrink: 0 }}>
           <div>รายงานผลการฝึกปฏิบัติการสอน 2569</div>
           <div style={{ marginTop: '2px', color: 'var(--blue-c)', fontWeight: 600 }}>วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี</div>
         </div>

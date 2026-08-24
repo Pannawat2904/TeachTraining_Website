@@ -12,13 +12,13 @@ export default function SplashScreen() {
   useEffect(() => {
     // Only show splash on root path '/' and only if not dismissed in this session
     if (pathname !== "/") {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
       return;
     }
 
     const wasDismissed = sessionStorage.getItem("splash_dismissed");
     if (wasDismissed === "true") {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
       return;
     }
 
@@ -31,7 +31,7 @@ export default function SplashScreen() {
     const dismissSplash = () => {
       setIsLeaving(true);
       sessionStorage.setItem("splash_dismissed", "true");
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
       setTimeout(() => {
         setIsDismissed(true);
       }, 350);
@@ -45,7 +45,7 @@ export default function SplashScreen() {
 
     return () => {
       clearTimeout(timer);
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
       window.removeEventListener('wheel', dismissSplash);
       window.removeEventListener('touchmove', dismissSplash);
     };
@@ -56,7 +56,7 @@ export default function SplashScreen() {
   const handleDismiss = () => {
     setIsLeaving(true);
     sessionStorage.setItem("splash_dismissed", "true");
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = '';
     setTimeout(() => {
       setIsDismissed(true);
     }, 350);

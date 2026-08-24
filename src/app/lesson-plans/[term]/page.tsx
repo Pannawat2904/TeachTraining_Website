@@ -64,7 +64,8 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
                   color: selectedCourse === "all" ? '#ffffff' : 'var(--ink)',
                   boxShadow: selectedCourse === "all" ? '0 4px 14px rgba(61,107,255,0.25)' : 'none',
                   transition: 'all 0.2s ease',
-                  minHeight: '38px'
+                  minHeight: '38px',
+                  whiteSpace: 'nowrap'
                 }}
               >
                 ทุกรายวิชา ({plans.length})
@@ -74,9 +75,9 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
                   key={p.id}
                   onClick={() => setSelectedCourse(p.courseCode)}
                   style={{
-                    padding: '8px 16px',
-                    borderRadius: '999px',
-                    fontSize: '13px',
+                    padding: '7px 14px',
+                    borderRadius: '12px',
+                    fontSize: '12.5px',
                     fontWeight: 600,
                     fontFamily: 'var(--font-prompt), sans-serif',
                     cursor: 'pointer',
@@ -85,10 +86,14 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
                     color: selectedCourse === p.courseCode ? '#ffffff' : 'var(--ink)',
                     boxShadow: selectedCourse === p.courseCode ? '0 4px 14px rgba(61,107,255,0.25)' : 'none',
                     transition: 'all 0.2s ease',
-                    minHeight: '38px'
+                    minHeight: '38px',
+                    textAlign: 'left',
+                    lineHeight: 1.35,
+                    maxWidth: '100%'
                   }}
                 >
-                  {p.courseCode} {p.courseName}
+                  <span style={{ display: 'block', fontSize: '11px', opacity: 0.75, fontFamily: 'var(--font-mono), monospace', marginBottom: '1px' }}>{p.courseCode}</span>
+                  {p.courseName}
                 </button>
               ))}
             </div>

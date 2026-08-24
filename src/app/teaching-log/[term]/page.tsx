@@ -224,30 +224,30 @@ interface WeekLogItem {
             <span className="fname">teaching_log_semester_{semesterNum}.config</span>
             <span className="tag">ภาคเรียนที่ {semesterNum}/2569</span>
           </div>
-        <div style={{ padding: '24px 32px' }}>
+        <div style={{ padding: 'clamp(18px, 3.5vw, 24px) clamp(16px, 4vw, 32px)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
             <div>
               <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '13px', color: 'var(--blue-c)', marginBottom: '6px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <ClipboardList size={15} />
                 บันทึกการปฏิบัติงานสอน
               </div>
-              <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(22px, 3vw, 32px)', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--ink)' }}>
+              <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(20px, 3vw, 30px)', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--ink)' }}>
                 <CalendarCheck style={{ color: 'var(--violet-c)', width: '28px', height: '28px', flexShrink: 0 }} />
-                บันทึกการฝึกสอน (ภาคเรียนที่ {semesterNum}/2569)
+                <span>บันทึกการฝึกสอน (ภาคเรียนที่ {semesterNum}/2569)</span>
               </h1>
-              <p style={{ color: 'var(--ink)', opacity: 0.85, marginTop: '6px', fontSize: '15px' }}>
+              <p style={{ color: 'var(--ink)', opacity: 0.85, marginTop: '6px', fontSize: '14px', lineHeight: 1.5 }}>
                 บันทึกการปฏิบัติงานและรายละเอียดกิจกรรมการสอนประจำวัน เรียงลำดับจากสัปดาห์ที่ 1 เป็นต้นไป
               </p>
             </div>
 
             {/* Mode Switcher Buttons */}
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', width: '100%', maxWidth: '100%' }}>
               <button
                 onClick={() => setViewMode('interactive')}
                 style={{
-                  padding: '10px 18px',
+                  padding: '9px 18px',
                   borderRadius: '999px',
-                  fontSize: '13.5px',
+                  fontSize: '13px',
                   fontWeight: 600,
                   fontFamily: 'var(--font-prompt), sans-serif',
                   cursor: 'pointer',
@@ -255,7 +255,8 @@ interface WeekLogItem {
                   background: viewMode === 'interactive' ? 'linear-gradient(135deg, var(--blue-c), var(--violet-c))' : 'rgba(255,255,255,0.7)',
                   color: viewMode === 'interactive' ? '#ffffff' : 'var(--ink)',
                   boxShadow: viewMode === 'interactive' ? '0 4px 14px rgba(61,107,255,0.25)' : 'none',
-                  transition: 'all 0.2s ease'
+                  transition: 'all 0.2s ease',
+                  minHeight: '40px'
                 }}
               >
                 📅 บันทึกประจำวัน
@@ -265,9 +266,9 @@ interface WeekLogItem {
                 <button
                   onClick={() => setViewMode('sheet')}
                   style={{
-                    padding: '10px 18px',
+                    padding: '9px 18px',
                     borderRadius: '999px',
-                    fontSize: '13.5px',
+                    fontSize: '13px',
                     fontWeight: 600,
                     fontFamily: 'var(--font-prompt), sans-serif',
                     cursor: 'pointer',
@@ -275,7 +276,8 @@ interface WeekLogItem {
                     background: viewMode === 'sheet' ? 'linear-gradient(135deg, var(--blue-c), var(--violet-c))' : 'rgba(255,255,255,0.7)',
                     color: viewMode === 'sheet' ? '#ffffff' : 'var(--ink)',
                     boxShadow: viewMode === 'sheet' ? '0 4px 14px rgba(61,107,255,0.25)' : 'none',
-                    transition: 'all 0.2s ease'
+                    transition: 'all 0.2s ease',
+                    minHeight: '40px'
                   }}
                 >
                   📊 ดู Google Sheets
@@ -300,10 +302,10 @@ interface WeekLogItem {
               rel="noopener noreferrer"
               style={{ marginLeft: 'auto', fontSize: '12px', fontWeight: 600, color: 'var(--blue-c)', textDecoration: 'none' }}
             >
-              เปิดเต็มจอใน Google Sheets ↗
+              เปิดเต็มจอ ↗
             </a>
           </div>
-          <div style={{ padding: '16px', background: '#ffffff' }}>
+          <div style={{ padding: '12px', background: '#ffffff' }}>
             <iframe 
               src={sheetUrl} 
               style={{ width: '100%', height: 'clamp(420px, 75vh, 780px)', border: 0, borderRadius: '12px' }}
@@ -317,44 +319,45 @@ interface WeekLogItem {
         <>
           {/* Progress Overview Panel */}
           {calculatedStats && (
-            <div className="glass-panel" style={{ borderRadius: '20px', padding: '20px 28px', marginBottom: '24px', background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(16px)', boxShadow: '0 14px 40px rgba(61,107,255,0.08)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flexWrap: 'wrap' }}>
+            <div className="glass-panel" style={{ borderRadius: '20px', padding: 'clamp(14px, 3vw, 20px) clamp(16px, 3.5vw, 28px)', marginBottom: '20px', background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(16px)', boxShadow: '0 14px 40px rgba(61,107,255,0.08)' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))', gap: '14px', alignItems: 'center', marginBottom: '14px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                  <b style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '22px', fontWeight: 700, color: 'var(--blue-c)' }}>{calculatedStats.recordedWeeks}</b>
-                  <span style={{ fontSize: '12px', color: 'var(--muted-c)' }}>สัปดาห์ที่บันทึกแล้ว</span>
+                  <b style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 700, color: 'var(--blue-c)' }}>{calculatedStats.recordedWeeks}</b>
+                  <span style={{ fontSize: '11.5px', color: 'var(--muted-c)' }}>สัปดาห์ที่บันทึก</span>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                  <b style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '22px', fontWeight: 700, color: '#0a8f82' }}>{calculatedStats.workDays}</b>
-                  <span style={{ fontSize: '12px', color: 'var(--muted-c)' }}>วันที่มาปฏิบัติงาน</span>
+                  <b style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 700, color: '#0a8f82' }}>{calculatedStats.workDays}</b>
+                  <span style={{ fontSize: '11.5px', color: 'var(--muted-c)' }}>วันที่มาสอน</span>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                  <b style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '22px', fontWeight: 700, color: '#c73143' }}>{calculatedStats.leaveDays}</b>
-                  <span style={{ fontSize: '12px', color: 'var(--muted-c)' }}>วันลา</span>
+                  <b style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 700, color: '#c73143' }}>{calculatedStats.leaveDays}</b>
+                  <span style={{ fontSize: '11.5px', color: 'var(--muted-c)' }}>วันลา</span>
                 </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                  <b style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 700, color: 'var(--violet-c)' }}>{calculatedStats.semesterPct}</b>
+                  <span style={{ fontSize: '11.5px', color: 'var(--muted-c)' }}>ความคืบหน้า</span>
+                </div>
+              </div>
 
-                {/* Progress bar */}
-                <div style={{ flex: 1, minWidth: '180px', height: '10px', borderRadius: '999px', background: 'rgba(16,21,43,0.08)', overflow: 'hidden' }}>
-                  <div style={{ height: '100%', width: calculatedStats.semesterPct || '0%', borderRadius: '999px', background: 'linear-gradient(90deg, var(--blue-c), var(--violet-c), var(--cyan-c))', transition: 'width 1s ease' }}></div>
-                </div>
-                <span style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '14px', fontWeight: 700, color: 'var(--blue-c)' }}>
-                  {calculatedStats.semesterPct} ของภาคเรียน
-                </span>
+              {/* Progress bar */}
+              <div style={{ width: '100%', height: '8px', borderRadius: '999px', background: 'rgba(16,21,43,0.08)', overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: calculatedStats.semesterPct || '0%', borderRadius: '999px', background: 'linear-gradient(90deg, var(--blue-c), var(--violet-c), var(--cyan-c))', transition: 'width 1s ease' }}></div>
               </div>
             </div>
           )}
 
           {/* Standard Work Hours Notice */}
-          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '24px', padding: '14px 24px', borderRadius: '16px', background: 'rgba(61,107,255,0.06)', border: '1px solid rgba(61,107,255,0.18)', fontSize: '13px', color: 'var(--ink)' }}>
-            <span style={{ color: 'var(--blue-c)', fontWeight: 700 }}>📌 มาตรฐานเวลาปฏิบัติงาน:</span>
-            <span>เข้าแถว <b style={{ color: 'var(--ink)' }}>07:40 – 08:00 น.</b></span>
-            <span>ปฏิบัติงาน <b style={{ color: 'var(--ink)' }}>08:00 – 16:30 น.</b></span>
-            <span style={{ color: 'var(--muted-c)' }}>(วันจันทร์ – ศุกร์)</span>
+          <div style={{ display: 'flex', gap: '10px 16px', flexWrap: 'wrap', marginBottom: '20px', padding: '12px 18px', borderRadius: '16px', background: 'rgba(61,107,255,0.06)', border: '1px solid rgba(61,107,255,0.18)', fontSize: '13px', color: 'var(--ink)' }}>
+            <span style={{ color: 'var(--blue-c)', fontWeight: 700 }}>📌 เวลาปฏิบัติงาน:</span>
+            <span>เข้าแถว <b style={{ color: 'var(--ink)' }}>07:40–08:00</b></span>
+            <span>ปฏิบัติงาน <b style={{ color: 'var(--ink)' }}>08:00–16:30</b></span>
+            <span style={{ color: 'var(--muted-c)' }}>(จันทร์–ศุกร์)</span>
           </div>
 
           {/* Weekly Accordions */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {isLoading && viewMode === 'interactive' && (
-              <div style={{ padding: '40px', textAlign: 'center', color: 'var(--blue-c)', fontWeight: 600 }}>
+              <div style={{ padding: '32px', textAlign: 'center', color: 'var(--blue-c)', fontWeight: 600 }}>
                 กำลังดึงข้อมูลจาก Google Sheets... ⏳
               </div>
             )}
@@ -367,7 +370,7 @@ interface WeekLogItem {
                     key={week.weekNum} 
                     className="glass-panel"
                     style={{ 
-                      borderRadius: '24px', 
+                      borderRadius: '20px', 
                       overflow: 'hidden', 
                       padding: 0, 
                       background: 'var(--panel-c)', 
@@ -380,12 +383,12 @@ interface WeekLogItem {
                     <div className="chrome" style={{ cursor: 'pointer' }} onClick={() => toggleWeek(week.weekNum)}>
                       <span className="r"></span><span className="y"></span><span className="g"></span>
                       <span className="fname">{week.filename || `teaching_log_week_${week.weekNum}.log`}</span>
-                      <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 600, padding: '3px 10px', borderRadius: '999px', background: 'rgba(14,201,184,0.12)', color: '#0a8f82', border: '1px solid rgba(14,201,184,0.3)' }}>
+                      <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '999px', background: 'rgba(14,201,184,0.12)', color: '#0a8f82', border: '1px solid rgba(14,201,184,0.3)' }}>
                           มา {week.presentDays} วัน
                         </span>
                         {week.leaveDays > 0 && (
-                          <span style={{ fontSize: '11px', fontWeight: 600, padding: '3px 10px', borderRadius: '999px', background: 'rgba(239,91,106,0.12)', color: '#c73143', border: '1px solid rgba(239,91,106,0.3)' }}>
+                          <span style={{ fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '999px', background: 'rgba(239,91,106,0.12)', color: '#c73143', border: '1px solid rgba(239,91,106,0.3)' }}>
                             ลา {week.leaveDays} วัน
                           </span>
                         )}
@@ -396,10 +399,10 @@ interface WeekLogItem {
                     <div 
                       onClick={() => toggleWeek(week.weekNum)}
                       style={{ 
-                        padding: '20px 28px', 
+                        padding: 'clamp(14px, 3vw, 18px) clamp(14px, 3.5vw, 24px)', 
                         display: 'flex', 
                         alignItems: 'center', 
-                        gap: '18px', 
+                        gap: '14px', 
                         cursor: 'pointer', 
                         borderBottom: isOpen ? '1px solid var(--border-c)' : 'none',
                         background: 'rgba(255,255,255,0.4)',
@@ -409,41 +412,42 @@ interface WeekLogItem {
                       {/* Week Num Badge */}
                       <div 
                         style={{ 
-                          width: '44px', 
-                          height: '44px', 
-                          borderRadius: '14px', 
+                          width: '38px', 
+                          height: '38px', 
+                          borderRadius: '12px', 
                           background: 'linear-gradient(135deg, var(--blue-c), var(--violet-c))', 
                           color: '#ffffff', 
                           display: 'flex', 
                           alignItems: 'center', 
                           justifyContent: 'center', 
                           fontWeight: 700, 
-                          fontSize: '15px', 
+                          fontSize: '14px', 
                           fontFamily: 'var(--font-prompt), sans-serif',
-                          boxShadow: '0 4px 14px rgba(61,107,255,0.25)'
+                          boxShadow: '0 4px 14px rgba(61,107,255,0.25)',
+                          flexShrink: 0
                         }}
                       >
                         {week.weekNum}
                       </div>
 
                       {/* Title & Range */}
-                      <div style={{ flex: 1 }}>
-                        <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--ink)' }}>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <h3 style={{ fontSize: 'clamp(15px, 2.2vw, 18px)', fontWeight: 700, color: 'var(--ink)', margin: 0 }}>
                           {week.title}
                         </h3>
-                        <div style={{ fontSize: '13px', color: 'var(--muted-c)', marginTop: '2px', fontWeight: 500 }}>
+                        <div style={{ fontSize: '12.5px', color: 'var(--muted-c)', marginTop: '2px', fontWeight: 500 }}>
                           {week.dateRange}
                         </div>
                       </div>
 
                       {/* Thin Line Chevron Icon */}
                       <svg 
-                        width="20" 
-                        height="20" 
+                        width="18" 
+                        height="18" 
                         viewBox="0 0 24 24" 
                         fill="none" 
                         stroke="currentColor" 
-                        strokeWidth="1.8" 
+                        strokeWidth="2" 
                         strokeLinecap="round" 
                         strokeLinejoin="round"
                         style={{ 
@@ -459,7 +463,7 @@ interface WeekLogItem {
 
                     {/* Daily Logs List Container */}
                     {isOpen && (
-                      <div style={{ padding: '8px 28px 24px' }}>
+                      <div style={{ padding: '6px clamp(14px, 3.5vw, 24px) 18px' }}>
                         {week.days.map((day, idx: number) => {
                           const isLeave = day.status === 'sick' || day.status === 'personal';
                           const statusBg = day.status === 'present' ? 'rgba(14,201,184,0.12)' : day.status === 'sick' ? 'rgba(239,91,106,0.12)' : 'rgba(255,176,32,0.14)';
@@ -471,17 +475,17 @@ interface WeekLogItem {
                               key={idx}
                               style={{ 
                                 display: 'flex', 
-                                gap: '20px', 
-                                padding: '20px 0', 
+                                gap: '14px', 
+                                padding: '16px 0', 
                                 borderBottom: idx < week.days.length - 1 ? '1px solid var(--border-c)' : 'none' 
                               }}
                             >
                               {/* Day Badge */}
                               <div 
                                 style={{ 
-                                  width: '58px', 
-                                  height: '58px', 
-                                  borderRadius: '16px', 
+                                  width: '48px', 
+                                  height: '48px', 
+                                  borderRadius: '14px', 
                                   display: 'flex', 
                                   flexDirection: 'column', 
                                   alignItems: 'center', 
@@ -491,21 +495,21 @@ interface WeekLogItem {
                                   flexShrink: 0
                                 }}
                               >
-                                <span style={{ fontSize: '11px', color: 'var(--muted-c)', fontWeight: 600 }}>{day.dayName}</span>
-                                <span style={{ fontSize: '18px', fontWeight: 700, color: isLeave ? '#c73143' : 'var(--ink)' }}>{day.dayNum}</span>
+                                <span style={{ fontSize: '10px', color: 'var(--muted-c)', fontWeight: 600 }}>{day.dayName}</span>
+                                <span style={{ fontSize: '16px', fontWeight: 700, color: isLeave ? '#c73143' : 'var(--ink)' }}>{day.dayNum}</span>
                               </div>
 
                               {/* Day Content */}
                               <div style={{ flex: 1, minWidth: 0 }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '6px' }}>
-                                  <h4 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--ink)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
+                                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--ink)', margin: 0 }}>
                                     {day.title}
                                   </h4>
                                   <span 
                                     style={{ 
-                                      fontSize: '11.5px', 
+                                      fontSize: '11px', 
                                       fontWeight: 600, 
-                                      padding: '3px 12px', 
+                                      padding: '2px 10px', 
                                       borderRadius: '999px', 
                                       background: statusBg, 
                                       color: statusColor, 
@@ -517,7 +521,7 @@ interface WeekLogItem {
                                 </div>
 
                                 {day.times && (
-                                  <div style={{ fontSize: '13px', color: 'var(--muted-c)', marginBottom: '10px', fontWeight: 500 }}>
+                                  <div style={{ fontSize: '12px', color: 'var(--muted-c)', marginBottom: '8px', fontWeight: 500 }}>
                                     ⏱️ {day.times}
                                   </div>
                                 )}
@@ -525,7 +529,7 @@ interface WeekLogItem {
                                 {day.activities && day.activities.length > 0 && (
                                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '6px' }}>
                                     {day.activities.map((act: string, actIdx: number) => (
-                                      <li key={actIdx} style={{ fontSize: '14px', color: 'var(--ink)', opacity: 0.9, lineHeight: '1.6', paddingLeft: '18px', position: 'relative' }}>
+                                      <li key={actIdx} style={{ fontSize: '13.5px', color: 'var(--ink)', opacity: 0.9, lineHeight: '1.55', paddingLeft: '16px', position: 'relative' }}>
                                         <span style={{ position: 'absolute', left: 0, top: '2px', color: 'var(--cyan-c)', fontWeight: 700 }}>▸</span>
                                         {act}
                                       </li>
@@ -534,7 +538,7 @@ interface WeekLogItem {
                                 )}
 
                                 {day.leaveNote && (
-                                  <div style={{ fontSize: '14px', color: 'var(--muted-c)', lineHeight: '1.6', background: 'rgba(239,91,106,0.06)', padding: '10px 16px', borderRadius: '12px', border: '1px solid rgba(239,91,106,0.18)', marginTop: '4px' }}>
+                                  <div style={{ fontSize: '13px', color: 'var(--muted-c)', lineHeight: '1.55', background: 'rgba(239,91,106,0.06)', padding: '8px 14px', borderRadius: '10px', border: '1px solid rgba(239,91,106,0.18)', marginTop: '4px' }}>
                                     <span style={{ color: '#c73143', fontWeight: 700, marginRight: '6px' }}>&gt;</span>
                                     {day.leaveNote}
                                   </div>

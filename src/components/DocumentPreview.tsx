@@ -69,18 +69,18 @@ export function DocumentPreview({
       )}
 
       {/* Main Info & Action Header */}
-      <div style={{ padding: '24px 28px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginBottom: '18px' }}>
-          <div style={{ flex: '1 1 280px', minWidth: 0 }}>
+      <div style={{ padding: 'clamp(16px, 3vw, 24px) clamp(16px, 3.5vw, 28px)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px', marginBottom: '16px' }}>
+          <div style={{ flex: '1 1 260px', minWidth: 0 }}>
             {badge && !filename && (
               <span 
                 style={{ 
                   display: 'inline-block',
-                  fontSize: '12px', 
+                  fontSize: '11.5px', 
                   fontWeight: 700, 
                   color: 'var(--blue-c)', 
                   background: 'rgba(61,107,255,0.1)', 
-                  padding: '4px 12px', 
+                  padding: '3px 10px', 
                   borderRadius: '999px', 
                   border: '1px solid rgba(61,107,255,0.2)',
                   marginBottom: '8px'
@@ -93,7 +93,7 @@ export function DocumentPreview({
             <h3 
               style={{ 
                 fontFamily: 'var(--font-prompt), sans-serif', 
-                fontSize: 'clamp(18px, 2.2vw, 22px)', 
+                fontSize: 'clamp(17px, 2.2vw, 22px)', 
                 fontWeight: 700, 
                 color: 'var(--ink)', 
                 lineHeight: 1.35,
@@ -106,13 +106,13 @@ export function DocumentPreview({
             </h3>
 
             {subtitle && (
-              <div style={{ fontSize: '14px', color: 'var(--blue-c)', fontWeight: 600, marginTop: '4px' }}>
+              <div style={{ fontSize: '13.5px', color: 'var(--blue-c)', fontWeight: 600, marginTop: '4px' }}>
                 {subtitle}
               </div>
             )}
 
             {details && (
-              <p style={{ fontSize: '13.5px', color: 'var(--muted-c)', margin: '6px 0 0 0', lineHeight: 1.5 }}>
+              <p style={{ fontSize: '13px', color: 'var(--muted-c)', margin: '6px 0 0 0', lineHeight: 1.5 }}>
                 {details}
               </p>
             )}
@@ -120,36 +120,39 @@ export function DocumentPreview({
 
           {/* Primary Action Button: Open in Google Drive */}
           {openDriveUrl && (
-            <a
-              href={openDriveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                padding: '11px 22px',
-                minHeight: '44px',
-                borderRadius: '999px',
-                background: 'linear-gradient(135deg, var(--blue-c), var(--violet-c))',
-                color: '#ffffff',
-                fontFamily: 'var(--font-prompt), sans-serif',
-                fontSize: '13.5px',
-                fontWeight: 600,
-                textDecoration: 'none',
-                boxShadow: '0 6px 18px rgba(61,107,255,0.25)',
-                transition: 'all 0.2s ease',
-                flexShrink: 0
-              }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-              เปิดไฟล์ใน Google Drive
-            </a>
+            <div style={{ flexShrink: 0 }}>
+              <a
+                href={openDriveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  padding: '10px 20px',
+                  minHeight: '44px',
+                  borderRadius: '999px',
+                  background: 'linear-gradient(135deg, var(--blue-c), var(--violet-c))',
+                  color: '#ffffff',
+                  fontFamily: 'var(--font-prompt), sans-serif',
+                  fontSize: '13.5px',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  boxShadow: '0 6px 18px rgba(61,107,255,0.25)',
+                  transition: 'all 0.2s ease',
+                  whiteSpace: 'nowrap'
+                }}
+                className="hover:scale-[1.02] active:scale-[0.98] transition-transform"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                เปิดไฟล์ใน Google Drive
+              </a>
+            </div>
           )}
         </div>
 

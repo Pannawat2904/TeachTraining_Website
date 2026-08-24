@@ -21,18 +21,18 @@ export default function ClassroomResearchPage() {
             <span className="tag">ภาคเรียนที่ 1/2569</span>
           </div>
 
-          <div style={{ padding: '24px 28px' }}>
+          <div style={{ padding: 'clamp(18px, 3.5vw, 24px) clamp(16px, 4vw, 28px)' }}>
             <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '13px', color: 'var(--blue-c)', marginBottom: '8px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
               <GraduationCap size={16} />
               โครงร่างงานวิจัยในชั้นเรียน
             </div>
-            <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(20px, 2.5vw, 26px)', lineHeight: 1.45, color: 'var(--ink)', marginBottom: '14px', wordBreak: 'break-word', overflowWrap: 'anywhere', display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-              <FileText style={{ color: 'var(--violet-c)', width: '28px', height: '28px', flexShrink: 0, marginTop: '2px' }} />
+            <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', lineHeight: 1.45, color: 'var(--ink)', marginBottom: '14px', wordBreak: 'break-word', overflowWrap: 'anywhere', display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+              <FileText style={{ color: 'var(--violet-c)', width: '26px', height: '26px', flexShrink: 0, marginTop: '2px' }} />
               <span>การพัฒนาบทเรียนออนไลน์ด้วยปัญญาประดิษฐ์ร่วมกับแชทบอทอัจฉริยะเพื่อส่งเสริมการเรียนรู้รายวิชาโปรแกรมฐานข้อมูล สำหรับนักเรียนระดับประกาศนียบัตรวิชาชีพ</span>
             </h1>
             
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginTop: '12px' }}>
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', fontSize: '14px', color: 'var(--muted-c)', fontWeight: 500 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px', marginTop: '12px' }}>
+              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', fontSize: '13.5px', color: 'var(--muted-c)', fontWeight: 500 }}>
                 <span>ผู้วิจัย: <b style={{ color: 'var(--ink)' }}>นายปาณวัฐ รักรอดจิต</b></span>
                 <span>รายวิชา: <b style={{ color: 'var(--ink)' }}>21910-2012 โปรแกรมฐานข้อมูล</b></span>
               </div>
@@ -47,22 +47,24 @@ export default function ClassroomResearchPage() {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
-                    padding: '10px 20px',
+                    padding: '9px 18px',
                     borderRadius: '999px',
                     background: 'linear-gradient(135deg, #0ec9b8, #3d6bff)',
                     color: '#ffffff',
                     fontFamily: 'var(--font-prompt), sans-serif',
-                    fontSize: '13.5px',
+                    fontSize: '13px',
                     fontWeight: 600,
                     textDecoration: 'none',
                     boxShadow: '0 6px 20px rgba(14,201,184,0.3)',
                     transition: 'all 0.2s ease',
+                    whiteSpace: 'nowrap',
+                    minHeight: '40px'
                   }}
                   className="hover:scale-[1.03] active:scale-[0.98] transition-transform"
                 >
-                  <Sparkles size={16} />
+                  <Sparkles size={15} />
                   <span>เปิดดูชิ้นงาน (DBase Learning)</span>
-                  <ArrowUpRight size={15} />
+                  <ArrowUpRight size={14} />
                 </a>
               </div>
             </div>

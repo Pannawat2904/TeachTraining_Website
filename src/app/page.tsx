@@ -34,7 +34,7 @@ export default function Home() {
                   <span className="fname">teaching_practicum_report.config</span>
                   <span className="tag">ภาคเรียนที่ 1/2569</span>
                 </div>
-                <div style={{ padding: '20px 24px' }}>
+                <div style={{ padding: 'clamp(16px, 3.5vw, 20px) clamp(16px, 4vw, 24px)' }}>
                   <div style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11.5px', fontWeight: 700, color: 'var(--blue-c)', letterSpacing: '0.06em', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
                     <span style={{ color: 'var(--violet-c)' }}>&lt;/&gt;</span> TEACHING PRACTICUM REPORT
                   </div>
@@ -68,7 +68,7 @@ export default function Home() {
                   <span className="r"></span><span className="y"></span><span className="g"></span>
                   <span className="fname">quick_actions.json</span>
                 </div>
-                <div style={{ padding: '22px 24px' }}>
+                <div style={{ padding: 'clamp(16px, 3.5vw, 22px) clamp(16px, 4vw, 24px)' }}>
                   <h3>
                     <Sparkles className="w-4 h-4 text-blue-600" style={{ color: 'var(--blue-c)' }} />
                     เมนูด่วน
@@ -96,7 +96,7 @@ export default function Home() {
                   <span className="r"></span><span className="y"></span><span className="g"></span>
                   <span className="fname">courses_list.ts</span>
                 </div>
-                <div style={{ padding: '22px 24px' }}>
+                <div style={{ padding: 'clamp(16px, 3.5vw, 22px) clamp(16px, 4vw, 24px)' }}>
                   <h3>
                     <BookOpen className="w-4 h-4" style={{ color: 'var(--violet-c)' }} />
                     รายวิชาที่สอน
@@ -127,7 +127,7 @@ export default function Home() {
                 <span className="r"></span><span className="y"></span><span className="g"></span>
                 <span className="fname">school_location.config</span>
               </div>
-              <div style={{ padding: '22px 24px' }}>
+              <div style={{ padding: 'clamp(16px, 3.5vw, 22px) clamp(16px, 4vw, 24px)' }}>
                 <div className="icon-badge">
                   <School style={{ color: 'var(--blue-c)' }} />
                 </div>
@@ -144,7 +144,7 @@ export default function Home() {
                 <span className="r"></span><span className="y"></span><span className="g"></span>
                 <span className="fname">mentor_profile.json</span>
               </div>
-              <div style={{ padding: '22px 24px' }}>
+              <div style={{ padding: 'clamp(16px, 3.5vw, 22px) clamp(16px, 4vw, 24px)' }}>
                 <div className="icon-badge">
                   <UserCheck style={{ color: 'var(--violet-c)' }} />
                 </div>
@@ -164,7 +164,7 @@ export default function Home() {
                 <span className="r"></span><span className="y"></span><span className="g"></span>
                 <span className="fname">supervisor_profile.json</span>
               </div>
-              <div style={{ padding: '22px 24px' }}>
+              <div style={{ padding: 'clamp(16px, 3.5vw, 22px) clamp(16px, 4vw, 24px)' }}>
                 <div className="icon-badge">
                   <GraduationCap style={{ color: '#d97706' }} />
                 </div>

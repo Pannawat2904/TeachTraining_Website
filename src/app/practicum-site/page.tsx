@@ -27,7 +27,7 @@ export default function PracticumSitePage() {
           content: '';
           position: absolute;
           inset: 0;
-          background: linear-gradient(0deg, rgba(16,21,43,0.82), rgba(16,21,43,0.15) 60%);
+          background: linear-gradient(0deg, rgba(16,21,43,0.88), rgba(16,21,43,0.2) 60%);
         }
         .banner-content {
           position: absolute;
@@ -46,8 +46,8 @@ export default function PracticumSitePage() {
         }
         .banner-content h1 {
           font-family: var(--font-prompt), sans-serif;
-          font-weight: 600;
-          font-size: clamp(22px, 3vw, 32px);
+          font-weight: 700;
+          font-size: clamp(20px, 3vw, 32px);
           margin-bottom: 8px;
           text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
@@ -59,28 +59,31 @@ export default function PracticumSitePage() {
           line-height: 1.5;
         }
 
+        @media (max-width: 640px) {
+          .banner { height: 260px; border-radius: 18px; margin-bottom: 20px; }
+          .banner-content { left: 16px; right: 16px; bottom: 18px; }
+          .banner-content h1 { font-size: 20px; }
+          .banner-content p { font-size: 12.5px; line-height: 1.4; }
+        }
 
         /* People grid */
         .section-title {
           font-family: var(--font-prompt), sans-serif;
-          font-size: 22px;
+          font-size: 20px;
           font-weight: 700;
           color: var(--ink, #10152b);
-          margin: 48px 0 24px;
+          margin: 40px 0 20px;
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 10px;
         }
-        .section-title::before {
-          content: '//';
-          font-family: var(--font-mono), monospace;
-          color: var(--blue-c, #3d6bff);
-          font-size: 24px;
+        @media (max-width: 640px) {
+          .section-title { font-size: 18px; margin: 30px 0 16px; }
         }
         .people-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-          gap: 20px;
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+          gap: 18px;
         }
         .person-card {
           padding: 0;
@@ -88,11 +91,12 @@ export default function PracticumSitePage() {
           display: flex;
           align-items: stretch;
           overflow: hidden;
-          min-height: 172px;
+          min-height: 150px;
+          border-radius: 18px;
         }
         .person-card .avatar {
-          width: 140px;
-          min-height: 172px;
+          width: 130px;
+          min-height: 150px;
           position: relative;
           flex-shrink: 0;
           border-radius: 0;
@@ -102,6 +106,24 @@ export default function PracticumSitePage() {
           background: rgba(61,107,255,0.1);
           border-right: 1px solid rgba(61,107,255,0.25);
           overflow: hidden;
+        }
+        @media (max-width: 480px) {
+          .person-card {
+            min-height: 120px;
+          }
+          .person-card .avatar {
+            width: 100px;
+            min-height: 120px;
+          }
+          .person-card .info {
+            padding: 16px 14px !important;
+          }
+          .person-card h4 {
+            font-size: 14.5px !important;
+          }
+          .person-card p {
+            font-size: 12px !important;
+          }
         }
         .person-card.violet .avatar {
           background: rgba(139,92,246,0.1);
@@ -115,36 +137,23 @@ export default function PracticumSitePage() {
           background: rgba(14,201,184,0.1);
           border-color: rgba(14,201,184,0.28);
         }
-        .person-card .avatar svg {
-          width: 24px;
-          height: 24px;
-          stroke: var(--blue-c, #3d6bff);
-        }
-        .person-card.violet .avatar svg {
-          stroke: var(--violet-c, #8b5cf6);
-        }
-        .person-card.amber .avatar svg {
-          stroke: var(--amber-c, #ffb020);
-        }
-        .person-card.cyan .avatar svg {
-          stroke: #0a8f82;
-        }
         .person-card .role {
           font-family: var(--font-mono), monospace;
           font-size: 11px;
           color: var(--muted, rgba(16,21,43,0.58));
-          margin-bottom: 6px;
+          margin-bottom: 4px;
         }
         .person-card h4 {
           font-family: var(--font-prompt), sans-serif;
-          font-size: 15px;
+          font-size: 15.5px;
           font-weight: 600;
-          margin-bottom: 6px;
+          margin-bottom: 4px;
+          color: var(--ink);
         }
         .person-card p {
-          font-size: 12.5px;
+          font-size: 13px;
           color: var(--muted, rgba(16,21,43,0.58));
-          line-height: 1.6;
+          line-height: 1.5;
         }
 
         /* Info + facility columns */
@@ -156,10 +165,13 @@ export default function PracticumSitePage() {
           align-items: start;
         }
         @media(max-width:900px){
-          .cols { grid-template-columns: 1fr; }
+          .cols { grid-template-columns: 1fr; gap: 16px; }
         }
         .info-list {
           padding: 20px 24px;
+        }
+        @media (max-width: 640px) {
+          .info-list { padding: 16px 14px; }
         }
         .info-list .row {
           display: flex;
@@ -192,11 +204,14 @@ export default function PracticumSitePage() {
         .chip-panel {
           padding: 20px 24px;
         }
+        @media (max-width: 640px) {
+          .chip-panel { padding: 16px 14px; }
+        }
         .chip-panel h4 {
           font-family: var(--font-prompt), sans-serif;
           font-size: 15px;
           font-weight: 600;
-          margin-bottom: 14px;
+          margin-bottom: 12px;
         }
         .chips {
           display: flex;
@@ -205,7 +220,7 @@ export default function PracticumSitePage() {
         }
         .chips span {
           font-size: 12px;
-          padding: 8px 14px;
+          padding: 6px 12px;
           border-radius: 999px;
           background: rgba(61,107,255,0.08);
           border: 1px solid rgba(61,107,255,0.2);
@@ -214,48 +229,16 @@ export default function PracticumSitePage() {
 
         /* Map */
         .map-frame {
-          border-radius: 26px;
+          border-radius: 24px;
           overflow: hidden;
           position: relative;
-          height: 300px;
+          height: 320px;
           border: 1px solid var(--border-strong-c, rgba(16,21,43,0.12));
           box-shadow: 0 20px 60px rgba(61,107,255,0.12);
           margin-top: 16px;
         }
-        .map-frame .fake-map {
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(rgba(238,242,255,0.4), rgba(238,242,255,0.55)),
-            repeating-linear-gradient(0deg, #d7e0ff 0 1px, transparent 1px 42px),
-            repeating-linear-gradient(90deg, #d7e0ff 0 1px, transparent 1px 42px), #f4f6ff;
-        }
-        .map-frame .pin {
-          position: absolute;
-          top: 44%;
-          left: 48%;
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          background: var(--blue-c, #3d6bff);
-          box-shadow: 0 0 0 6px rgba(61,107,255,0.18), 0 0 20px var(--blue-c, #3d6bff);
-          animation: pulse 2.2s ease-in-out infinite;
-        }
-        @keyframes pulse {
-          0%, 100% { box-shadow: 0 0 0 6px rgba(61,107,255,0.18), 0 0 20px var(--blue-c, #3d6bff); }
-          50% { box-shadow: 0 0 0 12px rgba(61,107,255,0.04), 0 0 26px var(--blue-c, #3d6bff); }
-        }
-        .map-frame .open-btn {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          padding: 9px 16px;
-          border-radius: 999px;
-          background: linear-gradient(135deg, var(--blue-c, #3d6bff), var(--violet-c, #8b5cf6));
-          color: #fff;
-          font-size: 12px;
-          font-weight: 600;
-          text-decoration: none;
-          box-shadow: 0 8px 24px rgba(61,107,255,0.35);
+        @media (max-width: 640px) {
+          .map-frame { border-radius: 18px; height: 280px; }
         }
 
         .glass-panel {
@@ -265,8 +248,8 @@ export default function PracticumSitePage() {
           backdrop-filter: blur(16px) saturate(160%);
           box-shadow: 0 16px 46px rgba(61,107,255,0.1), inset 0 1px 0 rgba(255,255,255,0.7);
         }
-        @media(max-width:700px){ 
-          .banner { height: 240px; } 
+        @media(max-width:640px){ 
+          .glass-panel { border-radius: 18px; } 
         }
       `}</style>
 
@@ -401,7 +384,7 @@ export default function PracticumSitePage() {
             <Network size={16} />
             แผนผังโครงสร้างแผนกวิชา
           </div>
-          <div className="glass-panel" style={{ padding: '32px', marginTop: '16px', overflow: 'hidden', position: 'relative' }}>
+          <div className="glass-panel" style={{ padding: 'clamp(14px, 3vw, 28px)', marginTop: '16px', overflow: 'hidden', position: 'relative' }}>
             {/* Decorative background glow for the org chart */}
             <div style={{ position: 'absolute', top: '-50px', left: '50%', transform: 'translateX(-50%)', width: '300px', height: '150px', background: 'radial-gradient(ellipse, rgba(61,107,255,0.15), transparent 70%)', filter: 'blur(30px)', pointerEvents: 'none' }}></div>
             

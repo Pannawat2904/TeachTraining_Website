@@ -35,27 +35,27 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
             <span className="fname">lesson_plans_semester_{semesterNum}.config</span>
             <span className="tag">ภาคเรียนที่ {semesterNum}/2569</span>
           </div>
-          <div style={{ padding: '24px 28px' }}>
+          <div style={{ padding: 'clamp(18px, 3.5vw, 24px) clamp(16px, 4vw, 28px)' }}>
             <div className="eyebrow" style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: '13px', color: 'var(--blue-c)', marginBottom: '6px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
               <BookOpenCheck size={15} />
               แผนการจัดการเรียนรู้รายวิชา
             </div>
-            <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(22px, 3vw, 32px)', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--ink)' }}>
+            <h1 style={{ fontFamily: 'var(--font-prompt), sans-serif', fontWeight: 700, fontSize: 'clamp(20px, 3vw, 30px)', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--ink)' }}>
               <BookOpen style={{ color: 'var(--violet-c)', width: '28px', height: '28px', flexShrink: 0 }} />
-              แผนการจัดการเรียนรู้ (ภาคเรียนที่ {semesterNum}/2569)
+              <span>แผนการจัดการเรียนรู้ (ภาคเรียนที่ {semesterNum}/2569)</span>
             </h1>
-            <p style={{ color: 'var(--ink)', opacity: 0.85, marginTop: '6px', fontSize: '15px' }}>
+            <p style={{ color: 'var(--ink)', opacity: 0.85, marginTop: '6px', fontSize: '14px', lineHeight: 1.5 }}>
               แยกตามรายวิชาที่สอนในภาคเรียนที่ {semesterNum}/2569 จำนวน {plans.length} รายวิชา สามารถกดเปิดใน Google Drive หรือคลิกดูตัวอย่างในหน้านี้
             </p>
 
             {/* Filter Tabs */}
-            <div style={{ display: 'flex', gap: '10px', marginTop: '20px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '8px', marginTop: '18px', flexWrap: 'wrap' }}>
               <button
                 onClick={() => setSelectedCourse("all")}
                 style={{
-                  padding: '8px 18px',
+                  padding: '8px 16px',
                   borderRadius: '999px',
-                  fontSize: '13.5px',
+                  fontSize: '13px',
                   fontWeight: 600,
                   fontFamily: 'var(--font-prompt), sans-serif',
                   cursor: 'pointer',
@@ -64,7 +64,7 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
                   color: selectedCourse === "all" ? '#ffffff' : 'var(--ink)',
                   boxShadow: selectedCourse === "all" ? '0 4px 14px rgba(61,107,255,0.25)' : 'none',
                   transition: 'all 0.2s ease',
-                  minHeight: '40px'
+                  minHeight: '38px'
                 }}
               >
                 ทุกรายวิชา ({plans.length})
@@ -74,9 +74,9 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
                   key={p.id}
                   onClick={() => setSelectedCourse(p.courseCode)}
                   style={{
-                    padding: '8px 18px',
+                    padding: '8px 16px',
                     borderRadius: '999px',
-                    fontSize: '13.5px',
+                    fontSize: '13px',
                     fontWeight: 600,
                     fontFamily: 'var(--font-prompt), sans-serif',
                     cursor: 'pointer',
@@ -85,7 +85,7 @@ export default function LessonPlansPage(props: { params: Promise<{ term: string 
                     color: selectedCourse === p.courseCode ? '#ffffff' : 'var(--ink)',
                     boxShadow: selectedCourse === p.courseCode ? '0 4px 14px rgba(61,107,255,0.25)' : 'none',
                     transition: 'all 0.2s ease',
-                    minHeight: '40px'
+                    minHeight: '38px'
                   }}
                 >
                   {p.courseCode} {p.courseName}

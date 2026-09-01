@@ -211,7 +211,11 @@ interface WeekLogItem {
                     ...(remarkStr ? [`หมายเหตุ: ${remarkStr}`] : [])
                   ];
 
-                  const isLeave = workStr.includes('ลา') || workStr.includes('วันหยุด');
+                  // Check for leave/holiday but prevent false positive from the word 'เวลา' (time)
+                  const isLeave = workStr.trim() === 'ลา' || 
+                                  workStr.includes('วันหยุด') || 
+                                  workStr.includes('ลาป่วย') || 
+                                  workStr.includes('ลากิจ');
                   if (isLeave) {
                     status = 'sick'; // This maps to the red UI theme
                     statusText = workStr.includes('วันหยุด') ? 'วันหยุดราชการ' : 'ลา';

@@ -133,20 +133,24 @@ interface WeekLogItem {
               let dateRangeStr = "";
               let headerRowIdx = -1;
               
-              for(let i=0; i<Math.min(5, data.length); i++) {
+              for(let i=0; i<Math.min(10, data.length); i++) {
                 const row = data[i] as string[];
                 const joined = row.join(' ');
                 if (joined.includes('สัปดาห์ที่')) {
-                // try to extract date range anywhere in the header rows (must have numbers to avoid matching just "วันที่ ")
-                const matchCell = row.find((cell: string) => cell && /วันที่\s*\d+/.test(cell));
-                if (matchCell) {
-                  const match = matchCell.match(/วันที่\s*(.*?)(?=\s*หมายเหตุ|$)/);
-                  if (match) {
-                    dateRangeStr = match[0].trim();
+                  // try to extract date range anywhere in the header rows (must have numbers to avoid matching just "วันที่ ")
+                  const matchCell = row.find((cell: string) => cell && /วันที่\s*\d+/.test(cell));
+                  if (matchCell) {
+                    const match = matchCell.match(/วันที่\s*(.*?)(?=\s*หมายเหตุ|$)/);
+                    if (match) {
+                      dateRangeStr = match[0].trim();
+                    }
                   }
                 }
-                }
-                if (joined.includes('การทำงาน') || joined.includes('วันที่')) {
+                
+                // Exact match for the true header row to avoid false positives with the title row
+                const col0 = (row[0] || '').trim();
+                const col1 = (row[1] || '').trim();
+                if (col0 === 'วันที่' || (col0.includes('วันที่') && col1.includes('การทำงาน'))) {
                   headerRowIdx = i;
                   break;
                 }
@@ -158,12 +162,13 @@ interface WeekLogItem {
                   const row = data[i] as string[];
                   if (!row || !row[0]) continue;
                   
-                  const dateStr = row[0] || '';
-                  const workStr = row[1] || '';
-                  const remarkStr = row[2] || '';
+                  const dateStr = (row[0] || '').trim();
+                  const workStr = (row[1] || '').trim();
+                  const remarkStr = (row[2] || '').trim();
                   
-                  // skip empty days
-                  if (!dateStr && !workStr) continue;
+                  // A valid day MUST have a date (to avoid parsing footers/signatures)
+                  // and we also ensure the date has at least a number or is not just empty.
+                  if (!dateStr || !workStr || !/\d/.test(dateStr)) continue;
 
                   // Extract day number from "5/5/26" -> "5"
                   const dateParts = dateStr.split('/');
@@ -199,7 +204,7 @@ interface WeekLogItem {
 
                   let status = 'present';
                   let statusText = 'มาปฏิบัติงาน';
-                  let times = '07:40-16:30 น. (8 ชม. 50 นาที)';
+                  let times = ''; // user requested to hide times here
                   let title = 'รายละเอียดการปฏิบัติงาน';
                   let acts = [
                     workStr,

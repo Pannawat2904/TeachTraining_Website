@@ -8,59 +8,14 @@ import { supervisions } from '@/data/siteData';
 export default function ActivitiesPage() {
   const [filter, setFilter] = useState('all');
 
-  const activitiesList = [
-    {
-      id: 1,
-      cat: 'teach',
-      img: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=600&auto=format&fit=crop',
-      tag: 'กิจกรรมการสอน',
-      tagColor: 'blue',
-      date: '12 ส.ค. 2569',
-      title: 'กิจกรรมเสริมทักษะปฏิบัติการคอมพิวเตอร์',
-      desc: 'จัดกิจกรรมฝึกปฏิบัติเสริมทักษะให้นักเรียนกลุ่มที่ต้องพัฒนาเพิ่มเติม'
-    },
-    {
-      id: 2,
-      cat: 'teach',
-      img: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=600&auto=format&fit=crop',
-      tag: 'กิจกรรมการสอน',
-      tagColor: 'violet',
-      date: '10 ส.ค. 2569',
-      title: 'สอนปฏิบัติการโปรแกรมมัลติมีเดีย',
-      desc: 'คาบปฏิบัติการตัดต่อวิดีโอเบื้องต้นของนักเรียนชั้น ปวช.2'
-    },
+  const [activitiesList, setActivitiesList] = useState<any[]>([]);
 
-    {
-      id: 4,
-      cat: 'school',
-      img: 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=600&auto=format&fit=crop',
-      tag: 'กิจกรรมวิทยาลัย',
-      tagColor: 'amber',
-      date: '03 ส.ค. 2569',
-      title: 'กิจกรรมหน้าเสาธงและเข้าแถวประจำวัน',
-      desc: 'ร่วมกิจกรรมเข้าแถวเคารพธงชาติและแจ้งข่าวสารประจำสัปดาห์'
-    },
-    {
-      id: 5,
-      cat: 'school',
-      img: 'https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=600&auto=format&fit=crop',
-      tag: 'กิจกรรมวิทยาลัย',
-      tagColor: 'amber',
-      date: '29 ก.ค. 2569',
-      title: 'ประชุมแผนกวิชาประจำเดือน',
-      desc: 'เข้าร่วมประชุมแผนกวิชาธุรกิจดิจิทัลและเทคโนโลยีสารสนเทศ'
-    },
-    {
-      id: 6,
-      cat: 'student',
-      img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=600&auto=format&fit=crop',
-      tag: 'กิจกรรมนักเรียน',
-      tagColor: 'violet',
-      date: '25 ก.ค. 2569',
-      title: 'กิจกรรมแนะแนวและปฐมนิเทศนักเรียนใหม่',
-      desc: 'ร่วมจัดกิจกรรมต้อนรับและแนะแนวนักเรียนชั้นปีที่ 1'
-    }
-  ];
+  React.useEffect(() => {
+    fetch('/data/activities.json')
+      .then(res => res.json())
+      .then(data => setActivitiesList(data))
+      .catch(err => console.error('Error fetching activities:', err));
+  }, []);
 
   const allSupervisions = [...supervisions.semester1, ...supervisions.semester2];
   const supervisionActivities = allSupervisions.map((sup) => ({

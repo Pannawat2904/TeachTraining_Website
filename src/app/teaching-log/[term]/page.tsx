@@ -354,64 +354,7 @@ interface WeekLogItem {
       </div>
     </Reveal>
 
-    {/* 2. Supervisions Section */}
-    {supervisionsData && supervisionsData.length > 0 && (
-      <Reveal delay={50}>
-        <div className="glass-panel" style={{ borderRadius: '24px', padding: 'clamp(24px, 4vw, 32px)', background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(10px)', boxShadow: '0 16px 46px rgba(61,107,255,0.05)', marginBottom: '32px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <h2 style={{ fontSize: 'clamp(20px, 3vw, 24px)', fontWeight: 700, color: 'var(--emerald-c)', display: 'inline-flex', alignItems: 'center', gap: '8px', margin: 0 }}>
-              <FileText size={24} />
-              ตารางการนิเทศการสอน
-            </h2>
-            <div style={{ width: '40px', height: '3px', background: 'var(--emerald-c)', margin: '12px auto 0', borderRadius: '4px' }}></div>
-          </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-            {supervisionsData.map((sup) => (
-              <div key={sup.id} style={{ background: '#fff', borderRadius: '16px', border: '1px solid var(--border-strong-c)', padding: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
-                <div style={{ 
-                  background: 'rgba(56, 189, 248, 0.2)', 
-                  color: 'var(--blue-c)', 
-                  width: '36px', 
-                  height: '36px', 
-                  borderRadius: '10px', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center', 
-                  fontWeight: 700, 
-                  fontSize: '18px', 
-                  marginBottom: '20px' 
-                }}>
-                  {sup.id}
-                </div>
-                <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--ink)', margin: '0 0 16px 0' }}>
-                  {sup.title}
-                </h3>
-                <div style={{ fontSize: '14px', color: 'var(--muted-c)', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px' }}>
-                  <div style={{ display: 'flex', gap: '6px' }}>
-                    <span style={{ fontWeight: 600, color: 'var(--ink)', minWidth: '90px' }}>วันที่:</span> 
-                    <span>{sup.date}</span>
-                  </div>
-                  <div style={{ display: 'flex', gap: '6px' }}>
-                    <span style={{ fontWeight: 600, color: 'var(--ink)', minWidth: '90px' }}>วิชา:</span> 
-                    <span>{sup.subject}</span>
-                  </div>
-                  <div style={{ display: 'flex', gap: '6px' }}>
-                    <span style={{ fontWeight: 600, color: 'var(--ink)', minWidth: '90px' }}>อาจารย์นิเทศ:</span> 
-                    <span>{sup.supervisor}</span>
-                  </div>
-                </div>
-                {sup.image && (
-                  <div style={{ borderRadius: '12px', overflow: 'hidden', height: '160px', position: 'relative' }}>
-                    <img src={sup.image} alt={sup.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-    )}
 
       {viewMode === 'sheet' && sheetUrl ? (
         /* Google Sheets Embedded View */

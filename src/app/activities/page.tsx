@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/Reveal';
 import { Camera, Images } from 'lucide-react';
+import { supervisions } from '@/data/siteData';
 
 export default function ActivitiesPage() {
   const [filter, setFilter] = useState('all');
@@ -28,16 +29,7 @@ export default function ActivitiesPage() {
       title: 'สอนปฏิบัติการโปรแกรมมัลติมีเดีย',
       desc: 'คาบปฏิบัติการตัดต่อวิดีโอเบื้องต้นของนักเรียนชั้น ปวช.2'
     },
-    {
-      id: 3,
-      cat: 'teach',
-      img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=600&auto=format&fit=crop',
-      tag: 'กิจกรรมการสอน',
-      tagColor: 'cyan',
-      date: '07 ส.ค. 2569',
-      title: 'นิเทศการสอนโดยอาจารย์นิเทศก์',
-      desc: 'รับการนิเทศและข้อเสนอแนะเพื่อพัฒนาการจัดการเรียนการสอน'
-    },
+
     {
       id: 4,
       cat: 'school',
@@ -70,7 +62,20 @@ export default function ActivitiesPage() {
     }
   ];
 
-  const filteredActivities = activitiesList.filter(a => filter === 'all' || a.cat === filter);
+  const allSupervisions = [...supervisions.semester1, ...supervisions.semester2];
+  const supervisionActivities = allSupervisions.map((sup) => ({
+    id: `sup-${sup.id}`,
+    cat: 'supervision',
+    img: sup.image || 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=600&auto=format&fit=crop',
+    tag: 'การนิเทศการสอน',
+    tagColor: 'cyan',
+    date: sup.date,
+    title: sup.title,
+    desc: `วิชา: ${sup.subject} | อาจารย์นิเทศ: ${sup.supervisor}`
+  }));
+
+  const combinedActivities = [...supervisionActivities, ...activitiesList];
+  const filteredActivities = combinedActivities.filter(a => filter === 'all' || a.cat === filter);
 
   return (
     <>
@@ -137,6 +142,7 @@ export default function ActivitiesPage() {
         <Reveal delay={100}>
           <div className="filters">
             <button className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>ทั้งหมด</button>
+            <button className={filter === 'supervision' ? 'active' : ''} onClick={() => setFilter('supervision')}>การนิเทศการสอน</button>
             <button className={filter === 'teach' ? 'active' : ''} onClick={() => setFilter('teach')}>กิจกรรมการสอน</button>
             <button className={filter === 'school' ? 'active' : ''} onClick={() => setFilter('school')}>กิจกรรมวิทยาลัย</button>
             <button className={filter === 'student' ? 'active' : ''} onClick={() => setFilter('student')}>กิจกรรมนักเรียน</button>

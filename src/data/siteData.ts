@@ -468,7 +468,7 @@ export const supervisions = {
   semester1: [
     {
       id: 1,
-      title: "การนิเทศ On-site",
+      title: "การนิเทศ On-site (ครั้งที่ 1)",
       date: "8 มิ.ย. 2569",
       subject: "เทคโนโลยีการนำเข้าข้อมูลเข้าสู่ระบบคอมพิวเตอร์",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
@@ -480,7 +480,7 @@ export const supervisions = {
     },
     {
       id: 2,
-      title: "การนิเทศ Online (ครั้งที่ 1)",
+      title: "การนิเทศ Online (ครั้งที่ 2)",
       date: "6 ส.ค. 2569",
       subject: "เทคโนโลยีการนำเข้าข้อมูลเข้าสู่ระบบคอมพิวเตอร์",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
@@ -488,7 +488,7 @@ export const supervisions = {
     },
     {
       id: 3,
-      title: "การนิเทศ Online (ครั้งที่ 2)",
+      title: "การนิเทศ Online (ครั้งที่ 3)",
       date: "7 ก.ย. 2569",
       subject: "โปรแกรมฐานข้อมูล",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",

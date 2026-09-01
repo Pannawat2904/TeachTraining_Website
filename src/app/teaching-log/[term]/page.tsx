@@ -212,15 +212,24 @@ interface WeekLogItem {
               }
 
               const staticWeek = logData.weeks.find((w: any) => w.weekNum === String(index + 1).padStart(2, '0'));
+              const weekNumFormatted = String(index + 1).padStart(2, '0');
+              
+              // Automatically use images from the term folder if not specified in static fallback
+              const weekImages = staticWeek?.images && staticWeek.images.length > 0 
+                ? staticWeek.images 
+                : [
+                    `/images/teaching-log/term1/week${weekNumFormatted}/1.jpg`,
+                    `/images/teaching-log/term1/week${weekNumFormatted}/2.jpg`
+                  ];
 
               return {
-                weekNum: String(index + 1).padStart(2, '0'),
+                weekNum: weekNumFormatted,
                 title: weekNumStr,
                 dateRange: dateRangeStr || "ไม่ระบุวันที่",
                 presentDays: days.length,
                 leaveDays: 0,
                 filename: name + '.csv',
-                images: staticWeek?.images,
+                images: weekImages,
                 days: days
               } as WeekLogItem;
             }

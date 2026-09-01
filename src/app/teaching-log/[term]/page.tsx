@@ -201,8 +201,7 @@ interface WeekLogItem {
         });
       }
     });
-
-    const pct = Math.round((recordedWeeks / 18) * 100);
+    const pct = Math.round((recordedWeeks / 20) * 100);
 
     return {
       recordedWeeks,

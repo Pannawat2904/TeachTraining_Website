@@ -432,7 +432,28 @@ interface WeekLogItem {
         /* Interactive Daily Log View */
         <>
           {/* Progress Overview Panel */}
-          {calculatedStats && (
+          {isLoading ? (
+            <div className="glass-panel" style={{ borderRadius: '20px', padding: 'clamp(14px, 3vw, 20px) clamp(16px, 3.5vw, 28px)', marginBottom: '20px', background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(16px)', boxShadow: '0 14px 40px rgba(61,107,255,0.08)' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))', gap: '14px', alignItems: 'center', marginBottom: '14px' }}>
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <div style={{ width: '40px', height: '24px', borderRadius: '4px', background: 'rgba(61,107,255,0.1)', animation: 'pulse 1.5s infinite ease-in-out' }}></div>
+                    <div style={{ width: '70px', height: '12px', borderRadius: '4px', background: 'rgba(61,107,255,0.05)', animation: 'pulse 1.5s infinite ease-in-out' }}></div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ width: '100%', height: '8px', borderRadius: '999px', background: 'rgba(16,21,43,0.05)', overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: '30%', borderRadius: '999px', background: 'rgba(61,107,255,0.1)', animation: 'pulse 1.5s infinite ease-in-out' }}></div>
+              </div>
+              <style>{`
+                @keyframes pulse {
+                  0% { opacity: 0.5; }
+                  50% { opacity: 1; }
+                  100% { opacity: 0.5; }
+                }
+              `}</style>
+            </div>
+          ) : calculatedStats ? (
             <div className="glass-panel" style={{ borderRadius: '20px', padding: 'clamp(14px, 3vw, 20px) clamp(16px, 3.5vw, 28px)', marginBottom: '20px', background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(16px)', boxShadow: '0 14px 40px rgba(61,107,255,0.08)' }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))', gap: '14px', alignItems: 'center', marginBottom: '14px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
@@ -462,7 +483,7 @@ interface WeekLogItem {
                 <div style={{ height: '100%', width: calculatedStats.semesterPct || '0%', borderRadius: '999px', background: 'linear-gradient(90deg, var(--blue-c), var(--violet-c), var(--cyan-c))', transition: 'width 1s ease' }}></div>
               </div>
             </div>
-          )}
+          ) : null}
 
           {/* Standard Work Hours Notice */}
           <div style={{ display: 'flex', gap: '10px 16px', flexWrap: 'wrap', marginBottom: '20px', padding: '12px 18px', borderRadius: '16px', background: 'rgba(61,107,255,0.06)', border: '1px solid rgba(61,107,255,0.18)', fontSize: '13px', color: 'var(--ink)' }}>

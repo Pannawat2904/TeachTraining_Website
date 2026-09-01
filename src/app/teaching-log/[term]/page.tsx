@@ -149,7 +149,7 @@ interface WeekLogItem {
                 filename: name + '.csv',
                 images: staticWeek?.images,
                 days: days
-              };
+              } as WeekLogItem;
             }
             return null;
           });
@@ -649,9 +649,9 @@ interface WeekLogItem {
                                   )}
                                 </div>
                               </div>
-                            </div>
-                          );
-                        })}
+                            );
+                          })}
+                        </div>
                       </div>
                     )}
                   </div>

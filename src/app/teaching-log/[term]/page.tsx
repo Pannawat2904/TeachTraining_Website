@@ -134,7 +134,7 @@ interface WeekLogItem {
           } catch (e) {
             console.warn('Could not load image manifest', e);
           }
-
+          
           const promises = sheetNames.map(async (name: string, index: number) => {
             const res = await fetchGoogleSheet(spreadsheetId, name);
             if (res.success && res.data && res.data.length > 0) {
@@ -150,92 +150,96 @@ interface WeekLogItem {
                 const joined = row.join(' ');
                 if (joined.includes('สัปดาห์ที่')) {
                   // try to extract date range anywhere in the header rows (must have numbers to avoid matching just "วันที่ ")
-                  for (let j = 0; j <= i + 1 && j < data.length; j++) {
-                    const r = data[j] as string[];
-                    const jstr = r.join(' ');
-                    if (jstr.includes('วันที่') && jstr.match(/\d/)) {
-                      dateRangeStr = jstr.replace('วันที่', '').trim();
-                      break;
+                  const matchCell = row.find((cell: string) => cell && /วันที่\s*\d+/.test(cell));
+                  if (matchCell) {
+                    const match = matchCell.match(/วันที่\s*(.*?)(?=\s*หมายเหตุ|$)/);
+                    if (match) {
+                      dateRangeStr = match[0].trim();
                     }
                   }
                 }
                 
-                // Usually the header row has "วัน/เดือน/ปี"
-                if (joined.includes('วัน/เดือน/ปี') || joined.includes('วัน / เดือน / ปี')) {
+                // Exact match for the true header row to avoid false positives with the title row
+                const col0 = (row[0] || '').trim();
+                const col1 = (row[1] || '').trim();
+                if (col0 === 'วันที่' || (col0.includes('วันที่') && col1.includes('การทำงาน'))) {
                   headerRowIdx = i;
                   break;
                 }
               }
 
-              // Parse days
               const days: DayLogItem[] = [];
               if (headerRowIdx !== -1) {
-                let currentMonth = '';
-                let currentYear = '';
-
                 for(let i = headerRowIdx + 1; i < data.length; i++) {
                   const row = data[i] as string[];
-                  // Only parse rows that have a date number in the first column to avoid footer lines
-                  const dateStr = String(row[0] || '').trim();
+                  if (!row || !row[0]) continue;
                   
-                  if (!dateStr || !dateStr.match(/^\d+$/)) {
-                    continue; // Skip rows that don't start with a pure number (like "รวม", "ลงชื่อ", etc.)
-                  }
-
-                  const dayNum = dateStr;
-                  const monthStr = String(row[1] || '').trim();
-                  const yearStrRaw = String(row[2] || '').trim();
+                  const dateStr = (row[0] || '').trim();
+                  const workStr = (row[1] || '').trim();
+                  const remarkStr = (row[2] || '').trim();
                   
-                  if (monthStr) currentMonth = monthStr;
-                  if (yearStrRaw) currentYear = yearStrRaw;
+                  // A valid day MUST have a date (to avoid parsing footers/signatures)
+                  // and we also ensure the date has at least a number or is not just empty.
+                  if (!dateStr || !workStr || !/\d/.test(dateStr)) continue;
 
-                  const workStr = String(row[3] || '').trim();
-                  const remarkStr = String(row[4] || '').trim();
-
+                  // Extract day number from "5/5/26" -> "5"
+                  const dateParts = dateStr.split('/');
+                  const dayNum = dateParts[0] || dateStr;
+                  
                   let dayOfWeek = -1;
-                  let yearStr = currentYear;
-                  // Try to find the day of week based on the date
-                  if (dayNum && monthStr && yearStr) {
+                  let monthStr = '';
+                  let yearStr = '';
+                  if (dateParts.length >= 2) {
                     const thaiMonths = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
-                    const monthFull = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
-                    let m = thaiMonths.findIndex(tm => monthStr.includes(tm)) + 1;
-                    if (m === 0) {
-                      m = monthFull.findIndex(tm => monthStr.includes(tm)) + 1;
+                    const m = parseInt(dateParts[1], 10);
+                    if (!isNaN(m) && m >= 1 && m <= 12) {
+                      monthStr = thaiMonths[m - 1];
                     }
-                    if (m > 0) {
-                      let y = parseInt(yearStr);
-                      if (y > 2500) y -= 543;
-                      const d = parseInt(dayNum);
+                  }
+                  if (dateParts.length >= 3) {
+                    let y = parseInt(dateParts[2], 10);
+                    let m = parseInt(dateParts[1], 10);
+                    let d = parseInt(dateParts[0], 10);
+                    if (!isNaN(y)) {
+                      if (y < 100) y += 2000; // Assuming 2000s for 2-digit years
+                      
+                      // Calculate day of week (0=Sun, 1=Mon...6=Sat)
                       if (!isNaN(d) && !isNaN(m)) {
                         const dateObj = new Date(y, m - 1, d);
                         dayOfWeek = dateObj.getDay();
                       }
+                      
+                      yearStr = String(y + 543).slice(-2);
                     }
                   }
-                  
-                  const formattedDayName = `${currentMonth} ${yearStr.slice(-2)}`.trim();
+                  const formattedDayName = monthStr ? `${monthStr} ${yearStr}`.trim() : 'Day';
 
                   let status = 'present';
                   let statusText = dayOfWeek === 6 ? 'สอนชดเชย' : 'มาปฏิบัติงาน';
-                  let times = ''; 
+                  let times = ''; // user requested to hide times here
                   let title = 'รายละเอียดการปฏิบัติงาน';
                   let acts = [
                     workStr,
                     ...(remarkStr ? [`หมายเหตุ: ${remarkStr}`] : [])
                   ];
 
-                  const isLeave = workStr.includes('ลา');
+                  // Check for leave/holiday but prevent false positive from the word 'เวลา' (time)
+                  const isLeave = workStr.trim() === 'ลา' || 
+                                  workStr.includes('ลาป่วย') || 
+                                  workStr.includes('ลากิจ');
                   const isHoliday = workStr.includes('วันหยุด');
 
                   if (isLeave) {
-                    status = 'sick';
+                    status = 'sick'; // This maps to the red UI theme
                     statusText = 'ลา';
                     title = workStr;
+                    times = '';
                     acts = [];
                   } else if (isHoliday) {
                     status = 'holiday'; 
                     statusText = 'วันหยุดราชการ';
                     title = workStr;
+                    times = '';
                     acts = [];
                   }
 
@@ -255,7 +259,7 @@ interface WeekLogItem {
               const presentCount = days.filter(d => d.status === 'present').length;
               const leaveCount = days.filter(d => d.status === 'sick').length;
               const holidayCount = days.filter(d => d.status === 'holiday').length;
-              const totalMins = presentCount * 510;
+              const totalMins = presentCount * 510; // 08:00 - 16:30 is 8 hours 30 mins = 510 mins
               const totalHoursStr = `${Math.floor(totalMins / 60)} ชม.`;
 
               const staticWeek = logData.weeks.find((w: any) => w.weekNum === String(index + 1).padStart(2, '0'));
@@ -270,6 +274,7 @@ interface WeekLogItem {
                       `/images/teaching-log/term1/week${weekNumFormatted}/1.jpg`,
                       `/images/teaching-log/term1/week${weekNumFormatted}/2.jpg`
                     ];
+
               return {
                 weekNum: weekNumFormatted,
                 title: weekNumStr,

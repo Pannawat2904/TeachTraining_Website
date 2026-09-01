@@ -105,6 +105,7 @@ interface WeekLogItem {
   dateRange: string;
   presentDays: number;
   leaveDays: number;
+  totalHoursStr?: string;
   filename: string;
   images?: string[];
   days: DayLogItem[];
@@ -196,20 +197,41 @@ interface WeekLogItem {
                   }
                   const formattedDayName = monthStr ? `${monthStr} ${yearStr}`.trim() : 'Day';
 
+                  let status = 'present';
+                  let statusText = 'มาปฏิบัติงาน';
+                  let times = '07:40-16:30 น. (8 ชม. 50 นาที)';
+                  let title = 'รายละเอียดการปฏิบัติงาน';
+                  let acts = [
+                    workStr,
+                    ...(remarkStr ? [`หมายเหตุ: ${remarkStr}`] : [])
+                  ];
+
+                  const isLeave = workStr.includes('ลา') || workStr.includes('วันหยุด');
+                  if (isLeave) {
+                    status = 'sick'; // This maps to the red UI theme
+                    statusText = workStr.includes('วันหยุด') ? 'วันหยุดราชการ' : 'ลา';
+                    title = workStr;
+                    times = '';
+                    acts = [];
+                  }
+
                   days.push({
                     dayName: formattedDayName, 
                     dayNum: dayNum,
-                    title: 'รายละเอียดการปฏิบัติงาน',
-                    status: 'present',
-                    statusText: 'มาปฏิบัติงาน',
-                    activities: [
-                      workStr,
-                      ...(remarkStr ? [`หมายเหตุ: ${remarkStr}`] : [])
-                    ],
+                    title: title,
+                    status: status,
+                    statusText: statusText,
+                    times: times,
+                    activities: acts,
                     dayOfWeek: dayOfWeek
                   });
                 }
               }
+
+              const presentCount = days.filter(d => d.status === 'present').length;
+              const leaveCount = days.length - presentCount;
+              const totalMins = presentCount * 530; // 07:40 - 16:30 is 8 hours 50 mins = 530 mins
+              const totalHoursStr = `${Math.floor(totalMins / 60)} ชม.${totalMins % 60 > 0 ? ` ${totalMins % 60} นาที` : ''}`;
 
               const staticWeek = logData.weeks.find((w: any) => w.weekNum === String(index + 1).padStart(2, '0'));
               const weekNumFormatted = String(index + 1).padStart(2, '0');
@@ -226,8 +248,9 @@ interface WeekLogItem {
                 weekNum: weekNumFormatted,
                 title: weekNumStr,
                 dateRange: dateRangeStr || "ไม่ระบุวันที่",
-                presentDays: days.length,
-                leaveDays: 0,
+                presentDays: presentCount,
+                leaveDays: leaveCount,
+                totalHoursStr: totalHoursStr,
                 filename: name + '.csv',
                 images: weekImages,
                 days: days
@@ -272,26 +295,24 @@ interface WeekLogItem {
       // If a week has any valid days parsed, we count it as a recorded week
       if (week.days && week.days.length > 0) {
         recordedWeeks++;
-        week.days.forEach((day) => {
-          // Attempt to detect leave from activities/remark
-          const activitiesText = day.activities ? day.activities.join(' ') : '';
-          if (activitiesText.includes('ลาป่วย') || activitiesText.includes('ลากิจ') || activitiesText.includes('วันหยุด')) {
-            leaveDays++;
-          } else {
-            workDays++;
-          }
-        });
+        workDays += week.presentDays || 0;
+        leaveDays += week.leaveDays || 0;
       }
     });
-    const pct = Math.round((recordedWeeks / 20) * 100);
+
+    const totalMins = workDays * 530;
+    const hours = Math.floor(totalMins / 60);
+    const mins = totalMins % 60;
+    const totalHoursStr = `${hours} ชม.${mins > 0 ? ` ${mins} นาที` : ''}`;
 
     return {
       recordedWeeks,
       workDays,
       leaveDays,
-      semesterPct: `${pct}%`
+      totalHoursStr,
+      semesterPct: `${Math.round((recordedWeeks / 20) * 100)}%`
     };
-  }, [displayWeeks, logData.stats]);
+  }, [displayWeeks, logData]);
 
 
   const toggleWeek = (weekNum: string) => {
@@ -422,6 +443,10 @@ interface WeekLogItem {
                   <span style={{ fontSize: '11.5px', color: 'var(--muted-c)' }}>วันลา</span>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                  <b style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 700, color: 'var(--blue-c)' }}>{(calculatedStats as any).totalHoursStr || "0 ชม."}</b>
+                  <span style={{ fontSize: '11.5px', color: 'var(--muted-c)' }}>ชั่วโมงปฏิบัติงานรวม</span>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <b style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 700, color: 'var(--violet-c)' }}>{calculatedStats.semesterPct}</b>
                   <span style={{ fontSize: '11.5px', color: 'var(--muted-c)' }}>ความคืบหน้า</span>
                 </div>
@@ -481,11 +506,11 @@ interface WeekLogItem {
                       <span className="fname">{week.filename || `teaching_log_week_${week.weekNum}.log`}</span>
                       <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <span style={{ fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '999px', background: 'rgba(14,201,184,0.12)', color: '#0a8f82', border: '1px solid rgba(14,201,184,0.3)' }}>
-                          มา {week.presentDays} วัน
+                          มา {week.presentDays} วัน {(week as any).totalHoursStr ? `(${(week as any).totalHoursStr})` : ''}
                         </span>
                         {week.leaveDays > 0 && (
                           <span style={{ fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '999px', background: 'rgba(239,91,106,0.12)', color: '#c73143', border: '1px solid rgba(239,91,106,0.3)' }}>
-                            ลา {week.leaveDays} วัน
+                            ลา/หยุด {week.leaveDays} วัน
                           </span>
                         )}
                       </div>

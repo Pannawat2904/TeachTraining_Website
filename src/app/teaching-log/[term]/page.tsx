@@ -627,12 +627,12 @@ interface WeekLogItem {
                         style={{ 
                           padding: '16px clamp(14px, 3.5vw, 24px) 24px',
                           display: 'grid',
-                          gridTemplateColumns: week.images && week.images.length > 0 ? 'repeat(auto-fit, minmax(320px, 1fr))' : '1fr',
+                          gridTemplateColumns: week.images && week.images.length > 0 && week.presentDays > 0 ? 'repeat(auto-fit, minmax(320px, 1fr))' : '1fr',
                           gap: '32px'
                         }}
                       >
                         {/* Slideshow / Image Section */}
-                        {week.images && week.images.length > 0 && (
+                        {week.images && week.images.length > 0 && week.presentDays > 0 && (
                           <AutoSlideshow images={week.images} weekNum={week.weekNum} />
                         )}
 

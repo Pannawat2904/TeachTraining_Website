@@ -451,16 +451,13 @@ interface WeekLogItem {
           {/* Progress Overview Panel */}
           {isLoading ? (
             <div className="glass-panel" style={{ borderRadius: '20px', padding: 'clamp(14px, 3vw, 20px) clamp(16px, 3.5vw, 28px)', marginBottom: '20px', background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(16px)', boxShadow: '0 14px 40px rgba(61,107,255,0.08)' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))', gap: '14px', alignItems: 'center', marginBottom: '14px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))', gap: '14px', alignItems: 'center', marginBottom: '4px' }}>
                 {[...Array(5)].map((_, i) => (
                   <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     <div style={{ width: '40px', height: '24px', borderRadius: '4px', background: 'rgba(61,107,255,0.1)', animation: 'pulse 1.5s infinite ease-in-out' }}></div>
                     <div style={{ width: '70px', height: '12px', borderRadius: '4px', background: 'rgba(61,107,255,0.05)', animation: 'pulse 1.5s infinite ease-in-out' }}></div>
                   </div>
                 ))}
-              </div>
-              <div style={{ width: '100%', height: '8px', borderRadius: '999px', background: 'rgba(16,21,43,0.05)', overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: '30%', borderRadius: '999px', background: 'rgba(61,107,255,0.1)', animation: 'pulse 1.5s infinite ease-in-out' }}></div>
               </div>
               <style>{`
                 @keyframes pulse {
@@ -472,7 +469,7 @@ interface WeekLogItem {
             </div>
           ) : calculatedStats ? (
             <div className="glass-panel" style={{ borderRadius: '20px', padding: 'clamp(14px, 3vw, 20px) clamp(16px, 3.5vw, 28px)', marginBottom: '20px', background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(16px)', boxShadow: '0 14px 40px rgba(61,107,255,0.08)' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))', gap: '14px', alignItems: 'center', marginBottom: '14px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))', gap: '14px', alignItems: 'center', marginBottom: '4px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <b style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 700, color: 'var(--blue-c)' }}>{calculatedStats.recordedWeeks}</b>
                   <span style={{ fontSize: '11.5px', color: 'var(--muted-c)' }}>สัปดาห์ที่บันทึก</span>
@@ -493,15 +490,6 @@ interface WeekLogItem {
                   <b style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 700, color: 'var(--blue-c)' }}>{(calculatedStats as any).totalHoursStr || "0 ชม."}</b>
                   <span style={{ fontSize: '11.5px', color: 'var(--muted-c)' }}>ชั่วโมงปฏิบัติงานรวม</span>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                  <b style={{ fontFamily: 'var(--font-prompt), sans-serif', fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 700, color: 'var(--violet-c)' }}>{calculatedStats.semesterPct}</b>
-                  <span style={{ fontSize: '11.5px', color: 'var(--muted-c)' }}>ความคืบหน้า</span>
-                </div>
-              </div>
-
-              {/* Progress bar */}
-              <div style={{ width: '100%', height: '8px', borderRadius: '999px', background: 'rgba(16,21,43,0.08)', overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: calculatedStats.semesterPct || '0%', borderRadius: '999px', background: 'linear-gradient(90deg, var(--blue-c), var(--violet-c), var(--cyan-c))', transition: 'width 1s ease' }}></div>
               </div>
             </div>
           ) : null}

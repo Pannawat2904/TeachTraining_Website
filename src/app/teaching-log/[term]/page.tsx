@@ -115,7 +115,8 @@ interface WeekLogItem {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (viewMode === 'interactive' && logData.googleSheetConfig) {
+    // Only fetch if we are in interactive mode, config exists, and we haven't fetched yet
+    if (viewMode === 'interactive' && logData.googleSheetConfig && googleWeeks.length === 0) {
       let isMounted = true;
       const fetchAll = async () => {
         setIsLoading(true);

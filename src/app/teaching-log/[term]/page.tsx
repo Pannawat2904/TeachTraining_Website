@@ -551,9 +551,11 @@ interface WeekLogItem {
                       <span className="r"></span><span className="y"></span><span className="g"></span>
                       <span className="fname">{week.filename || `teaching_log_week_${week.weekNum}.log`}</span>
                       <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '999px', background: 'rgba(14,201,184,0.12)', color: '#0a8f82', border: '1px solid rgba(14,201,184,0.3)' }}>
-                          มา {week.presentDays} วัน {(week as any).totalHoursStr ? `(${(week as any).totalHoursStr})` : ''}
-                        </span>
+                        {week.presentDays > 0 && (
+                          <span style={{ fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '999px', background: 'rgba(14,201,184,0.12)', color: '#0a8f82', border: '1px solid rgba(14,201,184,0.3)' }}>
+                            มา {week.presentDays} วัน {(week as any).totalHoursStr ? `(${(week as any).totalHoursStr})` : ''}
+                          </span>
+                        )}
                         {(week.leaveDays > 0 || (week as any).holidayDays > 0) && (
                           <span style={{ fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '999px', background: 'rgba(239,91,106,0.12)', color: '#c73143', border: '1px solid rgba(239,91,106,0.3)' }}>
                             {week.leaveDays > 0 && `ลา ${week.leaveDays} วัน`}

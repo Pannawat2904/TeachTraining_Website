@@ -469,7 +469,7 @@ export const supervisions = {
     {
       id: 1,
       title: "การนิเทศ On-site",
-      date: "5 มิ.ย. 2569",
+      date: "8 มิ.ย. 2569",
       subject: "เทคโนโลยีการนำเข้าข้อมูลเข้าสู่ระบบคอมพิวเตอร์",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
       image: "/images/activities/wai-kru-1.jpg" // Using an existing activity image as placeholder if no specific one exists

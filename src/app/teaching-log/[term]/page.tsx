@@ -96,6 +96,7 @@ interface DayLogItem {
   times?: string;
   leaveNote?: string;
   activities?: string[];
+  dayOfWeek?: number;
 }
 
 interface WeekLogItem {
@@ -167,6 +168,7 @@ interface WeekLogItem {
                   const dateParts = dateStr.split('/');
                   const dayNum = dateParts[0] || dateStr;
                   
+                  let dayOfWeek = -1;
                   let monthStr = '';
                   let yearStr = '';
                   if (dateParts.length >= 2) {
@@ -178,8 +180,17 @@ interface WeekLogItem {
                   }
                   if (dateParts.length >= 3) {
                     let y = parseInt(dateParts[2], 10);
+                    let m = parseInt(dateParts[1], 10);
+                    let d = parseInt(dateParts[0], 10);
                     if (!isNaN(y)) {
-                      if (y < 100) y += 2000;
+                      if (y < 100) y += 2000; // Assuming 2000s for 2-digit years
+                      
+                      // Calculate day of week (0=Sun, 1=Mon...6=Sat)
+                      if (!isNaN(d) && !isNaN(m)) {
+                        const dateObj = new Date(y, m - 1, d);
+                        dayOfWeek = dateObj.getDay();
+                      }
+                      
                       yearStr = String(y + 543).slice(-2);
                     }
                   }
@@ -194,7 +205,8 @@ interface WeekLogItem {
                     activities: [
                       workStr,
                       ...(remarkStr ? [`หมายเหตุ: ${remarkStr}`] : [])
-                    ]
+                    ],
+                    dayOfWeek: dayOfWeek
                   });
                 }
               }
@@ -560,35 +572,74 @@ interface WeekLogItem {
                             const statusColor = day.status === 'present' ? '#0a8f82' : day.status === 'sick' ? '#c73143' : '#c98008';
                             const statusBorder = day.status === 'present' ? 'rgba(14,201,184,0.35)' : day.status === 'sick' ? 'rgba(239,91,106,0.35)' : 'rgba(255,176,32,0.35)';
 
-                            return (
-                              <div 
-                                key={idx}
-                                style={{ 
-                                  display: 'flex', 
-                                  gap: '16px', 
-                                  padding: '16px 0', 
-                                  borderBottom: idx < week.days.length - 1 ? '1px dashed var(--border-strong-c)' : 'none' 
-                                }}
-                              >
-                                {/* Day Badge */}
-                                <div 
-                                  style={{ 
-                                    width: '54px', 
-                                    height: '54px', 
-                                    borderRadius: '14px', 
-                                    display: 'flex', 
-                                    flexDirection: 'column', 
-                                    alignItems: 'center', 
-                                    justifyContent: 'center',
-                                    background: isLeave ? 'rgba(239,91,106,0.05)' : '#ffffff',
-                                    border: isLeave ? '1px dashed rgba(239,91,106,0.3)' : '1px solid var(--border-strong-c)',
-                                    boxShadow: isLeave ? 'none' : '0 4px 12px rgba(0,0,0,0.02)',
-                                    flexShrink: 0
-                                  }}
-                                >
-                                  <span style={{ fontSize: '11px', color: 'var(--muted-c)', fontWeight: 600, textTransform: 'uppercase' }}>{day.dayName.split(' ')[0]}</span>
-                                  <span style={{ fontSize: '20px', fontWeight: 700, color: isLeave ? '#c73143' : 'var(--ink)', lineHeight: '1.1' }}>{day.dayNum}</span>
-                                </div>
+                                const typedDay = day as DayLogItem;
+                                // Determine day color
+                                let dayColor = 'var(--ink)';
+                                let badgeBg = '#ffffff';
+                                let badgeBorder = 'var(--border-strong-c)';
+                                
+                                if (typedDay.dayOfWeek !== undefined && typedDay.dayOfWeek !== -1) {
+                                  switch(typedDay.dayOfWeek) {
+                                    case 0: dayColor = '#ef4444'; break; // Sun - Red
+                                    case 1: dayColor = '#eab308'; break; // Mon - Yellow
+                                    case 2: dayColor = '#ec4899'; break; // Tue - Pink
+                                    case 3: dayColor = '#22c55e'; break; // Wed - Green
+                                    case 4: dayColor = '#f97316'; break; // Thu - Orange
+                                    case 5: dayColor = '#3b82f6'; break; // Fri - Blue
+                                    case 6: dayColor = '#a855f7'; break; // Sat - Purple
+                                  }
+                                } else if (typedDay.dayName) {
+                                  // Fallback for static data
+                                  if (typedDay.dayName.includes('อาทิตย์')) dayColor = '#ef4444';
+                                  else if (typedDay.dayName.includes('จันทร์')) dayColor = '#eab308';
+                                  else if (typedDay.dayName.includes('อังคาร')) dayColor = '#ec4899';
+                                  else if (typedDay.dayName.includes('พุธ')) dayColor = '#22c55e';
+                                  else if (typedDay.dayName.includes('พฤหัส')) dayColor = '#f97316';
+                                  else if (typedDay.dayName.includes('ศุกร์')) dayColor = '#3b82f6';
+                                  else if (typedDay.dayName.includes('เสาร์')) dayColor = '#a855f7';
+                                }
+
+                                if (dayColor !== 'var(--ink)') {
+                                  // Create a subtle tinted background using the hex color
+                                  // We'll use a hack to add opacity to hex or just use a fallback light color
+                                  badgeBorder = `1px solid ${dayColor}40`; // 25% opacity border
+                                  badgeBg = `${dayColor}08`; // 5% opacity bg
+                                }
+                                
+                                if (isLeave) {
+                                  badgeBg = 'rgba(239,91,106,0.05)';
+                                  badgeBorder = '1px dashed rgba(239,91,106,0.3)';
+                                }
+
+                                return (
+                                  <div 
+                                    key={idx}
+                                    style={{ 
+                                      display: 'flex', 
+                                      gap: '16px', 
+                                      padding: '16px 0', 
+                                      borderBottom: idx < week.days.length - 1 ? '1px dashed var(--border-strong-c)' : 'none' 
+                                    }}
+                                  >
+                                    {/* Day Badge */}
+                                    <div 
+                                      style={{ 
+                                        width: '54px', 
+                                        height: '54px', 
+                                        borderRadius: '14px', 
+                                        display: 'flex', 
+                                        flexDirection: 'column', 
+                                        alignItems: 'center', 
+                                        justifyContent: 'center',
+                                        background: badgeBg,
+                                        border: badgeBorder,
+                                        boxShadow: isLeave ? 'none' : '0 4px 12px rgba(0,0,0,0.02)',
+                                        flexShrink: 0
+                                      }}
+                                    >
+                                      <span style={{ fontSize: '11px', color: isLeave ? '#c73143' : dayColor, fontWeight: 600, textTransform: 'uppercase', opacity: isLeave ? 1 : 0.8 }}>{day.dayName.split(' ')[0]}</span>
+                                      <span style={{ fontSize: '20px', fontWeight: 700, color: isLeave ? '#c73143' : dayColor, lineHeight: '1.1' }}>{day.dayNum}</span>
+                                    </div>
 
                                 {/* Day Content */}
                                 <div style={{ flex: 1, minWidth: 0 }}>

@@ -1,11 +1,72 @@
 "use client"
 
-import { use, useState, useEffect, useMemo } from "react"
+import { use, useState, useEffect, useMemo, useRef } from "react"
 import { teachingLogConfig, teachingLogs, supervisions } from "@/data/siteData"
 import { notFound } from "next/navigation"
 import { fetchGoogleSheet } from "@/actions/googleSheets"
 import { Reveal } from "@/components/Reveal"
 import { ClipboardList, CalendarCheck, FileText } from "lucide-react"
+
+function AutoSlideshow({ images, weekNum }: { images: string[]; weekNum: string }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        const nextIndex = (prev + 1) % images.length;
+        if (scrollRef.current) {
+          scrollRef.current.scrollTo({
+            left: scrollRef.current.clientWidth * nextIndex,
+            behavior: 'smooth'
+          });
+        }
+        return nextIndex;
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div style={{ borderRadius: '16px', overflow: 'hidden', position: 'relative', minHeight: '300px', display: 'flex', flexDirection: 'column', background: 'var(--border-c)', boxShadow: '0 8px 30px rgba(0,0,0,0.06)' }}>
+      <div 
+        ref={scrollRef}
+        style={{ 
+          display: 'flex', 
+          overflowX: 'auto', 
+          scrollSnapType: 'x mandatory', 
+          scrollBehavior: 'smooth', 
+          flex: 1, 
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none'
+        }}
+        className="hide-scrollbar"
+        onScroll={(e) => {
+          const target = e.target as HTMLDivElement;
+          const index = Math.round(target.scrollLeft / target.clientWidth);
+          if (index !== currentIndex) {
+            setCurrentIndex(index);
+          }
+        }}
+      >
+        <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+        {images.map((img: string, i: number) => (
+          <img key={i} src={img} alt={`Activities week ${weekNum} - ${i+1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', flexShrink: 0, scrollSnapAlign: 'start' }} />
+        ))}
+      </div>
+      {images.length > 1 && (
+        <div style={{ position: 'absolute', bottom: '16px', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '8px', zIndex: 2 }}>
+          {images.map((_, i) => (
+            <div key={i} style={{ width: '8px', height: '8px', borderRadius: '50%', background: currentIndex === i ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.4)', boxShadow: '0 2px 4px rgba(0,0,0,0.4)', transition: 'background 0.3s ease' }} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function TeachingLogPage(props: { params: Promise<{ term: string }> }) {
   const params = use(props.params);
@@ -537,32 +598,7 @@ interface WeekLogItem {
                       >
                         {/* Slideshow / Image Section */}
                         {week.images && week.images.length > 0 && (
-                          <div style={{ borderRadius: '16px', overflow: 'hidden', position: 'relative', minHeight: '300px', display: 'flex', flexDirection: 'column', background: 'var(--border-c)', boxShadow: '0 8px 30px rgba(0,0,0,0.06)' }}>
-                            <div 
-                              style={{ 
-                                display: 'flex', 
-                                overflowX: 'auto', 
-                                scrollSnapType: 'x mandatory', 
-                                scrollBehavior: 'smooth', 
-                                flex: 1, 
-                                scrollbarWidth: 'none',
-                                msOverflowStyle: 'none'
-                              }}
-                              className="hide-scrollbar"
-                            >
-                              <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
-                              {week.images.map((img: string, i: number) => (
-                                <img key={i} src={img} alt={`Activities week ${week.weekNum} - ${i+1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', flexShrink: 0, scrollSnapAlign: 'start' }} />
-                              ))}
-                            </div>
-                            {week.images.length > 1 && (
-                              <div style={{ position: 'absolute', bottom: '16px', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '8px', zIndex: 2 }}>
-                                {week.images.map((_, i) => (
-                                  <div key={i} style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'rgba(255,255,255,0.9)', boxShadow: '0 2px 4px rgba(0,0,0,0.4)' }} />
-                                ))}
-                              </div>
-                            )}
-                          </div>
+                          <AutoSlideshow images={week.images} weekNum={week.weekNum} />
                         )}
 
                         {/* Daily Logs List */}

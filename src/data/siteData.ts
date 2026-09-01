@@ -180,6 +180,7 @@ export const teachingLogs = {
         presentDays: 4,
         leaveDays: 1,
         filename: "teaching_log_week_01.log",
+        images: ["/images/activities/wai-kru-1.jpg", "/images/activities/wai-kru-2.jpg"],
         days: [
           {
             dayName: "จันทร์",
@@ -253,6 +254,7 @@ export const teachingLogs = {
         presentDays: 4,
         leaveDays: 1,
         filename: "teaching_log_week_02.log",
+        images: ["/images/activities/wai-kru-2.jpg", "/images/activities/wai-kru-1.jpg"],
         days: [
           {
             dayName: "จันทร์",
@@ -323,6 +325,7 @@ export const teachingLogs = {
         presentDays: 4,
         leaveDays: 1,
         filename: "teaching_log_week_03.log",
+        images: ["/images/activities/wai-kru-1.jpg"],
         days: [
           {
             dayName: "จันทร์",
@@ -476,3 +479,33 @@ export const evaluationDocuments = [
     pdfUrl: "https://drive.google.com/file/d/1Zexample/preview",
   }
 ];
+
+export const supervisions = {
+  semester1: [
+    {
+      id: 1,
+      title: "การนิเทศ On-site",
+      date: "5 มิ.ย. 2569",
+      subject: "การสร้างเว็บไซต์",
+      supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
+      image: "/images/activities/wai-kru-1.jpg" // Using an existing activity image as placeholder if no specific one exists
+    },
+    {
+      id: 2,
+      title: "การนิเทศ Online (ครั้งที่ 1)",
+      date: "6 ส.ค. 2569",
+      subject: "คณิตศาสตร์คอมพิวเตอร์",
+      supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
+      image: "/images/activities/wai-kru-2.jpg" // Using an existing activity image as placeholder
+    },
+    {
+      id: 3,
+      title: "การนิเทศ Online (ครั้งที่ 2)",
+      date: "-",
+      subject: "-",
+      supervisor: "-",
+      image: ""
+    }
+  ],
+  semester2: []
+};

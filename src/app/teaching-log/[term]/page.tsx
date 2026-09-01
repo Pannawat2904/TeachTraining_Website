@@ -1,11 +1,11 @@
 "use client"
 
 import { use, useState, useEffect, useMemo } from "react"
-import { teachingLogConfig, teachingLogs } from "@/data/siteData"
+import { teachingLogConfig, teachingLogs, supervisions } from "@/data/siteData"
 import { notFound } from "next/navigation"
 import { fetchGoogleSheet } from "@/actions/googleSheets"
 import { Reveal } from "@/components/Reveal"
-import { ClipboardList, CalendarCheck } from "lucide-react"
+import { ClipboardList, CalendarCheck, FileText } from "lucide-react"
 
 export default function TeachingLogPage(props: { params: Promise<{ term: string }> }) {
   const params = use(props.params);
@@ -18,6 +18,7 @@ export default function TeachingLogPage(props: { params: Promise<{ term: string 
   const semesterNum = term === 'semester-1' ? 1 : 2;
   const sheetUrl = term === 'semester-1' ? teachingLogConfig.semester1Url : teachingLogConfig.semester2Url;
   const logData = term === 'semester-1' ? teachingLogs.semester1 : teachingLogs.semester2;
+  const supervisionsData = term === 'semester-1' ? supervisions.semester1 : supervisions.semester2;
 
   // View Mode: 'interactive' (daily log cards) or 'sheet' (google sheets iframe)
   const [viewMode, setViewMode] = useState<'interactive' | 'sheet'>('interactive');
@@ -43,6 +44,7 @@ interface WeekLogItem {
   presentDays: number;
   leaveDays: number;
   filename: string;
+  images?: string[];
   days: DayLogItem[];
 }
 
@@ -136,6 +138,8 @@ interface WeekLogItem {
                 }
               }
 
+              const staticWeek = logData.weeks.find((w: any) => w.weekNum === String(index + 1).padStart(2, '0'));
+
               return {
                 weekNum: String(index + 1).padStart(2, '0'),
                 title: weekNumStr,
@@ -143,6 +147,7 @@ interface WeekLogItem {
                 presentDays: days.length,
                 leaveDays: 0,
                 filename: name + '.csv',
+                images: staticWeek?.images,
                 days: days
               };
             }
@@ -289,6 +294,65 @@ interface WeekLogItem {
       </div>
     </Reveal>
 
+    {/* 2. Supervisions Section */}
+    {supervisionsData && supervisionsData.length > 0 && (
+      <Reveal delay={50}>
+        <div className="glass-panel" style={{ borderRadius: '24px', padding: 'clamp(24px, 4vw, 32px)', background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(10px)', boxShadow: '0 16px 46px rgba(61,107,255,0.05)', marginBottom: '32px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <h2 style={{ fontSize: 'clamp(20px, 3vw, 24px)', fontWeight: 700, color: 'var(--emerald-c)', display: 'inline-flex', alignItems: 'center', gap: '8px', margin: 0 }}>
+              <FileText size={24} />
+              ตารางการนิเทศการสอน
+            </h2>
+            <div style={{ width: '40px', height: '3px', background: 'var(--emerald-c)', margin: '12px auto 0', borderRadius: '4px' }}></div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+            {supervisionsData.map((sup) => (
+              <div key={sup.id} style={{ background: '#fff', borderRadius: '16px', border: '1px solid var(--border-strong-c)', padding: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
+                <div style={{ 
+                  background: 'rgba(56, 189, 248, 0.2)', 
+                  color: 'var(--blue-c)', 
+                  width: '36px', 
+                  height: '36px', 
+                  borderRadius: '10px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  fontWeight: 700, 
+                  fontSize: '18px', 
+                  marginBottom: '20px' 
+                }}>
+                  {sup.id}
+                </div>
+                <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--ink)', margin: '0 0 16px 0' }}>
+                  {sup.title}
+                </h3>
+                <div style={{ fontSize: '14px', color: 'var(--muted-c)', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px' }}>
+                  <div style={{ display: 'flex', gap: '6px' }}>
+                    <span style={{ fontWeight: 600, color: 'var(--ink)', minWidth: '90px' }}>วันที่:</span> 
+                    <span>{sup.date}</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '6px' }}>
+                    <span style={{ fontWeight: 600, color: 'var(--ink)', minWidth: '90px' }}>วิชา:</span> 
+                    <span>{sup.subject}</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '6px' }}>
+                    <span style={{ fontWeight: 600, color: 'var(--ink)', minWidth: '90px' }}>อาจารย์นิเทศ:</span> 
+                    <span>{sup.supervisor}</span>
+                  </div>
+                </div>
+                {sup.image && (
+                  <div style={{ borderRadius: '12px', overflow: 'hidden', height: '160px', position: 'relative' }}>
+                    <img src={sup.image} alt={sup.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+    )}
+
       {viewMode === 'sheet' && sheetUrl ? (
         /* Google Sheets Embedded View */
         <Reveal delay={100}>
@@ -430,7 +494,7 @@ interface WeekLogItem {
                         {week.weekNum}
                       </div>
 
-                      {/* Title & Range */}
+            {/* Title & Range */}
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <h3 style={{ fontSize: 'clamp(15px, 2.2vw, 18px)', fontWeight: 700, color: 'var(--ink)', margin: 0 }}>
                           {week.title}
@@ -463,86 +527,128 @@ interface WeekLogItem {
 
                     {/* Daily Logs List Container */}
                     {isOpen && (
-                      <div style={{ padding: '6px clamp(14px, 3.5vw, 24px) 18px' }}>
-                        {week.days.map((day, idx: number) => {
-                          const isLeave = day.status === 'sick' || day.status === 'personal';
-                          const statusBg = day.status === 'present' ? 'rgba(14,201,184,0.12)' : day.status === 'sick' ? 'rgba(239,91,106,0.12)' : 'rgba(255,176,32,0.14)';
-                          const statusColor = day.status === 'present' ? '#0a8f82' : day.status === 'sick' ? '#c73143' : '#c98008';
-                          const statusBorder = day.status === 'present' ? 'rgba(14,201,184,0.35)' : day.status === 'sick' ? 'rgba(239,91,106,0.35)' : 'rgba(255,176,32,0.35)';
-
-                          return (
+                      <div 
+                        className="week-logs-container"
+                        style={{ 
+                          padding: '16px clamp(14px, 3.5vw, 24px) 24px',
+                          display: 'grid',
+                          gridTemplateColumns: week.images && week.images.length > 0 ? 'repeat(auto-fit, minmax(320px, 1fr))' : '1fr',
+                          gap: '32px'
+                        }}
+                      >
+                        {/* Slideshow / Image Section */}
+                        {week.images && week.images.length > 0 && (
+                          <div style={{ borderRadius: '16px', overflow: 'hidden', position: 'relative', minHeight: '300px', display: 'flex', flexDirection: 'column', background: 'var(--border-c)', boxShadow: '0 8px 30px rgba(0,0,0,0.06)' }}>
                             <div 
-                              key={idx}
                               style={{ 
                                 display: 'flex', 
-                                gap: '14px', 
-                                padding: '16px 0', 
-                                borderBottom: idx < week.days.length - 1 ? '1px solid var(--border-c)' : 'none' 
+                                overflowX: 'auto', 
+                                scrollSnapType: 'x mandatory', 
+                                scrollBehavior: 'smooth', 
+                                flex: 1, 
+                                scrollbarWidth: 'none',
+                                msOverflowStyle: 'none'
                               }}
+                              className="hide-scrollbar"
                             >
-                              {/* Day Badge */}
+                              <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+                              {week.images.map((img: string, i: number) => (
+                                <img key={i} src={img} alt={`Activities week ${week.weekNum} - ${i+1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', flexShrink: 0, scrollSnapAlign: 'start' }} />
+                              ))}
+                            </div>
+                            {week.images.length > 1 && (
+                              <div style={{ position: 'absolute', bottom: '16px', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '8px', zIndex: 2 }}>
+                                {week.images.map((_, i) => (
+                                  <div key={i} style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'rgba(255,255,255,0.9)', boxShadow: '0 2px 4px rgba(0,0,0,0.4)' }} />
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Daily Logs List */}
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          {week.days.map((day, idx: number) => {
+                            const isLeave = day.status === 'sick' || day.status === 'personal';
+                            const statusBg = day.status === 'present' ? 'rgba(14,201,184,0.12)' : day.status === 'sick' ? 'rgba(239,91,106,0.12)' : 'rgba(255,176,32,0.14)';
+                            const statusColor = day.status === 'present' ? '#0a8f82' : day.status === 'sick' ? '#c73143' : '#c98008';
+                            const statusBorder = day.status === 'present' ? 'rgba(14,201,184,0.35)' : day.status === 'sick' ? 'rgba(239,91,106,0.35)' : 'rgba(255,176,32,0.35)';
+
+                            return (
                               <div 
+                                key={idx}
                                 style={{ 
-                                  width: '48px', 
-                                  height: '48px', 
-                                  borderRadius: '14px', 
                                   display: 'flex', 
-                                  flexDirection: 'column', 
-                                  alignItems: 'center', 
-                                  justifyContent: 'center', 
-                                  background: isLeave ? 'rgba(239,91,106,0.08)' : 'rgba(16,21,43,0.04)', 
-                                  border: `1px solid ${isLeave ? 'rgba(239,91,106,0.25)' : 'var(--border-strong-c)'}`,
-                                  flexShrink: 0
+                                  gap: '16px', 
+                                  padding: '16px 0', 
+                                  borderBottom: idx < week.days.length - 1 ? '1px dashed var(--border-strong-c)' : 'none' 
                                 }}
                               >
-                                <span style={{ fontSize: '10px', color: 'var(--muted-c)', fontWeight: 600 }}>{day.dayName}</span>
-                                <span style={{ fontSize: '16px', fontWeight: 700, color: isLeave ? '#c73143' : 'var(--ink)' }}>{day.dayNum}</span>
-                              </div>
-
-                              {/* Day Content */}
-                              <div style={{ flex: 1, minWidth: 0 }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
-                                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--ink)', margin: 0 }}>
-                                    {day.title}
-                                  </h4>
-                                  <span 
-                                    style={{ 
-                                      fontSize: '11px', 
-                                      fontWeight: 600, 
-                                      padding: '2px 10px', 
-                                      borderRadius: '999px', 
-                                      background: statusBg, 
-                                      color: statusColor, 
-                                      border: `1px solid ${statusBorder}` 
-                                    }}
-                                  >
-                                    ● {day.statusText}
-                                  </span>
+                                {/* Day Badge */}
+                                <div 
+                                  style={{ 
+                                    width: '54px', 
+                                    height: '54px', 
+                                    borderRadius: '14px', 
+                                    display: 'flex', 
+                                    flexDirection: 'column', 
+                                    alignItems: 'center', 
+                                    justifyContent: 'center',
+                                    background: isLeave ? 'rgba(239,91,106,0.05)' : '#ffffff',
+                                    border: isLeave ? '1px dashed rgba(239,91,106,0.3)' : '1px solid var(--border-strong-c)',
+                                    boxShadow: isLeave ? 'none' : '0 4px 12px rgba(0,0,0,0.02)',
+                                    flexShrink: 0
+                                  }}
+                                >
+                                  <span style={{ fontSize: '11px', color: 'var(--muted-c)', fontWeight: 600, textTransform: 'uppercase' }}>{day.dayName.split(' ')[0]}</span>
+                                  <span style={{ fontSize: '20px', fontWeight: 700, color: isLeave ? '#c73143' : 'var(--ink)', lineHeight: '1.1' }}>{day.dayNum}</span>
                                 </div>
 
-                                {day.times && (
-                                  <div style={{ fontSize: '12px', color: 'var(--muted-c)', marginBottom: '8px', fontWeight: 500 }}>
-                                    ⏱️ {day.times}
+                                {/* Day Content */}
+                                <div style={{ flex: 1, minWidth: 0 }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                                    <h4 style={{ fontSize: '15.5px', fontWeight: 700, color: 'var(--ink)', margin: 0 }}>
+                                      {day.title}
+                                    </h4>
+                                    <span 
+                                      style={{ 
+                                        fontSize: '11px', 
+                                        fontWeight: 600, 
+                                        padding: '3px 10px', 
+                                        borderRadius: '999px', 
+                                        background: statusBg, 
+                                        color: statusColor, 
+                                        border: `1px solid ${statusBorder}` 
+                                      }}
+                                    >
+                                      ● {day.statusText}
+                                    </span>
                                   </div>
-                                )}
 
-                                {day.activities && day.activities.length > 0 && (
-                                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                                    {day.activities.map((act: string, actIdx: number) => (
-                                      <li key={actIdx} style={{ fontSize: '13.5px', color: 'var(--ink)', opacity: 0.9, lineHeight: '1.55', paddingLeft: '16px', position: 'relative' }}>
-                                        <span style={{ position: 'absolute', left: 0, top: '2px', color: 'var(--cyan-c)', fontWeight: 700 }}>▸</span>
-                                        {act}
-                                      </li>
-                                    ))}
-                                  </ul>
-                                )}
+                                  {day.times && (
+                                    <div style={{ fontSize: '12px', color: 'var(--muted-c)', marginBottom: '10px', fontWeight: 500, display: 'inline-flex', padding: '3px 8px', background: 'rgba(0,0,0,0.03)', borderRadius: '6px' }}>
+                                      ⏱️ {day.times}
+                                    </div>
+                                  )}
 
-                                {day.leaveNote && (
-                                  <div style={{ fontSize: '13px', color: 'var(--muted-c)', lineHeight: '1.55', background: 'rgba(239,91,106,0.06)', padding: '8px 14px', borderRadius: '10px', border: '1px solid rgba(239,91,106,0.18)', marginTop: '4px' }}>
-                                    <span style={{ color: '#c73143', fontWeight: 700, marginRight: '6px' }}>&gt;</span>
-                                    {day.leaveNote}
-                                  </div>
-                                )}
+                                  {day.activities && day.activities.length > 0 && (
+                                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                      {day.activities.map((act: string, actIdx: number) => (
+                                        <li key={actIdx} style={{ fontSize: '13.5px', color: 'var(--ink)', opacity: 0.85, lineHeight: '1.6', paddingLeft: '18px', position: 'relative' }}>
+                                          <span style={{ position: 'absolute', left: 0, top: '2px', color: 'var(--violet-c)', fontWeight: 700 }}>▸</span>
+                                          {act}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  )}
+
+                                  {day.leaveNote && (
+                                    <div style={{ fontSize: '13px', color: 'var(--muted-c)', lineHeight: '1.6', background: 'rgba(239,91,106,0.06)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(239,91,106,0.18)', marginTop: '8px' }}>
+                                      <span style={{ color: '#c73143', fontWeight: 700, marginRight: '6px' }}>&gt;</span>
+                                      {day.leaveNote}
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           );

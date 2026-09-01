@@ -5,6 +5,62 @@ import { Reveal } from '@/components/Reveal';
 import { Camera, Images } from 'lucide-react';
 import { supervisions } from '@/data/siteData';
 
+function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  React.useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        const nextIndex = (prev + 1) % images.length;
+        if (scrollRef.current) {
+          scrollRef.current.scrollTo({ left: scrollRef.current.clientWidth * nextIndex, behavior: 'smooth' });
+        }
+        return nextIndex;
+      });
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+      <div
+        ref={scrollRef}
+        style={{ display: 'flex', width: '100%', height: '100%', overflowX: 'auto', scrollSnapType: 'x mandatory', scrollBehavior: 'smooth', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        className="hide-scrollbar"
+        onScroll={(e) => {
+          const target = e.target as HTMLDivElement;
+          const index = Math.round(target.scrollLeft / target.clientWidth);
+          if (index !== currentIndex) setCurrentIndex(index);
+        }}
+      >
+        <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+        {images.map((img, i) => (
+          <img key={i} src={img} alt={`${alt} - ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', flexShrink: 0, scrollSnapAlign: 'start' }} />
+        ))}
+      </div>
+      {images.length > 1 && (
+        <div style={{ position: 'absolute', bottom: '12px', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '8px', zIndex: 2 }}>
+          {images.map((_, i) => (
+            <div 
+              key={i} 
+              onClick={(e) => {
+                e.stopPropagation();
+                if (scrollRef.current) {
+                  scrollRef.current.scrollTo({ left: scrollRef.current.clientWidth * i, behavior: 'smooth' });
+                  setCurrentIndex(i);
+                }
+              }}
+              style={{ width: '8px', height: '8px', borderRadius: '50%', background: currentIndex === i ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.5)', boxShadow: '0 2px 4px rgba(0,0,0,0.4)', transition: 'all 0.3s ease', cursor: 'pointer' }}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function ActivitiesPage() {
   const [filter, setFilter] = useState('all');
 
@@ -18,10 +74,10 @@ export default function ActivitiesPage() {
   }, []);
 
   const allSupervisions = [...supervisions.semester1, ...supervisions.semester2];
-  const supervisionActivities = allSupervisions.map((sup) => ({
+  const supervisionActivities = allSupervisions.map((sup: any) => ({
     id: `sup-${sup.id}`,
     cat: 'supervision',
-    img: sup.image || 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=600&auto=format&fit=crop',
+    img: sup.images && sup.images.length > 0 ? sup.images : (sup.image || 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=600&auto=format&fit=crop'),
     tag: 'การนิเทศการสอน',
     tagColor: 'cyan',
     date: sup.date,
@@ -109,7 +165,11 @@ export default function ActivitiesPage() {
             {filteredActivities.map(a => (
               <div key={a.id} className="card" data-cat={a.cat}>
                 <div className="img">
-                  <Image src={a.img} alt={a.title} fill sizes="(max-width: 768px) 100vw, 360px" style={{ objectFit: 'cover' }} />
+                  {Array.isArray(a.img) ? (
+                    <ActivitySlideshow images={a.img} alt={a.title} />
+                  ) : (
+                    <Image src={a.img} alt={a.title} fill sizes="(max-width: 768px) 100vw, 360px" style={{ objectFit: 'cover' }} />
+                  )}
                 </div>
                 <div className="body">
                   <span className={`tag ${a.tagColor}`}>{a.tag}</span>

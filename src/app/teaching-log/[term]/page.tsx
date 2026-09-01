@@ -204,7 +204,7 @@ interface WeekLogItem {
                   const formattedDayName = monthStr ? `${monthStr} ${yearStr}`.trim() : 'Day';
 
                   let status = 'present';
-                  let statusText = 'มาปฏิบัติงาน';
+                  let statusText = dayOfWeek === 6 ? 'สอนชดเชย' : 'มาปฏิบัติงาน';
                   let times = ''; // user requested to hide times here
                   let title = 'รายละเอียดการปฏิบัติงาน';
                   let acts = [

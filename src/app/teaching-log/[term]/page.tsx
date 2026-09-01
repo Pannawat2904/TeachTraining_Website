@@ -25,7 +25,7 @@ function AutoSlideshow({ images, weekNum }: { images: string[]; weekNum: string 
         }
         return nextIndex;
       });
-    }, 5000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [images.length]);
@@ -58,9 +58,29 @@ function AutoSlideshow({ images, weekNum }: { images: string[]; weekNum: string 
         ))}
       </div>
       {images.length > 1 && (
-        <div style={{ position: 'absolute', bottom: '16px', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '8px', zIndex: 2 }}>
+        <div style={{ position: 'absolute', bottom: '16px', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '10px', zIndex: 2 }}>
           {images.map((_, i) => (
-            <div key={i} style={{ width: '8px', height: '8px', borderRadius: '50%', background: currentIndex === i ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.4)', boxShadow: '0 2px 4px rgba(0,0,0,0.4)', transition: 'background 0.3s ease' }} />
+            <div 
+              key={i} 
+              onClick={() => {
+                if (scrollRef.current) {
+                  scrollRef.current.scrollTo({
+                    left: scrollRef.current.clientWidth * i,
+                    behavior: 'smooth'
+                  });
+                  setCurrentIndex(i);
+                }
+              }}
+              style={{ 
+                width: '10px', 
+                height: '10px', 
+                borderRadius: '50%', 
+                background: currentIndex === i ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.5)', 
+                boxShadow: '0 2px 4px rgba(0,0,0,0.4)', 
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
+              }} 
+            />
           ))}
         </div>
       )}

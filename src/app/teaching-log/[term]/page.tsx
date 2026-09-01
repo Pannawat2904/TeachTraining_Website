@@ -236,7 +236,7 @@ interface WeekLogItem {
               const presentCount = days.filter(d => d.status === 'present').length;
               const leaveCount = days.length - presentCount;
               const totalMins = presentCount * 530; // 07:40 - 16:30 is 8 hours 50 mins = 530 mins
-              const totalHoursStr = `${Math.floor(totalMins / 60)} ชม.${totalMins % 60 > 0 ? ` ${totalMins % 60} นาที` : ''}`;
+              const totalHoursStr = `${Math.floor(totalMins / 60)} ชม.`;
 
               const staticWeek = logData.weeks.find((w: any) => w.weekNum === String(index + 1).padStart(2, '0'));
               const weekNumFormatted = String(index + 1).padStart(2, '0');
@@ -307,8 +307,7 @@ interface WeekLogItem {
 
     const totalMins = workDays * 530;
     const hours = Math.floor(totalMins / 60);
-    const mins = totalMins % 60;
-    const totalHoursStr = `${hours} ชม.${mins > 0 ? ` ${mins} นาที` : ''}`;
+    const totalHoursStr = `${hours} ชม.`;
 
     return {
       recordedWeeks,

@@ -488,7 +488,7 @@ export const supervisions = {
       id: 1,
       title: "การนิเทศ On-site",
       date: "5 มิ.ย. 2569",
-      subject: "การสร้างเว็บไซต์",
+      subject: "เทคโนโลยีการนำเข้าข้อมูลเข้าสู่ระบบคอมพิวเตอร์",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
       image: "/images/activities/wai-kru-1.jpg" // Using an existing activity image as placeholder if no specific one exists
     },
@@ -496,16 +496,16 @@ export const supervisions = {
       id: 2,
       title: "การนิเทศ Online (ครั้งที่ 1)",
       date: "6 ส.ค. 2569",
-      subject: "คณิตศาสตร์คอมพิวเตอร์",
+      subject: "เทคโนโลยีการนำเข้าข้อมูลเข้าสู่ระบบคอมพิวเตอร์",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
       image: "/images/activities/wai-kru-2.jpg" // Using an existing activity image as placeholder
     },
     {
       id: 3,
       title: "การนิเทศ Online (ครั้งที่ 2)",
-      date: "-",
-      subject: "-",
-      supervisor: "-",
+      date: "7 ก.ย. 2569",
+      subject: "โปรแกรมฐานข้อมูล",
+      supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
       image: ""
     }
   ],

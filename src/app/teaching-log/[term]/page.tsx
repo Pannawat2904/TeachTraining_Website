@@ -480,12 +480,20 @@ interface WeekLogItem {
 
           {/* Weekly Accordions */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {isLoading && viewMode === 'interactive' && (
-              <div style={{ padding: '32px', textAlign: 'center', color: 'var(--blue-c)', fontWeight: 600 }}>
-                กำลังดึงข้อมูลจาก Google Sheets... ⏳
+            {isLoading && viewMode === 'interactive' ? (
+              <div style={{ padding: '64px 32px', textAlign: 'center', background: 'rgba(255,255,255,0.4)', borderRadius: '24px', border: '1px dashed var(--border-strong-c)' }}>
+                <style>{`
+                  @keyframes spin-custom { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                `}</style>
+                <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '48px', height: '48px', borderRadius: '50%', background: 'rgba(61,107,255,0.1)', color: 'var(--blue-c)', marginBottom: '16px' }}>
+                  <svg style={{ animation: 'spin-custom 1s linear infinite' }} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+                  </svg>
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--ink)', marginBottom: '8px' }}>กำลังซิงค์ข้อมูล</h3>
+                <p style={{ color: 'var(--muted-c)', fontSize: '14px', margin: 0 }}>กำลังดึงข้อมูลบันทึกการสอนล่าสุดจาก Google Sheets...</p>
               </div>
-            )}
-            {displayWeeks && displayWeeks.length > 0 ? (
+            ) : displayWeeks && displayWeeks.length > 0 ? (
               displayWeeks.map((week) => {
                 const isOpen = openWeeks.includes(week.weekNum);
 

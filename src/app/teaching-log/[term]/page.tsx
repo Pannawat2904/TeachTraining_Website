@@ -239,7 +239,7 @@ interface WeekLogItem {
 
               const presentCount = days.filter(d => d.status === 'present').length;
               const leaveCount = days.length - presentCount;
-              const totalMins = presentCount * 530; // 07:40 - 16:30 is 8 hours 50 mins = 530 mins
+              const totalMins = presentCount * 510; // 08:00 - 16:30 is 8 hours 30 mins = 510 mins
               const totalHoursStr = `${Math.floor(totalMins / 60)} ชม.`;
 
               const staticWeek = logData.weeks.find((w: any) => w.weekNum === String(index + 1).padStart(2, '0'));
@@ -309,7 +309,7 @@ interface WeekLogItem {
       }
     });
 
-    const totalMins = workDays * 530;
+    const totalMins = workDays * 510;
     const hours = Math.floor(totalMins / 60);
     const totalHoursStr = `${hours} ชม.`;
 
@@ -491,8 +491,7 @@ interface WeekLogItem {
           {/* Standard Work Hours Notice */}
           <div style={{ display: 'flex', gap: '10px 16px', flexWrap: 'wrap', marginBottom: '20px', padding: '12px 18px', borderRadius: '16px', background: 'rgba(61,107,255,0.06)', border: '1px solid rgba(61,107,255,0.18)', fontSize: '13px', color: 'var(--ink)' }}>
             <span style={{ color: 'var(--blue-c)', fontWeight: 700 }}>📌 เวลาปฏิบัติงาน:</span>
-            <span>เข้าแถว <b style={{ color: 'var(--ink)' }}>07:40–08:00</b></span>
-            <span>ปฏิบัติงาน <b style={{ color: 'var(--ink)' }}>08:00–16:30</b></span>
+            <span>เริ่มงาน <b style={{ color: 'var(--ink)' }}>08:00–16:30</b></span>
             <span style={{ color: 'var(--muted-c)' }}>(จันทร์–ศุกร์)</span>
           </div>
 

@@ -497,7 +497,8 @@ interface WeekLogItem {
           {/* Standard Work Hours Notice */}
           <div style={{ display: 'flex', gap: '10px 16px', flexWrap: 'wrap', marginBottom: '20px', padding: '12px 18px', borderRadius: '16px', background: 'rgba(61,107,255,0.06)', border: '1px solid rgba(61,107,255,0.18)', fontSize: '13px', color: 'var(--ink)' }}>
             <span style={{ color: 'var(--blue-c)', fontWeight: 700 }}>📌 เวลาปฏิบัติงาน:</span>
-            <span>เริ่มงาน <b style={{ color: 'var(--ink)' }}>08:00–16:30</b></span>
+            <span>เข้าแถว <b style={{ color: 'var(--ink)' }}>07:40–08:00</b></span>
+            <span>ปฏิบัติงาน <b style={{ color: 'var(--ink)' }}>08:00–16:30</b></span>
             <span style={{ color: 'var(--muted-c)' }}>(จันทร์–ศุกร์)</span>
           </div>
 

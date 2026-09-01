@@ -96,7 +96,7 @@ export function IdCard({ student }: { student: StudentInfo }) {
           {/* Header Info */}
           <div className="id-header-block">
             <div className="id-eyebrow">
-              <span className="key">&lt;/&gt;</span> ข้อมูลนักศึกษาฝึกประสบการณ์วิชาชีพ
+              <span className="key">&lt;/&gt;</span> ข้อมูลนักศึกษาฝึกประสบการณ์วิชาชีพครู
             </div>
 
             <h2 className="id-title-name">

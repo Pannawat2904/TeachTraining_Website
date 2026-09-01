@@ -3,7 +3,7 @@
 import { use, useState, useEffect, useMemo, useRef } from "react"
 import { teachingLogConfig, teachingLogs, supervisions } from "@/data/siteData"
 import { notFound } from "next/navigation"
-import { fetchGoogleSheet } from "@/actions/googleSheets"
+import { fetchGoogleSheet, fetchAllGoogleSheets } from "@/actions/googleSheets"
 import { Reveal } from "@/components/Reveal"
 import { ClipboardList, CalendarCheck, FileText } from "lucide-react"
 
@@ -155,8 +155,11 @@ interface WeekLogItem {
             console.warn('Could not load image manifest', e);
           }
           
-          const promises = sheetNames.map(async (name: string, index: number) => {
-            const res = await fetchGoogleSheet(spreadsheetId, name);
+          const allRes = await fetchAllGoogleSheets(spreadsheetId, sheetNames);
+          const sheetResults = allRes.results || [];
+
+          const promises = sheetResults.map(async (res, index: number) => {
+            const name = res.name;
             if (res.success && res.data && res.data.length > 0) {
               const data = res.data;
               

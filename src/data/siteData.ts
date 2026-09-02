@@ -182,6 +182,7 @@ export const teachingLogs = {
         presentDays: 4,
         leaveDays: 0,
         filename: "teaching_log_week_01.log",
+        images: [],
         days: [
           {
             dayName: "อังคาร",
@@ -237,6 +238,7 @@ export const teachingLogs = {
         presentDays: 4,
         leaveDays: 1,
         filename: "teaching_log_week_02.log",
+        images: [],
         days: [
           {
             dayName: "จันทร์",
@@ -307,6 +309,7 @@ export const teachingLogs = {
         presentDays: 4,
         leaveDays: 1,
         filename: "teaching_log_week_03.log",
+        images: [],
         days: [
           {
             dayName: "จันทร์",

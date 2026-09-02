@@ -20,7 +20,7 @@ export const siteData = {
     duration: "ภาคเรียนที่ 1 ปีการศึกษา 2567",
     teachingDays: "วันจันทร์ - วันศุกร์ เวลา 08.00 - 16.00 น.",
     schoolImage: "/images/placeholder-school.jpg", // TODO: Add real image
-    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15764.072221648937!2d99.32422781427503!3d9.14151703673397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30540673d32bb581%3A0x6e25c0cc099cd3f0!2sSurat%20Thani%20Vocational%20College!5e0!3m2!1sen!2sth!4v1700000000000!5m2!1sen!2sth" // placeholder for Surat Thani Vocational College
+    mapEmbedUrl: "https://maps.google.com/maps?q=วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี&t=&z=16&ie=UTF8&iwloc=&output=embed" // Map with red pin
   },
   mentor: {
     name: "ครูวินิต สืบสอน, ครูเมธาสิทธิ์ พลวัชรินทร์, ครูสุพัตรา เมืองฤกษ์",

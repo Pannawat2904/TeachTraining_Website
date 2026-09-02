@@ -57,12 +57,25 @@ export function GalleryReel({
     // Auto-scroll logic
     const scrollSpeed = 0.5;
     const autoScroll = () => {
-      if (!isDown && !isHovered && reel) {
-        if (reel.scrollLeft >= reel.scrollWidth - reel.clientWidth - 1) {
-          // If reached the end, snap back to start
-          reel.scrollLeft = 0;
-        } else {
-          reel.scrollLeft += scrollSpeed;
+      if (reel && reel.children.length > items.length) {
+        const firstItem = reel.children[0] as HTMLElement;
+        const mirrorItem = reel.children[items.length] as HTMLElement;
+        
+        if (firstItem && mirrorItem) {
+          const cycleWidth = mirrorItem.offsetLeft - firstItem.offsetLeft;
+          
+          // Seamless jump check
+          if (reel.scrollLeft >= cycleWidth) {
+            reel.scrollLeft -= cycleWidth;
+            if (isDown) {
+               startX -= cycleWidth; // adjust drag origin so it doesn't jerk
+            }
+          }
+          
+          // Auto increment if not interacting
+          if (!isDown && !isHovered) {
+             reel.scrollLeft += scrollSpeed;
+          }
         }
       }
       animationFrameId = requestAnimationFrame(autoScroll);
@@ -121,9 +134,12 @@ export function GalleryReel({
     }
   }, [])
 
+  // Duplicate items to create a seamless infinite loop
+  const displayItems = [...items, ...items]
+
   return (
     <div className="reel" ref={reelRef}>
-      {items.map((item, i) => (
+      {displayItems.map((item, i) => (
         <ReelItem 
           key={i} 
           src={item.src} 

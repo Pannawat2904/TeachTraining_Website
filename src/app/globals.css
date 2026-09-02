@@ -921,13 +921,13 @@ section { width: 100%; box-sizing: border-box; }
 .gallery h2 { font-family: var(--font-prompt), sans-serif; font-weight: 700; font-size: 22px; display: flex; align-items: center; gap: 10px; color: var(--ink); }
 .gallery .see-all { color: var(--ink); font-weight: 600; font-size: 14px; text-decoration: none; opacity: 0.7; transition: opacity .2s; }
 .gallery .see-all:hover { opacity: 1; }
-.reel { display: flex; gap: 16px; overflow-x: auto; padding: 10px 0.5rem 20px; scroll-snap-type: x mandatory; cursor: grab; scrollbar-width: thin; scrollbar-color: var(--blue-c) transparent; max-width: 1280px; margin: 0 auto; -webkit-overflow-scrolling: touch; }
+.reel { display: flex; gap: 16px; overflow-x: auto; padding: 10px 0.5rem 20px; cursor: grab; scrollbar-width: thin; scrollbar-color: var(--blue-c) transparent; max-width: 1280px; margin: 0 auto; -webkit-overflow-scrolling: touch; }
 @media(min-width: 640px) {
   .reel { padding: 10px 1.5rem 20px; }
 }
 .reel:active { cursor: grabbing; }
 .reel-item {
-  position: relative; flex: 0 0 auto; width: clamp(280px, 75vw, 380px); height: 260px; border-radius: 20px; overflow: hidden; scroll-snap-align: start;
+  position: relative; flex: 0 0 auto; width: clamp(280px, 75vw, 380px); height: 260px; border-radius: 20px; overflow: hidden;
   border: 1px solid var(--border-strong-c); box-shadow: 0 14px 40px rgba(16,21,43,0.1);
   transition: transform .45s cubic-bezier(.2,.8,.2,1), filter .45s ease; filter: saturate(0.9);
 }

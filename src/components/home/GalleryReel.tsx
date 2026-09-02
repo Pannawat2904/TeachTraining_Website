@@ -49,8 +49,27 @@ export function GalleryReel({
     if (!reel) return
 
     let isDown = false
+    let isHovered = false
     let startX = 0
     let scrollLeft = 0
+    let animationFrameId: number
+
+    // Auto-scroll logic
+    const scrollSpeed = 0.5;
+    const autoScroll = () => {
+      if (!isDown && !isHovered && reel) {
+        if (reel.scrollLeft >= reel.scrollWidth - reel.clientWidth - 1) {
+          // If reached the end, snap back to start
+          reel.scrollLeft = 0;
+        } else {
+          reel.scrollLeft += scrollSpeed;
+        }
+      }
+      animationFrameId = requestAnimationFrame(autoScroll);
+    }
+    
+    // Start auto-scroll
+    animationFrameId = requestAnimationFrame(autoScroll);
 
     const onMouseDown = (e: MouseEvent) => {
       isDown = true
@@ -58,8 +77,12 @@ export function GalleryReel({
       startX = e.pageX - reel.offsetLeft
       scrollLeft = reel.scrollLeft
     }
+    const onMouseEnter = () => {
+      isHovered = true
+    }
     const onMouseLeave = () => {
       isDown = false
+      isHovered = false
       reel.classList.remove('active')
     }
     const onMouseUp = () => {
@@ -74,16 +97,27 @@ export function GalleryReel({
       reel.scrollLeft = scrollLeft - walk
     }
 
+    // Touch events for mobile so it pauses auto-scroll when touching
+    const onTouchStart = () => { isHovered = true; }
+    const onTouchEnd = () => { isHovered = false; }
+
     reel.addEventListener('mousedown', onMouseDown)
+    reel.addEventListener('mouseenter', onMouseEnter)
     reel.addEventListener('mouseleave', onMouseLeave)
     reel.addEventListener('mouseup', onMouseUp)
     reel.addEventListener('mousemove', onMouseMove)
+    reel.addEventListener('touchstart', onTouchStart, { passive: true })
+    reel.addEventListener('touchend', onTouchEnd)
 
     return () => {
+      cancelAnimationFrame(animationFrameId)
       reel.removeEventListener('mousedown', onMouseDown)
+      reel.removeEventListener('mouseenter', onMouseEnter)
       reel.removeEventListener('mouseleave', onMouseLeave)
       reel.removeEventListener('mouseup', onMouseUp)
       reel.removeEventListener('mousemove', onMouseMove)
+      reel.removeEventListener('touchstart', onTouchStart)
+      reel.removeEventListener('touchend', onTouchEnd)
     }
   }, [])
 

@@ -7,73 +7,44 @@ import { fetchGoogleSheet, fetchAllGoogleSheets } from "@/actions/googleSheets"
 import { Reveal } from "@/components/Reveal"
 import { ClipboardList, CalendarCheck, FileText } from "lucide-react"
 
+import { motion, AnimatePresence } from 'framer-motion';
+
 function AutoSlideshow({ images, weekNum }: { images: string[]; weekNum: string }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (images.length <= 1) return;
     
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        const nextIndex = (prev + 1) % images.length;
-        if (scrollRef.current) {
-          scrollRef.current.scrollTo({
-            left: scrollRef.current.clientWidth * nextIndex,
-            behavior: 'smooth'
-          });
-        }
-        return nextIndex;
-      });
-    }, 3000);
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [images.length]);
 
   return (
     <div style={{ borderRadius: '16px', overflow: 'hidden', position: 'relative', minHeight: '300px', display: 'flex', flexDirection: 'column', background: 'var(--border-c)', boxShadow: '0 8px 30px rgba(0,0,0,0.06)' }}>
-      <div 
-        ref={scrollRef}
-        style={{ 
-          display: 'flex', 
-          overflowX: 'auto', 
-          scrollSnapType: 'x mandatory', 
-          scrollBehavior: 'smooth', 
-          flex: 1, 
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none'
-        }}
-        className="hide-scrollbar"
-        onScroll={(e) => {
-          const target = e.target as HTMLDivElement;
-          const index = Math.round(target.scrollLeft / target.clientWidth);
-          if (index !== currentIndex) {
-            setCurrentIndex(index);
-          }
-        }}
-      >
-        <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
-        {images.map((img: string, i: number) => (
-          <div key={i} style={{ width: '100%', height: '100%', flexShrink: 0, scrollSnapAlign: 'start', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', inset: -20, backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(20px)', opacity: 0.5, transform: 'scale(1.1)' }} />
-            <img src={img} alt={`Activities week ${weekNum} - ${i+1}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', position: 'relative', zIndex: 1 }} />
-          </div>
-        ))}
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+            style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            <div style={{ position: 'absolute', inset: -20, backgroundImage: `url(${images[currentIndex]})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(20px)', opacity: 0.5, transform: 'scale(1.1)' }} />
+            <img src={images[currentIndex]} alt={`Activities week ${weekNum} - ${currentIndex+1}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', position: 'relative', zIndex: 1 }} />
+          </motion.div>
+        </AnimatePresence>
       </div>
       {images.length > 1 && (
         <div style={{ position: 'absolute', bottom: '16px', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '10px', zIndex: 2 }}>
           {images.map((_, i) => (
             <div 
               key={i} 
-              onClick={() => {
-                if (scrollRef.current) {
-                  scrollRef.current.scrollTo({
-                    left: scrollRef.current.clientWidth * i,
-                    behavior: 'smooth'
-                  });
-                  setCurrentIndex(i);
-                }
-              }}
+              onClick={() => setCurrentIndex(i)}
               style={{ 
                 width: '10px', 
                 height: '10px', 

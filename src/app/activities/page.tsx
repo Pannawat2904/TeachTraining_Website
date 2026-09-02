@@ -5,44 +5,35 @@ import { Reveal } from '@/components/Reveal';
 import { Camera, Images } from 'lucide-react';
 import { supervisions } from '@/data/siteData';
 
+import { motion, AnimatePresence } from 'framer-motion';
+
 function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
-  const scrollRef = React.useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   React.useEffect(() => {
     if (images.length <= 1) return;
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        const nextIndex = (prev + 1) % images.length;
-        if (scrollRef.current) {
-          scrollRef.current.scrollTo({ left: scrollRef.current.clientWidth * nextIndex, behavior: 'smooth' });
-        }
-        return nextIndex;
-      });
-    }, 3000);
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
     return () => clearInterval(interval);
   }, [images.length]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-      <div
-        ref={scrollRef}
-        style={{ display: 'flex', width: '100%', height: '100%', overflowX: 'auto', scrollSnapType: 'x mandatory', scrollBehavior: 'smooth', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        className="hide-scrollbar"
-        onScroll={(e) => {
-          const target = e.target as HTMLDivElement;
-          const index = Math.round(target.scrollLeft / target.clientWidth);
-          if (index !== currentIndex) setCurrentIndex(index);
-        }}
-      >
-        <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
-        {images.map((img, i) => (
-          <div key={i} style={{ width: '100%', height: '100%', flexShrink: 0, scrollSnapAlign: 'start', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', inset: -20, backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(20px)', opacity: 0.5, transform: 'scale(1.1)' }} />
-            <img src={img} alt={`${alt} - ${i + 1}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', position: 'relative', zIndex: 1 }} />
-          </div>
-        ))}
-      </div>
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.div
+          key={currentIndex}
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.02 }}
+          transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+          style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
+          <div style={{ position: 'absolute', inset: -20, backgroundImage: `url(${images[currentIndex]})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(20px)', opacity: 0.5, transform: 'scale(1.1)' }} />
+          <img src={images[currentIndex]} alt={`${alt} - ${currentIndex + 1}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', position: 'relative', zIndex: 1 }} />
+        </motion.div>
+      </AnimatePresence>
+      
       {images.length > 1 && (
         <div style={{ position: 'absolute', bottom: '12px', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '8px', zIndex: 2 }}>
           {images.map((_, i) => (
@@ -50,10 +41,7 @@ function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
               key={i} 
               onClick={(e) => {
                 e.stopPropagation();
-                if (scrollRef.current) {
-                  scrollRef.current.scrollTo({ left: scrollRef.current.clientWidth * i, behavior: 'smooth' });
-                  setCurrentIndex(i);
-                }
+                setCurrentIndex(i);
               }}
               style={{ width: '8px', height: '8px', borderRadius: '50%', background: currentIndex === i ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.5)', boxShadow: '0 2px 4px rgba(0,0,0,0.4)', transition: 'all 0.3s ease', cursor: 'pointer' }}
             />

@@ -1,13 +1,58 @@
 {
-  "10": [],
-  "11": [],
-  "12": [],
+  "10": [
+    "/images/teaching/semester-1/week-10/IMG_9177.JPG",
+    "/images/teaching/semester-1/week-10/IMG_9182.JPG",
+    "/images/teaching/semester-1/week-10/IMG_9183.JPG",
+    "/images/teaching/semester-1/week-10/IMG_9184.JPG"
+  ],
+  "11": [
+    "/images/teaching/semester-1/week-11/E1CF41F7-F48C-4FAD-8EE9-E6CB0B060D19.JPG",
+    "/images/teaching/semester-1/week-11/IMG_7924.JPG",
+    "/images/teaching/semester-1/week-11/IMG_7929.JPG",
+    "/images/teaching/semester-1/week-11/IMG_7937.JPG"
+  ],
+  "12": [
+    "/images/teaching/semester-1/week-12/IMG_5406.JPG",
+    "/images/teaching/semester-1/week-12/IMG_7992.JPG",
+    "/images/teaching/semester-1/week-12/IMG_7993.JPG",
+    "/images/teaching/semester-1/week-12/IMG_8018.JPG",
+    "/images/teaching/semester-1/week-12/IMG_8048.JPG",
+    "/images/teaching/semester-1/week-12/IMG_8049.JPG",
+    "/images/teaching/semester-1/week-12/IMG_8066.JPG",
+    "/images/teaching/semester-1/week-12/IMG_9117.JPG"
+  ],
   "13": [],
-  "14": [],
-  "15": [],
-  "16": [],
-  "17": [],
-  "18": [],
+  "14": [
+    "/images/teaching/semester-1/week-14/IMG_8404.JPG",
+    "/images/teaching/semester-1/week-14/IMG_8427.JPG",
+    "/images/teaching/semester-1/week-14/IMG_8433.JPG",
+    "/images/teaching/semester-1/week-14/IMG_8439.JPG",
+    "/images/teaching/semester-1/week-14/IMG_8672.JPG",
+    "/images/teaching/semester-1/week-14/IMG_8734.JPG"
+  ],
+  "15": [
+    "/images/teaching/semester-1/week-15/IMG_9123.JPG",
+    "/images/teaching/semester-1/week-15/IMG_9125.JPG",
+    "/images/teaching/semester-1/week-15/IMG_9132.JPG"
+  ],
+  "16": [
+    "/images/teaching/semester-1/week-16/IMG_8708.JPG",
+    "/images/teaching/semester-1/week-16/IMG_8711.JPG",
+    "/images/teaching/semester-1/week-16/IMG_8890.JPG"
+  ],
+  "17": [
+    "/images/teaching/semester-1/week-17/IMG_8956.JPG",
+    "/images/teaching/semester-1/week-17/IMG_9044.JPG",
+    "/images/teaching/semester-1/week-17/IMG_9045.JPG",
+    "/images/teaching/semester-1/week-17/IMG_9046.JPG",
+    "/images/teaching/semester-1/week-17/IMG_9186.JPG",
+    "/images/teaching/semester-1/week-17/IMG_9187.JPG"
+  ],
+  "18": [
+    "/images/teaching/semester-1/week-18/IMG_9072.JPG",
+    "/images/teaching/semester-1/week-18/IMG_9078.JPG",
+    "/images/teaching/semester-1/week-18/IMG_9115.JPG"
+  ],
   "19": [],
   "20": [],
   "01": [
@@ -50,13 +95,38 @@
   ],
   "05": [
     "/images/teaching/semester-1/week-05/IMG_6974.JPG",
-    "/images/teaching/semester-1/week-05/IMG_6975.JPG",
+    "/images/teaching/semester-1/week-05/IMG_6975.jpg",
     "/images/teaching/semester-1/week-05/IMG_7026.JPG",
     "/images/teaching/semester-1/week-05/IMG_7027.JPG",
     "/images/teaching/semester-1/week-05/นิเทศครั้งที่1ภาพ1.JPG"
   ],
-  "06": [],
-  "07": [],
-  "08": [],
-  "09": []
+  "06": [
+    "/images/teaching/semester-1/week-06/IMG_7072.JPG",
+    "/images/teaching/semester-1/week-06/IMG_9116.JPG",
+    "/images/teaching/semester-1/week-06/IMG_9133.JPG",
+    "/images/teaching/semester-1/week-06/IMG_9134.JPG",
+    "/images/teaching/semester-1/week-06/IMG_9179.JPG",
+    "/images/teaching/semester-1/week-06/IMG_9180.JPG"
+  ],
+  "07": [
+    "/images/teaching/semester-1/week-07/IMG_7264.JPG",
+    "/images/teaching/semester-1/week-07/IMG_7362.JPG",
+    "/images/teaching/semester-1/week-07/IMG_7372.JPG",
+    "/images/teaching/semester-1/week-07/IMG_7375.JPG",
+    "/images/teaching/semester-1/week-07/IMG_7376.JPG"
+  ],
+  "08": [
+    "/images/teaching/semester-1/week-08/IMG_7579.JPG",
+    "/images/teaching/semester-1/week-08/IMG_7587.JPG",
+    "/images/teaching/semester-1/week-08/IMG_7588.JPG"
+  ],
+  "09": [
+    "/images/teaching/semester-1/week-09/IMG_7688.JPG",
+    "/images/teaching/semester-1/week-09/IMG_7704.JPG",
+    "/images/teaching/semester-1/week-09/IMG_7705.JPG",
+    "/images/teaching/semester-1/week-09/IMG_7719.jpg",
+    "/images/teaching/semester-1/week-09/IMG_7736.JPG",
+    "/images/teaching/semester-1/week-09/IMG_7738.JPG",
+    "/images/teaching/semester-1/week-09/IMG_7896.JPG"
+  ]
 }

@@ -484,7 +484,7 @@ export const supervisions = {
       date: "6 ส.ค. 2569",
       subject: "เทคโนโลยีการนำเข้าข้อมูลเข้าสู่ระบบคอมพิวเตอร์",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
-      image: "/images/activities/wai-kru-2.jpg" // Using an existing activity image as placeholder
+      image: "/images/activities/นิเทศครั้งที่2.JPEG"
     },
     {
       id: 3,

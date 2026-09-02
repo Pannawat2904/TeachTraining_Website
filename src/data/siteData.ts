@@ -182,7 +182,6 @@ export const teachingLogs = {
         presentDays: 4,
         leaveDays: 0,
         filename: "teaching_log_week_01.log",
-        images: ["/images/activities/wai-kru-1.jpg", "/images/activities/wai-kru-2.jpg"],
         days: [
           {
             dayName: "อังคาร",
@@ -238,7 +237,6 @@ export const teachingLogs = {
         presentDays: 4,
         leaveDays: 1,
         filename: "teaching_log_week_02.log",
-        images: ["/images/activities/wai-kru-2.jpg", "/images/activities/wai-kru-1.jpg"],
         days: [
           {
             dayName: "จันทร์",
@@ -309,7 +307,6 @@ export const teachingLogs = {
         presentDays: 4,
         leaveDays: 1,
         filename: "teaching_log_week_03.log",
-        images: ["/images/activities/wai-kru-1.jpg"],
         days: [
           {
             dayName: "จันทร์",
@@ -429,19 +426,7 @@ export const lessonPlans = {
 };
 
 export const activities = {
-  semester1: [
-    {
-      id: "1",
-      title: "กิจกรรมไหว้ครู",
-      description: "เข้าร่วมกิจกรรมไหว้ครูประจำปีการศึกษา 2567",
-      date: "2026-08-16",
-      // รูปภาพสามารถนำไปวางใน public/images/activities, public/images/teaching, หรือ public/images/others
-      images: [
-        "/images/activities/wai-kru-1.jpg",
-        "/images/activities/wai-kru-2.jpg"
-      ]
-    }
-  ],
+  semester1: [],
   semester2: []
 };
 

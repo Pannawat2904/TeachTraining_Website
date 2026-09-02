@@ -26,18 +26,10 @@ export default function Home() {
     const activitiesPath = path.join(process.cwd(), 'public', 'data', 'activities.json')
     const activitiesData = JSON.parse(fs.readFileSync(activitiesPath, 'utf8'))
     activitiesData.forEach((act: any) => {
-      if (Array.isArray(act.img)) {
-        act.img.forEach((img: string) => {
-          galleryItems.push({
-            src: img,
-            title: act.title,
-            badge: "ACTIVITY",
-            alt: act.title
-          })
-        })
-      } else if (act.img) {
+      const img = Array.isArray(act.img) && act.img.length > 0 ? act.img[0] : act.img
+      if (img) {
         galleryItems.push({
-          src: act.img,
+          src: img,
           title: act.title,
           badge: "ACTIVITY",
           alt: act.title
@@ -50,18 +42,10 @@ export default function Home() {
 
   // 2. From supervisions
   supervisions.semester1.forEach(sup => {
-    if (sup.images) {
-      sup.images.forEach(img => {
-        galleryItems.push({
-          src: img,
-          title: sup.title,
-          badge: "ARCHIVE",
-          alt: sup.title
-        })
-      })
-    } else if (sup.image) {
+    const img = (sup.images && sup.images.length > 0) ? sup.images[0] : sup.image
+    if (img) {
       galleryItems.push({
-        src: sup.image,
+        src: img,
         title: sup.title,
         badge: "ARCHIVE",
         alt: sup.title
@@ -71,8 +55,8 @@ export default function Home() {
   
   // 3. From teaching logs
   teachingLogs.semester1.weeks.forEach(week => {
-    week.images?.forEach(img => {
-      // Avoid duplicate images if they were already added from activities
+    if (week.images && week.images.length > 0) {
+      const img = week.images[0]
       if (!galleryItems.some(item => item.src === img)) {
         galleryItems.push({
           src: img,
@@ -81,7 +65,7 @@ export default function Home() {
           alt: week.title
         })
       }
-    })
+    }
   })
 
   // Shuffle array randomly to show variety

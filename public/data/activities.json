@@ -1,5 +1,19 @@
 [
   {
+    "id": "14",
+    "cat": "school",
+    "img": [
+      "/images/activities/IMG_8058.jpg",
+      "/images/activities/IMG_9117.JPG",
+      "/images/activities/IMG_8054.jpg"
+    ],
+    "tag": "กิจกรรมวิทยาลัย",
+    "tagColor": "amber",
+    "date": "2 ก.ย. 2569",
+    "title": "กิจกรรมแห่เทียนพรรษา ประจำปีการศึกษา 2569",
+    "desc": "ร่วมอนุรักษ์วัฒนธรรมประเพณีในกิจกรรมแห่เทียนพรรษา"
+  },
+  {
     "id": "13",
     "cat": "teach",
     "img": [

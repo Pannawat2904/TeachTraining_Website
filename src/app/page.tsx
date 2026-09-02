@@ -1,4 +1,6 @@
 import { siteData, activities, supervisions, teachingLogs } from "@/data/siteData"
+import fs from "fs"
+import path from "path"
 import Link from "next/link"
 import { IdCard } from "@/components/home/IdCard"
 import { GalleryReel } from "@/components/home/GalleryReel"
@@ -19,17 +21,32 @@ export default function Home() {
   // Gather images for gallery from various sources
   const galleryItems: { src: string; title: string; badge: string; alt: string }[] = []
 
-  // 1. From activities
-  activities.semester1.forEach(act => {
-    act.images?.forEach(img => {
-      galleryItems.push({
-        src: img,
-        title: act.title,
-        badge: "NEW",
-        alt: act.title
-      })
+  // 1. From activities in JSON file
+  try {
+    const activitiesPath = path.join(process.cwd(), 'public', 'data', 'activities.json')
+    const activitiesData = JSON.parse(fs.readFileSync(activitiesPath, 'utf8'))
+    activitiesData.forEach((act: any) => {
+      if (Array.isArray(act.img)) {
+        act.img.forEach((img: string) => {
+          galleryItems.push({
+            src: img,
+            title: act.title,
+            badge: "ACTIVITY",
+            alt: act.title
+          })
+        })
+      } else if (act.img) {
+        galleryItems.push({
+          src: act.img,
+          title: act.title,
+          badge: "ACTIVITY",
+          alt: act.title
+        })
+      }
     })
-  })
+  } catch (error) {
+    console.error("Error loading activities for gallery:", error)
+  }
 
   // 2. From supervisions
   supervisions.semester1.forEach(sup => {
@@ -66,6 +83,12 @@ export default function Home() {
       }
     })
   })
+
+  // Shuffle array randomly to show variety
+  for (let i = galleryItems.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [galleryItems[i], galleryItems[j]] = [galleryItems[j], galleryItems[i]];
+  }
 
   const displayItems = galleryItems.slice(0, 8) // Limit to a reasonable number
 

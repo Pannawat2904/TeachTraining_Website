@@ -7,67 +7,44 @@ import { supervisions } from '@/data/siteData';
 
 import { motion, AnimatePresence } from 'framer-motion';
 
-const slideVariants = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? "100%" : "-100%",
-    opacity: 0.8
-  }),
-  center: {
-    zIndex: 1,
-    x: 0,
-    opacity: 1
-  },
-  exit: (direction: number) => ({
-    zIndex: 0,
-    x: direction < 0 ? "100%" : "-100%",
-    opacity: 0.8
-  })
-};
+
 
 function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
-  const [[page, direction], setPage] = useState([0, 0]);
-  const imageIndex = ((page % images.length) + images.length) % images.length;
-
-  const paginate = (newDirection: number) => {
-    setPage([page + newDirection, newDirection]);
-  };
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   React.useEffect(() => {
     if (images.length <= 1) return;
     const interval = setInterval(() => {
-      paginate(1);
+      setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [images.length, page]);
+  }, [images.length]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
       <div style={{ flex: 1, position: 'relative', width: '100%', height: '100%', overflow: 'hidden', touchAction: 'pan-y' }}>
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={page}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={1}
-            onDragEnd={(e, { offset, velocity }) => {
-              if (offset.x < -50 || velocity.x < -500) {
-                paginate(1);
-              } else if (offset.x > 50 || velocity.x > 500) {
-                paginate(-1);
-              }
-            }}
-            style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-          >
-            <div style={{ position: 'absolute', inset: -20, backgroundImage: `url(${images[imageIndex]})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(20px)', opacity: 0.5, transform: 'scale(1.1)' }} />
-            <img src={images[imageIndex]} alt={`${alt} - ${imageIndex + 1}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', position: 'relative', zIndex: 1 }} />
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          animate={{ x: `-${currentIndex * 100}%` }}
+          transition={{ type: "spring", stiffness: 250, damping: 25, mass: 0.8 }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={(e, { offset, velocity }) => {
+            if (offset.x < -50 || velocity.x < -500) {
+              setCurrentIndex((prev) => Math.min(prev + 1, images.length - 1));
+            } else if (offset.x > 50 || velocity.x > 500) {
+              setCurrentIndex((prev) => Math.max(prev - 1, 0));
+            }
+          }}
+          style={{ display: 'flex', width: '100%', height: '100%', cursor: 'grab' }}
+        >
+          {images.map((img, i) => (
+            <div key={i} style={{ width: '100%', height: '100%', flexShrink: 0, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ position: 'absolute', inset: -20, backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(20px)', opacity: 0.5, transform: 'scale(1.1) translateZ(0)', willChange: 'transform' }} />
+              <img src={img} alt={`${alt} - ${i + 1}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', position: 'relative', zIndex: 1, pointerEvents: 'none' }} />
+            </div>
+          ))}
+        </motion.div>
       </div>
       
       {images.length > 1 && (
@@ -77,10 +54,9 @@ function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
               key={i} 
               onClick={(e) => {
                 e.stopPropagation();
-                const dir = i > imageIndex ? 1 : -1;
-                setPage([page + (i - imageIndex), dir]);
+                setCurrentIndex(i);
               }}
-              style={{ width: '8px', height: '8px', borderRadius: '50%', background: imageIndex === i ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.5)', boxShadow: '0 2px 4px rgba(0,0,0,0.4)', transition: 'all 0.3s ease', cursor: 'pointer' }}
+              style={{ width: '8px', height: '8px', borderRadius: '50%', background: currentIndex === i ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.5)', boxShadow: '0 2px 4px rgba(0,0,0,0.4)', transition: 'all 0.3s ease', cursor: 'pointer' }}
             />
           ))}
         </div>

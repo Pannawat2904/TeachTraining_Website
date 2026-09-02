@@ -11,40 +11,71 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
 
   React.useEffect(() => {
     if (images.length <= 1) return;
     const interval = setInterval(() => {
+      setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(interval);
   }, [images.length]);
 
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? '100%' : '-100%',
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? '100%' : '-100%',
+    })
+  };
+
+  const swipeConfidenceThreshold = 10000;
+  const swipePower = (offset: number, velocity: number) => {
+    return Math.abs(offset) * velocity;
+  };
+
+  const paginate = (newDirection: number) => {
+    setDirection(newDirection);
+    setCurrentIndex((prev) => (prev + newDirection + images.length) % images.length);
+  };
+
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-      <div style={{ flex: 1, position: 'relative', width: '100%', height: '100%', overflow: 'hidden', touchAction: 'pan-y' }}>
-        <motion.div
-          animate={{ x: `-${currentIndex * 100}%` }}
-          transition={{ type: "spring", stiffness: 250, damping: 25, mass: 0.8 }}
+      <AnimatePresence initial={false} custom={direction}>
+        <motion.img
+          key={currentIndex}
+          src={images[currentIndex]}
+          custom={direction}
+          variants={variants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{
+            x: { type: "spring", stiffness: 300, damping: 30 },
+            opacity: { duration: 0.2 }
+          }}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.2}
+          dragElastic={1}
           onDragEnd={(e, { offset, velocity }) => {
-            if (offset.x < -50 || velocity.x < -500) {
-              setCurrentIndex((prev) => Math.min(prev + 1, images.length - 1));
-            } else if (offset.x > 50 || velocity.x > 500) {
-              setCurrentIndex((prev) => Math.max(prev - 1, 0));
+            const swipe = swipePower(offset.x, velocity.x);
+            if (swipe < -swipeConfidenceThreshold || offset.x < -50) {
+              paginate(1);
+            } else if (swipe > swipeConfidenceThreshold || offset.x > 50) {
+              paginate(-1);
             }
           }}
-          style={{ display: 'flex', width: '100%', height: '100%', cursor: 'grab' }}
-        >
-          {images.map((img, i) => (
-            <div key={i} style={{ width: '100%', height: '100%', flexShrink: 0, position: 'relative' }}>
-              <img src={img} alt={`${alt} - ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }} />
-            </div>
-          ))}
-        </motion.div>
-      </div>
+          alt={`${alt} - ${currentIndex + 1}`}
+          style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover', cursor: 'grab' }}
+        />
+      </AnimatePresence>
       
       {images.length > 1 && (
         <div style={{ position: 'absolute', bottom: '12px', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '8px', zIndex: 2 }}>
@@ -53,6 +84,7 @@ function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
               key={i} 
               onClick={(e) => {
                 e.stopPropagation();
+                setDirection(i > currentIndex ? 1 : -1);
                 setCurrentIndex(i);
               }}
               style={{ width: '8px', height: '8px', borderRadius: '50%', background: currentIndex === i ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.5)', boxShadow: '0 2px 4px rgba(0,0,0,0.4)', transition: 'all 0.3s ease', cursor: 'pointer' }}

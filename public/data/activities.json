@@ -1,5 +1,18 @@
 [
   {
+    "id": "11",
+    "cat": "school",
+    "img": [
+      "/images/activities/IMG_6975.jpg",
+      "/images/activities/IMG_6976.JPG"
+    ],
+    "tag": "กิจกรรมวิทยาลัย",
+    "tagColor": "amber",
+    "date": "2 ก.ย. 2569",
+    "title": "กิจกรรมตักบาตรทำบุญ",
+    "desc": "เข้าร่วมกิจกรรมทำบุญตักบาตรเพื่อความเป็นสิริมงคล"
+  },
+  {
     "id": "10",
     "cat": "school",
     "img": [

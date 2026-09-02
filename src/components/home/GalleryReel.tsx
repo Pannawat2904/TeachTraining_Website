@@ -54,8 +54,8 @@ export function GalleryReel({
     let scrollLeft = 0
     let animationFrameId: number
 
-    // Auto-scroll logic
-    const scrollSpeed = 0.5;
+    // Auto-scroll logic (speed = 1 to prevent subpixel jitter)
+    const scrollSpeed = 1;
     const autoScroll = () => {
       if (reel && reel.children.length > items.length) {
         const firstItem = reel.children[0] as HTMLElement;

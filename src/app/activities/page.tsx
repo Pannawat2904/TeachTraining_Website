@@ -58,7 +58,7 @@ function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
           animate="center"
           exit="exit"
           transition={{
-            x: { type: "spring", stiffness: 300, damping: 30 },
+            x: { type: "tween", ease: "easeInOut", duration: 0.5 },
             opacity: { duration: 0.2 }
           }}
           drag="x"

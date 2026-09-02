@@ -39,9 +39,8 @@ function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
           style={{ display: 'flex', width: '100%', height: '100%', cursor: 'grab' }}
         >
           {images.map((img, i) => (
-            <div key={i} style={{ width: '100%', height: '100%', flexShrink: 0, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ position: 'absolute', inset: -20, backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(20px)', opacity: 0.5, transform: 'scale(1.1) translateZ(0)', willChange: 'transform' }} />
-              <img src={img} alt={`${alt} - ${i + 1}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', position: 'relative', zIndex: 1, pointerEvents: 'none' }} />
+            <div key={i} style={{ width: '100%', height: '100%', flexShrink: 0, position: 'relative' }}>
+              <img src={img} alt={`${alt} - ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }} />
             </div>
           ))}
         </motion.div>
@@ -168,13 +167,12 @@ export default function ActivitiesPage() {
           <div className="grid">
             {filteredActivities.map(a => (
               <div key={a.id} className="card" data-cat={a.cat}>
-                <div className="img" style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                <div className="img">
                   {Array.isArray(a.img) ? (
                     <ActivitySlideshow images={a.img} alt={a.title} />
                   ) : (
                     <>
-                      <div style={{ position: 'absolute', inset: -20, backgroundImage: `url(${a.img})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(20px)', opacity: 0.5, transform: 'scale(1.1)' }} />
-                      <img src={a.img} alt={a.title} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', position: 'relative', zIndex: 1 }} />
+                      <img src={a.img} alt={a.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     </>
                   )}
                 </div>

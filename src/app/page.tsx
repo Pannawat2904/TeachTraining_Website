@@ -1,4 +1,4 @@
-import { siteData, activities } from "@/data/siteData"
+import { siteData, activities, supervisions, teachingLogs } from "@/data/siteData"
 import Link from "next/link"
 import { IdCard } from "@/components/home/IdCard"
 import { GalleryReel } from "@/components/home/GalleryReel"
@@ -16,8 +16,58 @@ import {
 } from "lucide-react"
 
 export default function Home() {
-  const activityImages = activities.semester1[0]?.images?.slice(0, 4) || []
-  const activityTitle = activities.semester1[0]?.title || "กิจกรรมการสอน"
+  // Gather images for gallery from various sources
+  const galleryItems: { src: string; title: string; badge: string; alt: string }[] = []
+
+  // 1. From activities
+  activities.semester1.forEach(act => {
+    act.images?.forEach(img => {
+      galleryItems.push({
+        src: img,
+        title: act.title,
+        badge: "NEW",
+        alt: act.title
+      })
+    })
+  })
+
+  // 2. From supervisions
+  supervisions.semester1.forEach(sup => {
+    if (sup.images) {
+      sup.images.forEach(img => {
+        galleryItems.push({
+          src: img,
+          title: sup.title,
+          badge: "ARCHIVE",
+          alt: sup.title
+        })
+      })
+    } else if (sup.image) {
+      galleryItems.push({
+        src: sup.image,
+        title: sup.title,
+        badge: "ARCHIVE",
+        alt: sup.title
+      })
+    }
+  })
+  
+  // 3. From teaching logs
+  teachingLogs.semester1.weeks.forEach(week => {
+    week.images?.forEach(img => {
+      // Avoid duplicate images if they were already added from activities
+      if (!galleryItems.some(item => item.src === img)) {
+        galleryItems.push({
+          src: img,
+          title: `บันทึกการสอน ${week.title}`,
+          badge: "LOG",
+          alt: week.title
+        })
+      }
+    })
+  })
+
+  const displayItems = galleryItems.slice(0, 8) // Limit to a reasonable number
 
   return (
     <div id="site">
@@ -189,7 +239,7 @@ export default function Home() {
             </h2>
             <Link className="see-all" href="/activities">ดูทั้งหมด ›</Link>
           </div>
-          <GalleryReel initialImages={activityImages} activityTitle={activityTitle} />
+          <GalleryReel items={displayItems} />
         </Reveal>
       </section>
 

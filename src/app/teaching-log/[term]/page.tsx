@@ -54,7 +54,10 @@ function AutoSlideshow({ images, weekNum }: { images: string[]; weekNum: string 
       >
         <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
         {images.map((img: string, i: number) => (
-          <img key={i} src={img} alt={`Activities week ${weekNum} - ${i+1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', flexShrink: 0, scrollSnapAlign: 'start' }} />
+          <div key={i} style={{ width: '100%', height: '100%', flexShrink: 0, scrollSnapAlign: 'start', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', inset: -20, backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(20px)', opacity: 0.5, transform: 'scale(1.1)' }} />
+            <img src={img} alt={`Activities week ${weekNum} - ${i+1}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', position: 'relative', zIndex: 1 }} />
+          </div>
         ))}
       </div>
       {images.length > 1 && (

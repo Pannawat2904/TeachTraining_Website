@@ -1,5 +1,19 @@
 [
   {
+    "id": "13",
+    "cat": "teach",
+    "img": [
+      "/images/activities/IMG_7736.JPG",
+      "/images/activities/IMG_7719.jpg",
+      "/images/activities/IMG_7706.JPG"
+    ],
+    "tag": "กิจกรรมการสอน",
+    "tagColor": "blue",
+    "date": "2 ก.ย. 2569",
+    "title": "ร่วมเป็นวิทยากรบรรยายในหัวข้อ Smart ICT Learning ณ โรงเรียนวัดวิเวการาม",
+    "desc": "บรรยายให้ความรู้และฝึกปฏิบัติทักษะด้านเทคโนโลยีสารสนเทศ"
+  },
+  {
     "id": "12",
     "cat": "school",
     "img": [

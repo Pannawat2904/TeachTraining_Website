@@ -1,5 +1,19 @@
 [
   {
+    "id": "6",
+    "cat": "school",
+    "img": [
+      "/images/activities/IMG_5406.JPG",
+      "/images/activities/IMG_8427.JPG",
+      "/images/activities/IMG_8433.JPG"
+    ],
+    "tag": "กิจกรรมวิทยาลัย",
+    "tagColor": "amber",
+    "date": "2 ก.ย. 2569",
+    "title": "กิจกรรมกีฬาสีประจำปีการศึกษา 2569",
+    "desc": "ร่วมดูแลและคุมแถวนักเรียนในกิจกรรมกีฬาสีประจำปีการศึกษา 2569"
+  },
+  {
     "id": "1",
     "cat": "teach",
     "img": "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=600&auto=format&fit=crop",

@@ -5,8 +5,9 @@ import { teachingLogConfig, teachingLogs, supervisions } from "@/data/siteData"
 import { notFound } from "next/navigation"
 import { fetchGoogleSheet, fetchAllGoogleSheets } from "@/actions/googleSheets"
 import { Reveal } from "@/components/Reveal"
-import { ClipboardList, CalendarCheck, FileText } from "lucide-react"
+import { ClipboardList, CalendarCheck, FileText, ZoomIn } from "lucide-react"
 import Image from "next/image"
+import { ImageModal } from "@/components/ImageModal"
 
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -27,7 +28,15 @@ const slideVariants = {
   })
 };
 
-function AutoSlideshow({ images, weekNum }: { images: string[]; weekNum: string }) {
+function AutoSlideshow({ 
+  images, 
+  weekNum,
+  onImageClick
+}: { 
+  images: string[]; 
+  weekNum: string;
+  onImageClick?: (index: number) => void;
+}) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -57,9 +66,33 @@ function AutoSlideshow({ images, weekNum }: { images: string[]; weekNum: string 
           style={{ display: 'flex', width: '100%', height: '100%', cursor: 'grab' }}
         >
           {images.map((img, i) => (
-            <div key={i} style={{ width: '100%', height: '100%', flexShrink: 0, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div 
+              key={i} 
+              style={{ width: '100%', height: '100%', flexShrink: 0, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'zoom-in' }}
+              onClick={() => onImageClick?.(i)}
+            >
               <div style={{ position: 'absolute', inset: -20, backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(20px)', opacity: 0.5, transform: 'scale(1.1) translateZ(0)', willChange: 'transform' }} />
               <Image src={img} alt={`Activities week ${weekNum} - ${i+1}`} fill sizes="(max-width: 768px) 100vw, 800px" style={{ objectFit: 'contain', zIndex: 1, pointerEvents: 'none' }} />
+              
+              <div style={{
+                position: 'absolute',
+                top: '12px',
+                right: '12px',
+                background: 'rgba(16, 21, 43, 0.65)',
+                backdropFilter: 'blur(8px)',
+                color: '#ffffff',
+                borderRadius: '999px',
+                padding: '4px 10px',
+                fontSize: '11px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                zIndex: 3,
+                border: '1px solid rgba(255, 255, 255, 0.2)'
+              }}>
+                <ZoomIn size={12} />
+                <span>ขยาย</span>
+              </div>
             </div>
           ))}
         </motion.div>
@@ -133,6 +166,18 @@ interface WeekLogItem {
 
   const [googleWeeks, setGoogleWeeks] = useState<WeekLogItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [modalData, setModalData] = useState<{
+    isOpen: boolean;
+    images: string[];
+    currentIndex: number;
+    title: string;
+  }>({
+    isOpen: false,
+    images: [],
+    currentIndex: 0,
+    title: '',
+  });
 
   useEffect(() => {
     // Only fetch if we are in interactive mode, config exists, and we haven't fetched yet
@@ -668,7 +713,18 @@ interface WeekLogItem {
                       >
                         {/* Slideshow / Image Section */}
                         {week.images && week.images.length > 0 && week.presentDays > 0 && (
-                          <AutoSlideshow images={week.images} weekNum={week.weekNum} />
+                          <AutoSlideshow 
+                            images={week.images} 
+                            weekNum={week.weekNum} 
+                            onImageClick={(idx) => {
+                              setModalData({
+                                isOpen: true,
+                                images: week.images || [],
+                                currentIndex: idx,
+                                title: `ภาพกิจกรรม ${week.title} (${week.dateRange})`,
+                              });
+                            }}
+                          />
                         )}
 
                         {/* Daily Logs List */}
@@ -810,6 +866,16 @@ interface WeekLogItem {
           </div>
         </>
       )}
+
+      {/* Full screen image modal */}
+      <ImageModal
+        isOpen={modalData.isOpen}
+        onClose={() => setModalData(prev => ({ ...prev, isOpen: false }))}
+        images={modalData.images}
+        currentIndex={modalData.currentIndex}
+        onIndexChange={(idx) => setModalData(prev => ({ ...prev, currentIndex: idx }))}
+        title={modalData.title}
+      />
     </div>
   );
 }

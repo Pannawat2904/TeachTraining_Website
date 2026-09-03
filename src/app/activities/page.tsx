@@ -2,14 +2,20 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/Reveal';
-import { Camera, Images } from 'lucide-react';
+import { Camera, Images, ZoomIn } from 'lucide-react';
 import { supervisions } from '@/data/siteData';
+import { motion } from 'framer-motion';
+import { ImageModal } from '@/components/ImageModal';
 
-import { motion, AnimatePresence } from 'framer-motion';
-
-
-
-function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
+function ActivitySlideshow({ 
+  images, 
+  alt, 
+  onImageClick 
+}: { 
+  images: string[]; 
+  alt: string; 
+  onImageClick?: (index: number) => void;
+}) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   React.useEffect(() => {
@@ -39,7 +45,14 @@ function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
           style={{ display: 'flex', width: '100%', height: '100%', cursor: 'grab' }}
         >
           {images.map((img, i) => (
-            <div key={i} style={{ width: '100%', height: '100%', flexShrink: 0, position: 'relative' }}>
+            <div 
+              key={i} 
+              style={{ width: '100%', height: '100%', flexShrink: 0, position: 'relative', cursor: 'zoom-in' }}
+              onClick={(e) => {
+                e.stopPropagation();
+                onImageClick?.(i);
+              }}
+            >
               <Image src={img} alt={`${alt} - ${i + 1}`} fill sizes="(max-width: 768px) 100vw, 800px" style={{ objectFit: 'cover', pointerEvents: 'none' }} />
             </div>
           ))}
@@ -66,8 +79,20 @@ function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
 
 export default function ActivitiesPage() {
   const [filter, setFilter] = useState('all');
-
   const [activitiesList, setActivitiesList] = useState<any[]>([]);
+
+  // State for full-screen image lightbox
+  const [modalData, setModalData] = useState<{
+    isOpen: boolean;
+    images: string[];
+    currentIndex: number;
+    title: string;
+  }>({
+    isOpen: false,
+    images: [],
+    currentIndex: 0,
+    title: '',
+  });
 
   React.useEffect(() => {
     fetch('/data/activities.json')
@@ -118,9 +143,23 @@ export default function ActivitiesPage() {
           display: flex; flex-direction: column;
         }
         .activities-page .card:hover { transform:translateY(-8px); box-shadow:0 24px 56px rgba(61,107,255,0.18); }
-        .activities-page .card .img { height:200px; overflow:hidden; position:relative; }
+        .activities-page .card .img { height:200px; overflow:hidden; position:relative; cursor:zoom-in; }
         .activities-page .card .img img { transition:transform .5s ease; }
         .activities-page .card:hover .img img { transform:scale(1.06); }
+        .activities-page .card .zoom-hint {
+          position: absolute; top: 12px; right: 12px;
+          background: rgba(16, 21, 43, 0.7); backdrop-filter: blur(8px);
+          color: #ffffff; border-radius: 999px; padding: 4px 10px;
+          font-size: 11.5px; font-weight: 500;
+          display: flex; align-items: center; gap: 4px;
+          opacity: 0; transform: translateY(-4px);
+          transition: all 0.25s ease;
+          pointer-events: none; z-index: 3;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .activities-page .card:hover .zoom-hint {
+          opacity: 1; transform: translateY(0);
+        }
         .activities-page .card .body { padding:22px; flex-grow: 1; display: flex; flex-direction: column; }
         .activities-page .card .tag { font-family:var(--font-mono, monospace); font-size:11px; padding:4px 12px; border-radius:999px; display:inline-block; margin-bottom:12px; font-weight: 500; width: fit-content; }
         .activities-page .card .tag.blue { background:rgba(61,107,255,0.1); color:var(--blue-c, #3d6bff); border:1px solid rgba(61,107,255,0.25); }
@@ -165,28 +204,66 @@ export default function ActivitiesPage() {
 
         <Reveal delay={200}>
           <div className="grid">
-            {filteredActivities.map(a => (
-              <div key={a.id} className="card" data-cat={a.cat}>
-                <div className="img">
-                  {Array.isArray(a.img) ? (
-                    <ActivitySlideshow images={a.img} alt={a.title} />
-                  ) : (
-                    <>
-                      <Image src={a.img} alt={a.title} fill sizes="(max-width: 768px) 100vw, 400px" style={{ objectFit: 'cover' }} />
-                    </>
-                  )}
+            {filteredActivities.map(a => {
+              const cardImages = Array.isArray(a.img) ? a.img : [a.img];
+              return (
+                <div key={a.id} className="card" data-cat={a.cat}>
+                  <div 
+                    className="img"
+                    onClick={() => {
+                      setModalData({
+                        isOpen: true,
+                        images: cardImages,
+                        currentIndex: 0,
+                        title: a.title,
+                      });
+                    }}
+                  >
+                    {Array.isArray(a.img) ? (
+                      <ActivitySlideshow 
+                        images={a.img} 
+                        alt={a.title} 
+                        onImageClick={(idx) => {
+                          setModalData({
+                            isOpen: true,
+                            images: cardImages,
+                            currentIndex: idx,
+                            title: a.title,
+                          });
+                        }}
+                      />
+                    ) : (
+                      <>
+                        <Image src={a.img} alt={a.title} fill sizes="(max-width: 768px) 100vw, 400px" style={{ objectFit: 'cover' }} />
+                      </>
+                    )}
+                    <div className="zoom-hint">
+                      <ZoomIn size={12} />
+                      <span>ขยาย</span>
+                    </div>
+                  </div>
+                  <div className="body">
+                    <span className={`tag ${a.tagColor}`}>{a.tag}</span>
+                    <div className="date">ปีการศึกษา 1/2569</div>
+                    <h3>{a.title}</h3>
+                    <p>{a.desc}</p>
+                  </div>
                 </div>
-                <div className="body">
-                  <span className={`tag ${a.tagColor}`}>{a.tag}</span>
-                  <div className="date">ปีการศึกษา 1/2569</div>
-                  <h3>{a.title}</h3>
-                  <p>{a.desc}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </Reveal>
       </div>
+
+      {/* Full screen image modal */}
+      <ImageModal
+        isOpen={modalData.isOpen}
+        onClose={() => setModalData(prev => ({ ...prev, isOpen: false }))}
+        images={modalData.images}
+        currentIndex={modalData.currentIndex}
+        onIndexChange={(idx) => setModalData(prev => ({ ...prev, currentIndex: idx }))}
+        title={modalData.title}
+      />
     </>
   )
 }

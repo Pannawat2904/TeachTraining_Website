@@ -17,7 +17,7 @@ export const siteData = {
     ],
     schoolName: "วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี",
     department: "แผนกวิชาธุรกิจดิจิทัลและเทคโนโลยีสารสนเทศ",
-    duration: "ภาคเรียนที่ 1 ปีการศึกษา 2567",
+    duration: "ภาคเรียนที่ 1 ปีการศึกษา 2569",
     teachingDays: "วันจันทร์ - วันศุกร์ เวลา 08.00 - 16.00 น.",
     schoolImage: "/images/placeholder-school.jpg", // TODO: Add real image
     mapEmbedUrl: "https://maps.google.com/maps?q=วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี&t=&z=16&ie=UTF8&iwloc=&output=embed" // Map with red pin

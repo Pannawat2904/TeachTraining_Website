@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import SplashScreen from "@/components/SplashScreen";
+import { BackToTop } from "@/components/BackToTop";
 
 const prompt = Prompt({
   subsets: ["thai", "latin"],
@@ -89,6 +90,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <BackToTop />
         </div>
       </body>
     </html>

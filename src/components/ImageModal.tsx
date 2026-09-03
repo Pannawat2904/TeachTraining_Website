@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, Images } from "lucide-react";
@@ -22,6 +23,13 @@ export function ImageModal({
   onIndexChange,
   title,
 }: ImageModalProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
   // Handle keyboard events (ESC to close, Left/Right arrows to navigate)
   useEffect(() => {
     if (!isOpen) return;
@@ -46,11 +54,11 @@ export function ImageModal({
     };
   }, [isOpen, currentIndex, images.length, onClose, onIndexChange]);
 
-  if (!isOpen || images.length === 0) return null;
+  if (!isOpen || images.length === 0 || !mounted) return null;
 
   const currentImage = images[currentIndex] || images[0];
 
-  return (
+  return createPortal(
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
@@ -61,7 +69,7 @@ export function ImageModal({
         style={{
           position: "fixed",
           inset: 0,
-          zIndex: 9999,
+          zIndex: 999999,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -363,6 +371,7 @@ export function ImageModal({
           )}
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

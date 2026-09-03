@@ -82,8 +82,14 @@ export default function PracticumSitePage() {
         }
         .people-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+          grid-template-columns: repeat(3, 1fr);
           gap: 18px;
+        }
+        @media (max-width: 1100px) {
+          .people-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+          .people-grid { grid-template-columns: 1fr; }
         }
         .person-card {
           padding: 0;
@@ -361,11 +367,15 @@ export default function PracticumSitePage() {
                 <p>วิชาโปรแกรมมัลติมีเดีย</p>
               </div>
             </div>
+          </div>
+        </Reveal>
 
-            <div className="section-title" style={{ gridColumn: '1 / -1', margin: '24px 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <GraduationCap size={16} />
-              อาจารย์นิเทศก์
-            </div>
+        <Reveal delay={200}>
+          <div className="section-title" style={{ margin: '24px 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <GraduationCap size={16} />
+            อาจารย์นิเทศก์
+          </div>
+          <div className="people-grid">
             <div className="glass-panel person-card amber">
               <div className="avatar" style={{ padding: 0, border: 'none', position: 'relative' }}>
                 <Image src="/images/others/อาจารย์แนน.jpg" alt="ดร. พุทธิดา สกุลวิริยกิจกุล" fill sizes="140px" style={{ objectFit: 'cover' }} />

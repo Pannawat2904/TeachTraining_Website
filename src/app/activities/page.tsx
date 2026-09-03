@@ -178,7 +178,7 @@ export default function ActivitiesPage() {
                 </div>
                 <div className="body">
                   <span className={`tag ${a.tagColor}`}>{a.tag}</span>
-                  <div className="date">{a.date}</div>
+                  <div className="date">ปีการศึกษา 1/2569</div>
                   <h3>{a.title}</h3>
                   <p>{a.desc}</p>
                 </div>

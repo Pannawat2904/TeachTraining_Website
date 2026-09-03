@@ -6,6 +6,7 @@ import { notFound } from "next/navigation"
 import { fetchGoogleSheet, fetchAllGoogleSheets } from "@/actions/googleSheets"
 import { Reveal } from "@/components/Reveal"
 import { ClipboardList, CalendarCheck, FileText } from "lucide-react"
+import Image from "next/image"
 
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -58,7 +59,7 @@ function AutoSlideshow({ images, weekNum }: { images: string[]; weekNum: string 
           {images.map((img, i) => (
             <div key={i} style={{ width: '100%', height: '100%', flexShrink: 0, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div style={{ position: 'absolute', inset: -20, backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(20px)', opacity: 0.5, transform: 'scale(1.1) translateZ(0)', willChange: 'transform' }} />
-              <img src={img} alt={`Activities week ${weekNum} - ${i+1}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', position: 'relative', zIndex: 1, pointerEvents: 'none' }} />
+              <Image src={img} alt={`Activities week ${weekNum} - ${i+1}`} fill sizes="(max-width: 768px) 100vw, 800px" style={{ objectFit: 'contain', zIndex: 1, pointerEvents: 'none' }} />
             </div>
           ))}
         </motion.div>

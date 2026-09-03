@@ -40,7 +40,7 @@ function ActivitySlideshow({ images, alt }: { images: string[]; alt: string }) {
         >
           {images.map((img, i) => (
             <div key={i} style={{ width: '100%', height: '100%', flexShrink: 0, position: 'relative' }}>
-              <img src={img} alt={`${alt} - ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }} />
+              <Image src={img} alt={`${alt} - ${i + 1}`} fill sizes="(max-width: 768px) 100vw, 800px" style={{ objectFit: 'cover', pointerEvents: 'none' }} />
             </div>
           ))}
         </motion.div>
@@ -172,7 +172,7 @@ export default function ActivitiesPage() {
                     <ActivitySlideshow images={a.img} alt={a.title} />
                   ) : (
                     <>
-                      <img src={a.img} alt={a.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <Image src={a.img} alt={a.title} fill sizes="(max-width: 768px) 100vw, 400px" style={{ objectFit: 'cover' }} />
                     </>
                   )}
                 </div>

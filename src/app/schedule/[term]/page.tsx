@@ -23,7 +23,7 @@ export default function SchedulePage(props: { params: Promise<{ term: string }> 
   const scheduleImage = term === 'semester-1' ? '/images/others/schedule_term1.jpg' : undefined;
 
   return (
-    <div style={{ maxWidth: '1280px', margin: '0 auto', paddingBottom: '40px', position: 'relative', zIndex: 1 }}>
+    <div style={{ maxWidth: '1440px', margin: '0 auto', paddingBottom: '40px', position: 'relative', zIndex: 1 }}>
       {/* 1. Header Card (กรอบหัวข้อ + ข้อมูลผู้สอน) */}
       <Reveal>
         <div className="glass-panel" style={{ borderRadius: '24px', overflow: 'hidden', padding: 0, background: 'var(--panel-c)', border: '1px solid var(--border-strong-c)', backdropFilter: 'blur(10px)', boxShadow: '0 16px 46px rgba(61,107,255,0.1)', marginBottom: '24px' }}>

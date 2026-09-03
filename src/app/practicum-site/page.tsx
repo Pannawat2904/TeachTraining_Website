@@ -253,7 +253,7 @@ export default function PracticumSitePage() {
         }
       `}</style>
 
-      <div style={{ maxWidth: '1280px', margin: '0 auto', width: '100%', paddingBottom: '40px' }}>
+      <div style={{ maxWidth: '1440px', margin: '0 auto', width: '100%', paddingBottom: '40px' }}>
         <Reveal>
           <div className="glass-panel" style={{ padding: 0, overflow: 'hidden', marginBottom: '26px' }}>
             <div className="chrome">

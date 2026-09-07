@@ -483,7 +483,9 @@ export const supervisions = {
       date: "7 ก.ย. 2569",
       subject: "โปรแกรมฐานข้อมูล",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
-      image: ""
+      images: [
+        "/images/activities/นิเทศครั้งที่ 3.jpg"
+      ]
     }
   ],
   semester2: []

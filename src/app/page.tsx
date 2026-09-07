@@ -41,7 +41,7 @@ export default function Home() {
   }
 
   // 2. From supervisions
-  supervisions.semester1.forEach(sup => {
+  supervisions.semester1.forEach((sup: any) => {
     const img = (sup.images && sup.images.length > 0) ? sup.images[0] : sup.image
     if (img) {
       galleryItems.push({

@@ -448,7 +448,8 @@ export const evaluationDocuments = [
   {
     id: "1",
     title: "แบบประเมินผลการฝึกสอน (ครั้งที่ 1)",
-    pdfUrl: "https://drive.google.com/file/d/1Zexample/preview",
+    pdfUrl: "https://drive.google.com/file/d/1NLlwB-t0HwWp09i50mq3ge7hc5t1Z8T4/preview",
+    driveUrl: "https://drive.google.com/file/d/1NLlwB-t0HwWp09i50mq3ge7hc5t1Z8T4/view?usp=sharing",
   }
 ];
 

@@ -7,7 +7,7 @@ import { Award, ClipboardCheck } from 'lucide-react';
 export default function EvaluationFormsPage() {
   const doc = evaluationDocuments[0];
   const rawPdfUrl = doc?.pdfUrl || "";
-  const openDriveUrl = rawPdfUrl.includes("/preview") ? rawPdfUrl.replace("/preview", "/view") : rawPdfUrl;
+  const openDriveUrl = (doc as any)?.driveUrl || (rawPdfUrl.includes("/preview") ? rawPdfUrl.replace("/preview", "/view") : rawPdfUrl);
 
   return (
     <div style={{ maxWidth: '1440px', margin: '0 auto', paddingBottom: '40px', position: 'relative', zIndex: 1 }}>

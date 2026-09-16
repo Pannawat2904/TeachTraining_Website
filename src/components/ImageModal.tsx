@@ -125,7 +125,6 @@ export function ImageModal({
                   fontFamily: "var(--font-mono), monospace",
                   fontSize: "11.5px",
                   color: "var(--muted-c, rgba(16, 21, 43, 0.45))",
-                  display: "inline-block",
                   paddingRight: "8px",
                   borderRight: "1px solid rgba(16, 21, 43, 0.1)",
                 }}

@@ -437,7 +437,7 @@ export const researchDocuments = [
   {
     id: "1",
     title: "การพัฒนาบทเรียนออนไลน์ด้วยปัญญาประดิษฐ์ร่วมกับแชทบอทอัจฉริยะเพื่อส่งเสริมการเรียนรู้รายวิชาโปรแกรมฐานข้อมูล สำหรับนักเรียนระดับประกาศนียบัตรวิชาชีพ",
-    pdfUrl: "https://drive.google.com/file/d/1yIP5P58DShvwehTkdkPJLI8vI1tFcurw/preview",
+    pdfUrl: "https://drive.google.com/file/d/14sx0sG1YR1RHmOgvzE-ip1J4RYzgJRls/preview",
     projectUrl: "https://dbase-learning.vercel.app",
     projectName: "DBase Learning - บทเรียนออนไลน์ AI & Chatbot",
     projectDescription: "สื่อการเรียนรู้นวัตกรรมบทเรียนออนไลน์ รายวิชาโปรแกรมฐานข้อมูล (21910-2012) พัฒนาร่วมกับระบบแชทบอทอัจฉริยะ",

@@ -2,13 +2,14 @@ import React from 'react';
 import { researchDocuments } from "@/data/siteData";
 import { Reveal } from '@/components/Reveal';
 import { DocumentPreview } from '@/components/DocumentPreview';
-import { FileText, GraduationCap, Sparkles, ArrowUpRight } from 'lucide-react';
+import { FileText, GraduationCap, Sparkles, ArrowUpRight, Presentation } from 'lucide-react';
 
 export default function ClassroomResearchPage() {
   const doc = researchDocuments[0];
   const rawPdfUrl = doc?.pdfUrl || "";
   const openDriveUrl = rawPdfUrl.includes("/preview") ? rawPdfUrl.replace("/preview", "/view") : rawPdfUrl;
   const projectUrl = (doc as any)?.projectUrl || "https://dbase-learning.vercel.app";
+  const presentationUrl = (doc as any)?.presentationUrl || "";
 
   return (
     <div style={{ maxWidth: '1440px', margin: '0 auto', paddingBottom: '40px', position: 'relative', zIndex: 1 }}>
@@ -66,6 +67,36 @@ export default function ClassroomResearchPage() {
                   <span>เปิดดูชิ้นงาน (DBase Learning)</span>
                   <ArrowUpRight size={14} />
                 </a>
+
+                {presentationUrl && (
+                  <a
+                    href={presentationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '9px 18px',
+                      borderRadius: '999px',
+                      background: 'var(--surface-c)',
+                      color: 'var(--violet-c)',
+                      border: '1px solid var(--violet-c)',
+                      fontFamily: 'var(--font-prompt), sans-serif',
+                      fontSize: '13px',
+                      fontWeight: 600,
+                      textDecoration: 'none',
+                      transition: 'all 0.2s ease',
+                      whiteSpace: 'nowrap',
+                      minHeight: '40px'
+                    }}
+                    className="hover:scale-[1.03] active:scale-[0.98] transition-transform"
+                  >
+                    <Presentation size={15} />
+                    <span>สไลด์นำเสนอ</span>
+                    <ArrowUpRight size={14} />
+                  </a>
+                )}
               </div>
             </div>
           </div>

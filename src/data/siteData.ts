@@ -488,7 +488,7 @@ export const supervisions = {
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
       images: [
         "/images/activities/นิเทศครั้งที่ 3.jpg",
-        "/images/activities/นิเทศครั้งที่3-1.jpg"
+        "/images/activities/supervision3-2.jpg"
       ],
       videoUrl: "https://youtu.be/dUgioLxSLTE"
     }

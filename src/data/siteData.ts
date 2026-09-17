@@ -477,7 +477,8 @@ export const supervisions = {
       images: [
         "/images/activities/นิเทศครั้งที่2.JPEG",
         "/images/activities/นิเทศครั้งที่2-1.jpg"
-      ]
+      ],
+      videoUrl: "https://youtu.be/aHiAlJuscxg"
     },
     {
       id: 3,
@@ -487,7 +488,8 @@ export const supervisions = {
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
       images: [
         "/images/activities/นิเทศครั้งที่ 3.jpg"
-      ]
+      ],
+      videoUrl: "https://youtu.be/dUgioLxSLTE"
     }
   ],
   semester2: []

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/Reveal';
-import { Camera, Images, ZoomIn } from 'lucide-react';
+import { Camera, Images, ZoomIn, PlayCircle } from 'lucide-react';
 import { supervisions } from '@/data/siteData';
 import { motion } from 'framer-motion';
 import { ImageModal } from '@/components/ImageModal';
@@ -110,7 +110,8 @@ export default function ActivitiesPage() {
     tagColor: 'cyan',
     date: sup.date,
     title: sup.title,
-    desc: `วิชา: ${sup.subject} | อาจารย์นิเทศ: ${sup.supervisor}`
+    desc: `วิชา: ${sup.subject} | อาจารย์นิเทศ: ${sup.supervisor}`,
+    videoUrl: sup.videoUrl
   }));
 
   const combinedActivities = [...supervisionActivities, ...activitiesList];
@@ -247,6 +248,41 @@ export default function ActivitiesPage() {
                     <div className="date">ปีการศึกษา 1/2569</div>
                     <h3>{a.title}</h3>
                     <p>{a.desc}</p>
+                    {(a as any).videoUrl && (
+                      <a 
+                        href={(a as any).videoUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          marginTop: 'auto',
+                          padding: '8px 16px',
+                          borderRadius: '999px',
+                          background: 'rgba(255, 0, 0, 0.08)',
+                          color: '#e52d27',
+                          fontSize: '13px',
+                          fontWeight: 500,
+                          textDecoration: 'none',
+                          width: 'fit-content',
+                          border: '1px solid rgba(255, 0, 0, 0.15)',
+                          transition: 'all 0.2s ease'
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.background = 'rgba(255, 0, 0, 0.15)';
+                          e.currentTarget.style.transform = 'translateY(-2px)';
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.background = 'rgba(255, 0, 0, 0.08)';
+                          e.currentTarget.style.transform = 'translateY(0)';
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <PlayCircle size={16} />
+                        ชมคลิปวิดีโอ
+                      </a>
+                    )}
                   </div>
                 </div>
               );

@@ -487,7 +487,8 @@ export const supervisions = {
       subject: "โปรแกรมฐานข้อมูล",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
       images: [
-        "/images/activities/นิเทศครั้งที่ 3.jpg"
+        "/images/activities/นิเทศครั้งที่ 3.jpg",
+        "/images/activities/นิเทศครั้งที่3-1.jpg"
       ],
       videoUrl: "https://youtu.be/dUgioLxSLTE"
     }

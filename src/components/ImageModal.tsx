@@ -90,7 +90,8 @@ export function ImageModal({
             position: "relative",
             width: "100%",
             maxWidth: "1280px",
-            maxHeight: "92vh",
+            height: "90dvh",
+            maxHeight: "1000px",
             display: "flex",
             flexDirection: "column",
             borderRadius: "24px",
@@ -113,7 +114,7 @@ export function ImageModal({
             }}
           >
             {/* Left: macOS dots + filename + title */}
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", minWidth: 0, flex: 1 }}>
               <div style={{ display: "flex", gap: "6px", alignItems: "center", flexShrink: 0 }}>
                 <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#ff5f56", display: "inline-block" }} />
                 <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#ffbd2e", display: "inline-block" }} />
@@ -207,8 +208,8 @@ export function ImageModal({
             style={{
               position: "relative",
               width: "100%",
-              height: "calc(82vh - 60px)",
-              minHeight: "350px",
+              flexGrow: 1,
+              minHeight: 0,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -255,7 +256,7 @@ export function ImageModal({
                 }}
                 style={{
                   position: "absolute",
-                  left: "18px",
+                  left: "clamp(8px, 3vw, 18px)",
                   zIndex: 5,
                   width: "44px",
                   height: "44px",
@@ -296,7 +297,7 @@ export function ImageModal({
                 }}
                 style={{
                   position: "absolute",
-                  right: "18px",
+                  right: "clamp(8px, 3vw, 18px)",
                   zIndex: 5,
                   width: "44px",
                   height: "44px",

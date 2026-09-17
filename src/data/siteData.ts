@@ -475,7 +475,7 @@ export const supervisions = {
       subject: "เทคโนโลยีการนำเข้าข้อมูลเข้าสู่ระบบคอมพิวเตอร์",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
       images: [
-        "/images/activities/นิเทศครั้งที่ 3.jpg"
+        "/images/activities/Screenshot 2569-09-17 at 12.27.30.png"
       ],
       videoUrl: "https://youtu.be/aHiAlJuscxg"
     },

@@ -10,7 +10,70 @@ import { ImageModal } from '@/components/ImageModal';
 import { TermSelector } from "@/components/TermSelector"
 
 function ActivitySlideshow({ 
-// ... lines truncated ...
+  images, 
+  alt, 
+  onImageClick 
+}: { 
+  images: string[]; 
+  alt: string; 
+  onImageClick?: (index: number) => void;
+}) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  React.useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+      <div style={{ flex: 1, position: 'relative', width: '100%', height: '100%', overflow: 'hidden', touchAction: 'pan-y' }}>
+        <motion.div
+          animate={{ x: `-${currentIndex * 100}%` }}
+          transition={{ type: "tween", ease: "easeInOut", duration: 0.5 }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={(e, { offset, velocity }) => {
+            if (offset.x < -50 || velocity.x < -500) {
+              setCurrentIndex((prev) => Math.min(prev + 1, images.length - 1));
+            } else if (offset.x > 50 || velocity.x > 500) {
+              setCurrentIndex((prev) => Math.max(prev - 1, 0));
+            }
+          }}
+          style={{ display: 'flex', width: '100%', height: '100%', cursor: 'grab' }}
+        >
+          {images.map((img, i) => (
+            <div 
+              key={i} 
+              style={{ width: '100%', height: '100%', flexShrink: 0, position: 'relative', cursor: 'zoom-in' }}
+              onClick={(e) => {
+                e.stopPropagation();
+                onImageClick?.(i);
+              }}
+            >
+              <Image src={img} alt={`${alt} - ${i + 1}`} fill sizes="(max-width: 768px) 100vw, 800px" style={{ objectFit: 'cover', pointerEvents: 'none' }} />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+      
+      {images.length > 1 && (
+        <div style={{ position: 'absolute', bottom: '12px', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '8px', zIndex: 2 }}>
+          {images.map((_, i) => (
+            <div 
+              key={i} 
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex(i);
+              }}
+              style={{ width: '8px', height: '8px', borderRadius: '50%', background: currentIndex === i ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.5)', boxShadow: '0 2px 4px rgba(0,0,0,0.4)', transition: 'all 0.3s ease', cursor: 'pointer' }}
+            />
+          ))}
+        </div>
       )}
     </div>
   );

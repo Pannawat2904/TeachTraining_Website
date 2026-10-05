@@ -126,7 +126,7 @@ export const scheduleData = {
 // URL ของ Google Sheets สำหรับแสดงบันทึกการสอน
 export const teachingLogConfig = {
   semester1Url: "https://docs.google.com/spreadsheets/d/1kk0FykJUEcOWeKw_joJQgc7iWfHojZpWoIJy-zToaqk/preview?widget=true&headers=false",
-  semester2Url: "",
+  semester2Url: "https://docs.google.com/spreadsheets/d/14u6HMHR9lREtTlgOWiMX03Pafwnx3bTRtaGhtxVMx6s/preview?widget=true&headers=false",
 };
 
 // URL ของ Google Drive สำหรับแสดงตารางสอนรูปแบบ PDF (ถ้ามี)
@@ -377,11 +377,36 @@ export const teachingLogs = {
   },
   semester2: {
     googleSheetConfig: {
-      spreadsheetId: "",
-      sheetNames: []
+      spreadsheetId: "14u6HMHR9lREtTlgOWiMX03Pafwnx3bTRtaGhtxVMx6s",
+      sheetNames: [
+        "สัปดาห์ที่ 1", 
+        "สัปดาห์ที่ 2", 
+        "สัปดาห์ที่ 3", 
+        "สัปดาห์ที่ 4", 
+        "สัปดาห์ที่ 5", 
+        "สัปดาห์ที่ 6", 
+        "สัปดาห์ที่ 7", 
+        "สัปดาห์ที่ 8", 
+        "สัปดาห์ที่ 9",
+        "สัปดาห์ที่ 10",
+        "สัปดาห์ที่ 11",
+        "สัปดาห์ที่ 12",
+        "สัปดาห์ที่ 13",
+        "สัปดาห์ที่ 14",
+        "สัปดาห์ที่ 15",
+        "สัปดาห์ที่ 16",
+        "สัปดาห์ที่ 17",
+        "สัปดาห์ที่ 18",
+        "สัปดาห์ที่ 19",
+        "สัปดาห์ที่ 20"
+      ]
     },
     stats: { recordedWeeks: 0, workDays: 0, leaveDays: 0, semesterPct: "0%" },
-    workHours: { assembly: "", workTime: "", workDaysText: "" },
+    workHours: {
+      assembly: "07:40 – 08:00 น.",
+      workTime: "08:00 – 16:30 น.",
+      workDaysText: "วันจันทร์ – ศุกร์",
+    },
     weeks: []
   }
 };

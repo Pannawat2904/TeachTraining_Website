@@ -433,26 +433,32 @@ export const activities = {
   semester2: []
 };
 
-export const researchDocuments = [
-  {
-    id: "1",
-    title: "การพัฒนาบทเรียนออนไลน์ด้วยปัญญาประดิษฐ์ร่วมกับแชทบอทอัจฉริยะเพื่อส่งเสริมการเรียนรู้รายวิชาโปรแกรมฐานข้อมูล สำหรับนักเรียนระดับประกาศนียบัตรวิชาชีพ",
-    pdfUrl: "https://drive.google.com/file/d/1dI2XpXUNC9xlu5tBsjc8lWpJoMYHLedy/preview",
-    projectUrl: "https://dbase-learning.vercel.app",
-    presentationUrl: "https://canva.link/hajy9uo3zp74o98",
-    projectName: "DBase Learning - บทเรียนออนไลน์ AI & Chatbot",
-    projectDescription: "สื่อการเรียนรู้นวัตกรรมบทเรียนออนไลน์ รายวิชาโปรแกรมฐานข้อมูล (21910-2012) พัฒนาร่วมกับระบบแชทบอทอัจฉริยะ",
-  }
-];
+export const researchDocuments = {
+  semester1: [
+    {
+      id: "1",
+      title: "การพัฒนาบทเรียนออนไลน์ด้วยปัญญาประดิษฐ์ร่วมกับแชทบอทอัจฉริยะเพื่อส่งเสริมการเรียนรู้รายวิชาโปรแกรมฐานข้อมูล สำหรับนักเรียนระดับประกาศนียบัตรวิชาชีพ",
+      pdfUrl: "https://drive.google.com/file/d/1dI2XpXUNC9xlu5tBsjc8lWpJoMYHLedy/preview",
+      projectUrl: "https://dbase-learning.vercel.app",
+      presentationUrl: "https://canva.link/hajy9uo3zp74o98",
+      projectName: "DBase Learning - บทเรียนออนไลน์ AI & Chatbot",
+      projectDescription: "สื่อการเรียนรู้นวัตกรรมบทเรียนออนไลน์ รายวิชาโปรแกรมฐานข้อมูล (21910-2012) พัฒนาร่วมกับระบบแชทบอทอัจฉริยะ",
+    }
+  ],
+  semester2: []
+};
 
-export const evaluationDocuments = [
-  {
-    id: "1",
-    title: "แบบประเมินผลการฝึกสอน (ครั้งที่ 1)",
-    pdfUrl: "https://drive.google.com/file/d/1hh-BvzgC_Rxfg6aL1b26FwQmJ-4fibHW/preview",
-    driveUrl: "https://drive.google.com/file/d/1hh-BvzgC_Rxfg6aL1b26FwQmJ-4fibHW/view?usp=sharing",
-  }
-];
+export const evaluationDocuments = {
+  semester1: [
+    {
+      id: "1",
+      title: "แบบประเมินผลการฝึกสอน (ครั้งที่ 1)",
+      pdfUrl: "https://drive.google.com/file/d/1hh-BvzgC_Rxfg6aL1b26FwQmJ-4fibHW/preview",
+      driveUrl: "https://drive.google.com/file/d/1hh-BvzgC_Rxfg6aL1b26FwQmJ-4fibHW/view?usp=sharing",
+    }
+  ],
+  semester2: []
+};
 
 export const supervisions = {
   semester1: [

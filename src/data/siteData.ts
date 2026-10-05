@@ -494,9 +494,9 @@ export const supervisions = {
       subject: "เทคโนโลยีการนำเข้าข้อมูลเข้าสู่ระบบคอมพิวเตอร์",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
       images: [
-        "/images/activities/นิเทศครั้งที่1ภาพ1.JPG",
-        "/images/activities/นิเทศครั้งที่1ภาพ2.JPG",
-        "/images/activities/นิเทศครั้งที่1ภาพ3.JPG"
+        "/images/activities/semester-1/นิเทศครั้งที่1ภาพ1.JPG",
+        "/images/activities/semester-1/นิเทศครั้งที่1ภาพ2.JPG",
+        "/images/activities/semester-1/นิเทศครั้งที่1ภาพ3.JPG"
       ]
     },
     {
@@ -506,8 +506,8 @@ export const supervisions = {
       subject: "เทคโนโลยีการนำเข้าข้อมูลเข้าสู่ระบบคอมพิวเตอร์",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
       images: [
-        "/images/activities/นิเทศครั้งที่2.JPEG",
-        "/images/activities/นิเทศครั้งที่2.png"
+        "/images/activities/semester-1/นิเทศครั้งที่2.JPEG",
+        "/images/activities/semester-1/นิเทศครั้งที่2.png"
       ],
       videoUrl: "https://youtu.be/aHiAlJuscxg"
     },
@@ -518,8 +518,8 @@ export const supervisions = {
       subject: "โปรแกรมฐานข้อมูล",
       supervisor: "ดร. พุทธิดา สกุลวิริยกิจกุล",
       images: [
-        "/images/activities/นิเทศครั้งที่ 3.jpg",
-        "/images/activities/supervision3-2.jpg"
+        "/images/activities/semester-1/นิเทศครั้งที่ 3.jpg",
+        "/images/activities/semester-1/supervision3-2.jpg"
       ],
       videoUrl: "https://youtu.be/dUgioLxSLTE"
     }

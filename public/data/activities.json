@@ -3,9 +3,9 @@
     "id": "19",
     "cat": "student",
     "img": [
-      "/images/activities/IMG_9301.jpg",
-      "/images/activities/IMG_9249.jpg",
-      "/images/activities/IMG_9243.jpg"
+      "/images/activities/semester-1/IMG_9301.jpg",
+      "/images/activities/semester-1/IMG_9249.jpg",
+      "/images/activities/semester-1/IMG_9243.jpg"
     ],
     "tag": "กิจกรรมนักเรียน",
     "tagColor": "violet",
@@ -17,8 +17,8 @@
     "id": "18",
     "cat": "student",
     "img": [
-      "/images/activities/IMG_9045.JPG",
-      "/images/activities/IMG_9044.JPG"
+      "/images/activities/semester-1/IMG_9045.JPG",
+      "/images/activities/semester-1/IMG_9044.JPG"
     ],
     "tag": "กิจกรรมวิทยาลัย",
     "tagColor": "amber",
@@ -30,7 +30,7 @@
     "id": "17",
     "cat": "student",
     "img": [
-      "/images/activities/IMG_8955.JPG"
+      "/images/activities/semester-1/IMG_8955.JPG"
     ],
     "tag": "กิจกรรมนักเรียน",
     "tagColor": "violet",
@@ -42,7 +42,7 @@
     "id": "16",
     "cat": "school",
     "img": [
-      "/images/activities/IMG_8469.JPG"
+      "/images/activities/semester-1/IMG_8469.JPG"
     ],
     "tag": "กิจกรรมวิทยาลัย",
     "tagColor": "amber",
@@ -54,7 +54,7 @@
     "id": "15",
     "cat": "school",
     "img": [
-      "/images/activities/IMG_8066.JPG"
+      "/images/activities/semester-1/IMG_8066.JPG"
     ],
     "tag": "กิจกรรมวิทยาลัย",
     "tagColor": "amber",
@@ -66,9 +66,9 @@
     "id": "14",
     "cat": "school",
     "img": [
-      "/images/activities/IMG_8058.jpg",
-      "/images/activities/IMG_9117.JPG",
-      "/images/activities/IMG_8054.jpg"
+      "/images/activities/semester-1/IMG_8058.jpg",
+      "/images/activities/semester-1/IMG_9117.JPG",
+      "/images/activities/semester-1/IMG_8054.jpg"
     ],
     "tag": "กิจกรรมวิทยาลัย",
     "tagColor": "amber",
@@ -80,9 +80,9 @@
     "id": "13",
     "cat": "teach",
     "img": [
-      "/images/activities/IMG_7736.JPG",
-      "/images/activities/IMG_7719.jpg",
-      "/images/activities/IMG_7706.JPG"
+      "/images/activities/semester-1/IMG_7736.JPG",
+      "/images/activities/semester-1/IMG_7719.jpg",
+      "/images/activities/semester-1/IMG_7706.JPG"
     ],
     "tag": "กิจกรรมการสอน",
     "tagColor": "blue",
@@ -94,8 +94,8 @@
     "id": "12",
     "cat": "school",
     "img": [
-      "/images/activities/IMG_7372.JPG",
-      "/images/activities/IMG_7375.JPG"
+      "/images/activities/semester-1/IMG_7372.JPG",
+      "/images/activities/semester-1/IMG_7375.JPG"
     ],
     "tag": "กิจกรรมวิทยาลัย",
     "tagColor": "amber",
@@ -107,8 +107,8 @@
     "id": "11",
     "cat": "school",
     "img": [
-      "/images/activities/IMG_6975.jpg",
-      "/images/activities/IMG_6976.JPG"
+      "/images/activities/semester-1/IMG_6975.jpg",
+      "/images/activities/semester-1/IMG_6976.JPG"
     ],
     "tag": "กิจกรรมวิทยาลัย",
     "tagColor": "amber",
@@ -120,9 +120,9 @@
     "id": "10",
     "cat": "school",
     "img": [
-      "/images/activities/IMG_6512.JPG",
-      "/images/activities/IMG_6508.jpg",
-      "/images/activities/IMG_6520.JPG"
+      "/images/activities/semester-1/IMG_6512.JPG",
+      "/images/activities/semester-1/IMG_6508.jpg",
+      "/images/activities/semester-1/IMG_6520.JPG"
     ],
     "tag": "กิจกรรมวิทยาลัย",
     "tagColor": "amber",
@@ -134,8 +134,8 @@
     "id": "9",
     "cat": "student",
     "img": [
-      "/images/activities/IMG_6193.JPG",
-      "/images/activities/IMG_6492.JPG"
+      "/images/activities/semester-1/IMG_6193.JPG",
+      "/images/activities/semester-1/IMG_6492.JPG"
     ],
     "tag": "กิจกรรมนักเรียน",
     "tagColor": "violet",
@@ -147,7 +147,7 @@
     "id": "8",
     "cat": "school",
     "img": [
-      "/images/activities/IMG_6029.JPG"
+      "/images/activities/semester-1/IMG_6029.JPG"
     ],
     "tag": "กิจกรรมวิทยาลัย",
     "tagColor": "blue",
@@ -159,8 +159,8 @@
     "id": "7",
     "cat": "school",
     "img": [
-      "/images/activities/IMG_5901.JPG",
-      "/images/activities/IMG_5902.JPG"
+      "/images/activities/semester-1/IMG_5901.JPG",
+      "/images/activities/semester-1/IMG_5902.JPG"
     ],
     "tag": "กิจกรรมวิทยาลัย",
     "tagColor": "amber",
@@ -172,9 +172,9 @@
     "id": "6",
     "cat": "school",
     "img": [
-      "/images/activities/IMG_5406.JPG",
-      "/images/activities/IMG_8427.JPG",
-      "/images/activities/IMG_8433.JPG"
+      "/images/activities/semester-1/IMG_5406.JPG",
+      "/images/activities/semester-1/IMG_8427.JPG",
+      "/images/activities/semester-1/IMG_8433.JPG"
     ],
     "tag": "กิจกรรมวิทยาลัย",
     "tagColor": "amber",

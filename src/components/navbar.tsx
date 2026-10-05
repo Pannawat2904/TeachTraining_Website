@@ -25,21 +25,21 @@ export function Navbar() {
   const currentTerm = termMatch ? termMatch[1] : 'semester-1';
 
   const navLinks = [
-    { name: "หน้าแรก", href: `/${currentTerm}`, icon: Home },
-    { name: "สถานศึกษา", href: `/practicum-site/${currentTerm}`, icon: Building2 },
+    { name: "หน้าแรก", href: `/`, icon: Home },
+    { name: "สถานศึกษา", href: `/practicum-site`, icon: Building2 },
     { name: "ตารางสอน", href: `/schedule/${currentTerm}`, icon: Calendar },
     { name: "แผนการสอน", href: `/lesson-plans/${currentTerm}`, icon: BookOpen },
     { name: "บันทึกการฝึกสอน", href: `/teaching-log/${currentTerm}`, icon: ClipboardList },
     { name: "กิจกรรม", href: `/activities/${currentTerm}`, icon: Images },
-    { name: "วิจัยในชั้นเรียน", href: `/classroom-research/${currentTerm}`, icon: FileText },
+    { name: "วิจัยในชั้นเรียน", href: `/classroom-research`, icon: FileText },
     { name: "แบบการประเมิน", href: `/evaluation-forms/${currentTerm}`, icon: Award },
   ]
 
   const isActive = (href: string) => {
-    if (href === `/${currentTerm}`) return pathname === `/${currentTerm}` || pathname === "/"
+    if (href === `/`) return pathname === `/`
     // For module paths, check if pathname starts with the module route (ignoring the term)
     const basePath = href.split('/').slice(0, 2).join('/');
-    return pathname.startsWith(basePath)
+    return pathname.startsWith(basePath) && pathname !== '/'
   }
 
   // Automatically close mobile menu on route change

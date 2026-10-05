@@ -1,71 +1,103 @@
 "use client";
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export function TermSelector({ currentTerm, basePath }: { currentTerm: string, basePath: string }) {
   return (
     <div style={{ 
       display: 'flex', 
-      gap: '8px', 
-      marginBottom: '24px', 
-      background: 'var(--panel-c, rgba(255,255,255,0.7))', 
+      marginBottom: '32px', 
+      background: 'rgba(255, 255, 255, 0.4)', 
       padding: '6px', 
-      borderRadius: '16px', 
+      borderRadius: '20px', 
       width: 'fit-content', 
-      border: '1px solid var(--border-strong-c)',
-      backdropFilter: 'blur(10px)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
+      border: '1px solid rgba(255, 255, 255, 0.5)',
+      backdropFilter: 'blur(20px)',
+      boxShadow: '0 8px 32px rgba(31, 38, 135, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.3)',
+      position: 'relative'
     }}>
       <Link 
         href={`${basePath}/semester-1`}
         style={{
-          padding: '10px 24px',
-          borderRadius: '12px',
-          fontSize: '14.5px',
+          position: 'relative',
+          padding: '12px 28px',
+          borderRadius: '16px',
+          fontSize: '15px',
           fontFamily: 'var(--font-prompt), sans-serif',
           fontWeight: currentTerm === 'semester-1' ? 600 : 500,
-          background: currentTerm === 'semester-1' ? 'linear-gradient(135deg, var(--blue-c), #5b82ff)' : 'transparent',
-          color: currentTerm === 'semester-1' ? '#fff' : 'var(--muted-c)',
+          color: currentTerm === 'semester-1' ? 'var(--blue-c)' : 'var(--ink)',
           textDecoration: 'none',
-          transition: 'all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)',
-          boxShadow: currentTerm === 'semester-1' ? '0 4px 14px rgba(61,107,255,0.3)' : 'none',
+          zIndex: 1,
           display: 'flex',
           alignItems: 'center',
-          gap: '8px'
+          gap: '8px',
+          transition: 'color 0.3s ease'
         }}
       >
+        {currentTerm === 'semester-1' && (
+          <motion.div
+            layoutId="term-selector-bg"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: '#ffffff',
+              borderRadius: '16px',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04)',
+              zIndex: -1
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          />
+        )}
         <span style={{ 
-          width: '6px', 
-          height: '6px', 
+          width: '8px', 
+          height: '8px', 
           borderRadius: '50%', 
-          background: currentTerm === 'semester-1' ? '#fff' : 'transparent',
-          transition: 'all 0.2s ease'
+          background: currentTerm === 'semester-1' ? 'var(--blue-c)' : 'transparent',
+          transition: 'all 0.3s ease',
+          boxShadow: currentTerm === 'semester-1' ? '0 0 10px var(--blue-c)' : 'none'
         }}></span>
         ภาคเรียนที่ 1/2569
       </Link>
+      
       <Link 
         href={`${basePath}/semester-2`}
         style={{
-          padding: '10px 24px',
-          borderRadius: '12px',
-          fontSize: '14.5px',
+          position: 'relative',
+          padding: '12px 28px',
+          borderRadius: '16px',
+          fontSize: '15px',
           fontFamily: 'var(--font-prompt), sans-serif',
           fontWeight: currentTerm === 'semester-2' ? 600 : 500,
-          background: currentTerm === 'semester-2' ? 'linear-gradient(135deg, var(--violet-c), #9f75ff)' : 'transparent',
-          color: currentTerm === 'semester-2' ? '#fff' : 'var(--muted-c)',
+          color: currentTerm === 'semester-2' ? 'var(--violet-c)' : 'var(--ink)',
           textDecoration: 'none',
-          transition: 'all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)',
-          boxShadow: currentTerm === 'semester-2' ? '0 4px 14px rgba(139,92,246,0.3)' : 'none',
+          zIndex: 1,
           display: 'flex',
           alignItems: 'center',
-          gap: '8px'
+          gap: '8px',
+          transition: 'color 0.3s ease'
         }}
       >
+        {currentTerm === 'semester-2' && (
+          <motion.div
+            layoutId="term-selector-bg"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: '#ffffff',
+              borderRadius: '16px',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04)',
+              zIndex: -1
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          />
+        )}
         <span style={{ 
-          width: '6px', 
-          height: '6px', 
+          width: '8px', 
+          height: '8px', 
           borderRadius: '50%', 
-          background: currentTerm === 'semester-2' ? '#fff' : 'transparent',
-          transition: 'all 0.2s ease'
+          background: currentTerm === 'semester-2' ? 'var(--violet-c)' : 'transparent',
+          transition: 'all 0.3s ease',
+          boxShadow: currentTerm === 'semester-2' ? '0 0 10px var(--violet-c)' : 'none'
         }}></span>
         ภาคเรียนที่ 2/2569
       </Link>

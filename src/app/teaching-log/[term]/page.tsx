@@ -190,7 +190,7 @@ interface WeekLogItem {
           const sheetNames = logData.googleSheetConfig.sheetNames;
           const spreadsheetId = logData.googleSheetConfig.spreadsheetId;
           
-          let imageManifest: Record<string, string[]> = {};
+          let imageManifest: Record<string, Record<string, string[]>> = {};
           try {
             const manifestRes = await fetch('/data/image-manifest.json');
             if (manifestRes.ok) {
@@ -334,14 +334,17 @@ interface WeekLogItem {
               const weekNumFormatted = String(index + 1).padStart(2, '0');
               
               // Automatically use images from the term folder if not specified in static fallback
-              const weekImages = imageManifest[weekNumFormatted] && imageManifest[weekNumFormatted].length > 0
-                ? imageManifest[weekNumFormatted]
-                : staticWeek?.images && staticWeek.images.length > 0 
+              const termManifest = imageManifest[term] || {};
+              const weekImages = termManifest[weekNumFormatted] && termManifest[weekNumFormatted].length > 0
+                ? termManifest[weekNumFormatted]
+                : term === 'semester-1' && staticWeek?.images && staticWeek.images.length > 0 
                   ? staticWeek.images 
-                  : [
-                      `/images/teaching-log/term1/week${weekNumFormatted}/1.jpg`,
-                      `/images/teaching-log/term1/week${weekNumFormatted}/2.jpg`
-                    ];
+                  : term === 'semester-1'
+                    ? [
+                        `/images/teaching-log/term1/week${weekNumFormatted}/1.jpg`,
+                        `/images/teaching-log/term1/week${weekNumFormatted}/2.jpg`
+                      ]
+                    : [];
 
               return {
                 weekNum: weekNumFormatted,

@@ -6,7 +6,7 @@ export function TermSelector({ currentTerm, basePath }: { currentTerm: string, b
   return (
     <div style={{ 
       display: 'flex', 
-      marginBottom: '32px', 
+      margin: '0 auto 32px auto', 
       background: 'rgba(255, 255, 255, 0.4)', 
       padding: '6px', 
       borderRadius: '20px', 

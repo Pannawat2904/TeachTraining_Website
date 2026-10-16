@@ -20,8 +20,8 @@ export default function SchedulePage(props: { params: Promise<{ term: string }> 
   const rawPdfUrl = term === 'semester-1' ? schedulePdfConfig.semester1Url : schedulePdfConfig.semester2Url;
   const pdfEmbedUrl = rawPdfUrl ? rawPdfUrl.replace(/\/view(\?.*)?$/, '/preview') : '';
 
-  // Use uploaded image for semester 1
-  const scheduleImage = term === 'semester-1' ? '/images/others/schedule_term1.jpg' : undefined;
+  // Use uploaded image for semester 1 and semester 2
+  const scheduleImage = term === 'semester-1' ? '/images/others/schedule_term1.jpg' : '/images/others/schedule_term2.jpg';
 
   return (
     <div style={{ maxWidth: '1440px', margin: '0 auto', paddingBottom: '40px', position: 'relative', zIndex: 1 }}>
@@ -103,7 +103,7 @@ export default function SchedulePage(props: { params: Promise<{ term: string }> 
           imageUrl={scheduleImage}
           pdfUrl={pdfEmbedUrl}
           driveUrl={rawPdfUrl}
-          filename={scheduleImage ? `schedule_semester_${term}.jpg` : `official_schedule_${term}.pdf`}
+          filename={scheduleImage ? (term === 'semester-1' ? 'schedule_semester_1.jpg' : 'schedule_semester_2.jpg') : `official_schedule_${term}.pdf`}
         />
       </Reveal>
     </div>

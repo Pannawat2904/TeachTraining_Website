@@ -110,16 +110,84 @@ export const scheduleData = {
   },
   semester2: {
     academicYear: "2/2569",
-    schoolName: "",
-    teacher: "",
-    role: "",
-    department: "",
-    coursesSummary: [],
-    totals: { t: 0, p: 0, n: 0, c: 0 },
-    timeSlots: [],
-    periods: [],
+    schoolName: "วิทยาลัยอาชีวศึกษาสุราษฎร์ธานี",
+    teacher: "นายปาณวัฐ รักรอดจิต",
+    role: "นักศึกษาฝึกประสบการณ์วิชาชีพครู",
+    department: "แผนกวิชาธุรกิจดิจิทัลและเทคโนโลยีสารสนเทศ",
+    coursesSummary: [
+      { code: "21901-2003", name: "การพัฒนาเว็บแอปพลิเคชัน", t: 3, p: 2, n: 5, c: 5 },
+      { code: "21901-2018", name: "วิทยาการก้าวหน้าในอุตสาหกรรมดิจิทัล", t: 1, p: 2, n: 3, c: 3 },
+      { code: "21910-2011", name: "การเขียนโปรแกรมเชิงวัตถุเบื้องต้น", t: 1, p: 3, n: 4, c: 4 },
+    ],
+    totals: { t: 5, p: 7, n: 12, c: 12 },
+    timeSlots: [
+      "07:40 - 08:00",
+      "08:00 - 09:00",
+      "09:00 - 10:00",
+      "10:00 - 11:00",
+      "11:00 - 12:00",
+      "12:00 - 13:00",
+      "13:00 - 14:00",
+      "14:00 - 15:00",
+      "15:20 - 16:20",
+      "16:20 - 17:20",
+      "17:20 - 18:20",
+      "18:20 - 19:20"
+    ],
+    periods: ["กิจกรรม", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"],
     days: ["วันจันทร์", "วันอังคาร", "วันพุธ", "วันพฤหัสบดี", "วันศุกร์"],
-    classes: []
+    classes: [
+      {
+        day: "วันจันทร์",
+        periodStart: 1, // 08:00 - 11:00 (period 1-3)
+        periodEnd: 3,
+        code: "21901-2003",
+        name: "การพัฒนาเว็บแอปพลิเคชัน",
+        room: "ห้องคอม 9",
+        group: "IT 2/1",
+        color: "blue"
+      },
+      {
+        day: "วันอังคาร",
+        periodStart: 6, // 13:00 - 15:00 (period 6-7)
+        periodEnd: 7,
+        code: "21910-2011",
+        name: "การเขียนโปรแกรมเชิงวัตถุเบื้องต้น",
+        room: "ห้องคอม 10",
+        group: "ธดท.2/2",
+        color: "violet"
+      },
+      {
+        day: "วันพุธ",
+        periodStart: 1, // 08:00 - 11:00 (period 1-3)
+        periodEnd: 3,
+        code: "21901-2018",
+        name: "วิทยาการก้าวหน้าในอุตสาหกรรมดิจิทัล",
+        room: "ห้องคอม 2",
+        group: "IT 2/1",
+        color: "cyan"
+      },
+      {
+        day: "วันพุธ",
+        periodStart: 5, // 12:00 - 14:00 (period 5-6)
+        periodEnd: 6,
+        code: "21901-2003",
+        name: "การพัฒนาเว็บแอปพลิเคชัน",
+        room: "ห้องคอม 2",
+        group: "IT 2/1",
+        color: "blue"
+      },
+      {
+        day: "วันพฤหัสบดี",
+        periodStart: 6, // 13:00 - 15:00 (period 6-7)
+        periodEnd: 7,
+        code: "21910-2011",
+        name: "การเขียนโปรแกรมเชิงวัตถุเบื้องต้น",
+        room: "ห้องคอม 10",
+        group: "ธดท.2/2",
+        color: "violet"
+      }
+    ]
   }
 };
 
@@ -132,7 +200,7 @@ export const teachingLogConfig = {
 // URL ของ Google Drive สำหรับแสดงตารางสอนรูปแบบ PDF (ถ้ามี)
 export const schedulePdfConfig = {
   semester1Url: "https://drive.google.com/file/d/1PbPUOosbImOFLvlIO6gfrICwgSAuECcg/view?usp=sharing",
-  semester2Url: "",
+  semester2Url: "https://drive.google.com/file/d/1KwOdgoTKXzB8nc3zfFHtrCHD7L03fglF/view?usp=sharing",
 };
 
 export const teachingLogs = {
@@ -450,7 +518,44 @@ export const lessonPlans = {
       statusText: "ฉบับสมบูรณ์",
     }
   ],
-  semester2: []
+  semester2: [
+    {
+      id: "21901-2003",
+      courseCode: "21901-2003",
+      courseName: "การพัฒนาเว็บแอปพลิเคชัน",
+      title: "แผนการจัดการเรียนรู้ วิชาการพัฒนาเว็บแอปพลิเคชัน",
+      details: "ท. 3 | ป. 2 | น. 5 | รวม 5 ชั่วโมง/สัปดาห์",
+      group: "IT 2/1",
+      filename: "web_application_development_21901_2003.pdf",
+      driveUrl: "https://drive.google.com/file/d/16YELft45-0FELtf8oLr1ou3_GJbKkpe8/view?usp=sharing",
+      pdfUrl: "https://drive.google.com/file/d/16YELft45-0FELtf8oLr1ou3_GJbKkpe8/preview",
+      statusText: "ฉบับสมบูรณ์",
+    },
+    {
+      id: "21901-2018",
+      courseCode: "21901-2018",
+      courseName: "วิทยาการก้าวหน้าในอุตสาหกรรมดิจิทัล",
+      title: "แผนการจัดการเรียนรู้ วิชาวิทยาการก้าวหน้าในอุตสาหกรรมดิจิทัล",
+      details: "ท. 1 | ป. 2 | น. 3 | รวม 3 ชั่วโมง/สัปดาห์",
+      group: "IT 2/1",
+      filename: "advanced_digital_industry_21901_2018.pdf",
+      driveUrl: "https://drive.google.com/file/d/1dEsMByb8SV1pWlIhbzd18Flmmi_fqud8/view?usp=sharing",
+      pdfUrl: "https://drive.google.com/file/d/1dEsMByb8SV1pWlIhbzd18Flmmi_fqud8/preview",
+      statusText: "ฉบับสมบูรณ์",
+    },
+    {
+      id: "21910-2011",
+      courseCode: "21910-2011",
+      courseName: "การเขียนโปรแกรมเชิงวัตถุเบื้องต้น",
+      title: "แผนการจัดการเรียนรู้ วิชาการเขียนโปรแกรมเชิงวัตถุเบื้องต้น",
+      details: "ท. 1 | ป. 3 | น. 4 | รวม 4 ชั่วโมง/สัปดาห์",
+      group: "ธดท.2/2",
+      filename: "oop_programming_21910_2011.pdf",
+      driveUrl: "https://drive.google.com/file/d/1lI_RwUViN-DWQ_IkV-Fk2MyFeIKCC1gn/view?usp=sharing",
+      pdfUrl: "https://drive.google.com/file/d/1lI_RwUViN-DWQ_IkV-Fk2MyFeIKCC1gn/preview",
+      statusText: "ฉบับสมบูรณ์",
+    }
+  ]
 };
 
 export const activities = {
